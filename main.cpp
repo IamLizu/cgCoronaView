@@ -31,6 +31,7 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
 
+    // ami kisu kori nai
 
     glFlush();
 }
