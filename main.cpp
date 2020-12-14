@@ -3,6 +3,10 @@
 #include <GL/glut.h>
 
 
+///change check
+
+
+
 void triangleFloat(float v0, float v1, float v01_v1, float v2, float v21) {
     glBegin(GL_TRIANGLES);
     glVertex2f(v0, v01_v1);
