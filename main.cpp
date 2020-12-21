@@ -1,11 +1,24 @@
 #include <cstdio>
+#include <time.h>
+#include <stdlib.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
 
 
 ///change check
 
+void points(double a,double b){
+    glBegin(GL_POINTS);
+    glVertex2d(a,b);
+    glEnd();
+}
 
+double fRand(double fMin, double fMax)
+{
+    //srand((unsigned)time(0));
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
+}
 
 void triangleFloat(float v0, float v1, float v01_v1, float v2, float v21) {
     glBegin(GL_TRIANGLES);
@@ -49,11 +62,26 @@ void update(int value) {
     planeTFX += planeSpeed;
 
     glutPostRedisplay();
-    glutTimerFunc(10, update, 0);
+    glutTimerFunc(100, update, 0);
 }
 
 void init() {
    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+}
+
+void CoronaParticle(){
+for(int i=0;i<40;i++){
+    glColor3ub(0,0,0);//random star generator
+    glPointSize(5.0);
+    double A=fRand(-2,2);
+    double B=fRand(-2,2);
+    printf("%f",&A);
+    printf("%f",&B);
+    points(A,B);
+    glEnd();
+    }
+
+
 }
 
 
@@ -68,8 +96,9 @@ void display() {
     triangleFloat2(-0.6-0.6, 0.8, -0.55-0.6, 0.85, -0.6-0.6, 0.9); // head
     quadHorzFloat2(-0.78-0.6, 0.75, -0.70-0.6, 0.75, -0.65-0.6, 0.8, -0.74-0.6, 0.8); // bottom wing
     quadHorzFloat2(-0.78-0.6, 0.95, -0.70-0.6, 0.95, -0.65-0.6, 0.9, -0.74-0.6, 0.9); // top wing
-    glPopMatrix(); // Plane end
-
+    glPopMatrix();
+///Plane end
+   CoronaParticle();
     glFlush();
 }
 
