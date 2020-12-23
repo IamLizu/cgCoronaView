@@ -62,7 +62,7 @@ void update(int value) {
     planeTFX += planeSpeed;
 
     glutPostRedisplay();
-    glutTimerFunc(100, update, 0);
+    glutTimerFunc(10, update, 0);
 }
 
 void init() {
@@ -96,9 +96,10 @@ void display() {
     triangleFloat2(-0.6-0.6, 0.8, -0.55-0.6, 0.85, -0.6-0.6, 0.9); // head
     quadHorzFloat2(-0.78-0.6, 0.75, -0.70-0.6, 0.75, -0.65-0.6, 0.8, -0.74-0.6, 0.8); // bottom wing
     quadHorzFloat2(-0.78-0.6, 0.95, -0.70-0.6, 0.95, -0.65-0.6, 0.9, -0.74-0.6, 0.9); // top wing
-    glPopMatrix();
-///Plane end
-   CoronaParticle();
+    glPopMatrix();//Plane end
+    
+    CoronaParticle();
+    
     glFlush();
 }
 
