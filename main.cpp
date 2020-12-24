@@ -3,6 +3,47 @@
 #include <GL/glut.h>
 #include <math.h>
 
+void drawPixelInt(int x, int y) {
+    glBegin(GL_POINTS);
+    glVertex2i(x, y);
+    glEnd();
+}
+
+void quadHorzInt(int pT, int pB, int fixedP, int fixedQ) {
+    glBegin(GL_QUADS);
+    glVertex2i(pB, fixedP);
+    glVertex2i(pT, fixedP);
+    glVertex2i(pT, fixedQ);
+    glVertex2i(pB, fixedQ);
+    glEnd();
+}
+
+void quadHorzInt2(int v0, int v01, int v1, int v11, int v2, int v21, int v3, int v31) {
+    glBegin(GL_QUADS);
+    glVertex2i(v0, v01);
+    glVertex2i(v1, v11);
+    glVertex2i(v2, v21);
+    glVertex2i(v3, v31);
+    glEnd();
+}
+
+void triangleNS(int v0, int v01, int v1, int v11, int v2, int v21) {
+    glBegin(GL_TRIANGLES);
+    glVertex2i(v0, v01);
+    glVertex2i(v1, v11);
+    glVertex2i(v2, v21);
+    glEnd();
+}
+
+void quadHorzFloat(float pT, float pB, float fixedP, float fixedQ) {
+    glBegin(GL_QUADS);
+    glVertex2f(pB, fixedP);
+    glVertex2f(pT, fixedP);
+    glVertex2f(pT, fixedQ);
+    glVertex2f(pB, fixedQ);
+    glEnd();
+}
+
 void keyboard(unsigned char , int , int );
 void update(int);
 void draw_circle(float x, float y, float radius);
@@ -731,8 +772,8 @@ int main(int argc, char** argv)
     glutInit(&argc, argv);
     glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize (800, 800);
-    glutInitWindowPosition (0,0);
-    glutCreateWindow ("High Way Road View");
+    glutInitWindowPosition (280,0);
+    glutCreateWindow ("Corona View");
     glutDisplayFunc(myDisplay);
     glutTimerFunc(25, update, 100); //Add a timer
     glutKeyboardFunc(keyboard);     //keyboard
