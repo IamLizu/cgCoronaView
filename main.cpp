@@ -61,6 +61,51 @@ void DrawBodyOfCarOne();
 void DrawBodyOfCarTow();
 void DrawPassengerStandby();
 
+void plane() {
+    static float planeTFactX = -180.0f; // plane translation factor X
+    static float planeTFactY = 0.0f; // plane translation factor Y
+
+    if(planeTFactX >= 900) {
+         planeTFactX = -180.0f;
+         planeTFactY = 0.0f;
+
+    } else {
+        planeTFactX += 1.8f;
+        planeTFactY += 0.005f;
+    }
+
+    // Main Body
+    glColor3ub(115, 110, 109);
+
+    glPushMatrix();
+    glTranslatef(planeTFactX, planeTFactY, 0);
+    quadHorzInt2(30, 700, 100, 700, 100, 715, 35, 715);
+
+    // Head
+    triangleNS(100, 700, 110, 707, 100, 715);
+
+    // Radar
+    quadHorzInt2(37, 715, 57, 715, 40, 730, 20, 730);
+
+    // Left wing
+    quadHorzInt2(70, 715, 80, 715, 60, 735, 50, 735);
+
+    // Right wing
+    quadHorzInt2(70, 700, 80, 700, 60, 680, 50, 680);
+
+    // Windows
+    glColor3ub(255,255,255);
+    int planeWindowX = 95;
+    for (int i = 0; i < 8; i++) {
+        drawPixelInt(planeWindowX, 710);
+        planeWindowX -= 5;
+    }
+
+    glPopMatrix();
+    glutPostRedisplay();
+
+}
+
 void DrawMainRoad(){
 
     ///==================================== Main Road
@@ -621,13 +666,6 @@ void DrawCity()
     glVertex2i(247,640);
     glVertex2i(243,640);
     glEnd();
-
-
-
-
-
-
-
 }
 void DrawCar()
 {
@@ -752,9 +790,8 @@ void myDisplay(void)
     DrawCar();
     DrawGrassField();
     DrawPassengerStandby();
+    plane();
     glFlush ();
-
-
 }
 
 void myInit (void)
