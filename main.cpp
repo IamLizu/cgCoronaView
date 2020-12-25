@@ -111,39 +111,27 @@ void DrawMainRoad(){
     ///==================================== Main Road
     glBegin(GL_POLYGON);
     glColor3f(0.2,0.2,0.2);
-    glVertex2i(0,0);
-    glVertex2i(800,0);
-    glVertex2i(800,200);
-    glVertex2i(0,200);
+    glVertex2i(0,120);
+    glVertex2i(800,120);
+    glVertex2i(800,330);
+    glVertex2i(0,330);
     glEnd();
 
-    glBegin(GL_POLYGON);
-    glColor3ub(153, 102, 51);
-    glVertex2i(0,180);
-    glVertex2i(800,180);
-    glVertex2i(800,205);
-    glVertex2i(0,205);
-    glEnd();
+
 
 
     glBegin(GL_POLYGON);
     glColor3ub(153, 102, 51);
-    glVertex2i(0,200);
-    glVertex2i(800,200);
-    glVertex2i(800,220);
-    glVertex2i(0,220);
+    glVertex2i(0,350);
+    glVertex2i(800,350);
+    glVertex2i(800,420);
+    glVertex2i(0,420);
     glEnd();
 
 
 
 
-    ///====================================bottom Border of road
-    glBegin(GL_LINES);
-    glLineWidth(5);
-	glColor3f(1.0,1.0,1.0);
-    glVertex2i(0,220);
-    glVertex2i(800,220);
-    glEnd();
+
 
      ///====================================road divider
    glBegin(GL_LINES);
@@ -151,13 +139,13 @@ void DrawMainRoad(){
     int dividerLine=0;
     for(int i=0;i<200;i++)
     {
-        glVertex2i(dividerLine+1,80);
-        //glVertex2i(dividerLine+,80);
+        glVertex2i(dividerLine+20,220);
+        glVertex2i(dividerLine+40,220);
         dividerLine=dividerLine+40;
     }
     glEnd();
 
-    ///==================================== Bottom Road Side Bar
+    ///==================================== top Road Side Bar
 
 
     int changeX1=0,changeX2=40;
@@ -170,28 +158,50 @@ void DrawMainRoad(){
             glColor3ub(217, 217, 217);  //white color
         }
 
-        glVertex2i(changeX1,180);
-        glVertex2i(changeX2,180);
-        glVertex2i(changeX2,210);
-        glVertex2i(changeX1,210);
+        glVertex2i(changeX1,330);
+        glVertex2i(changeX2,330);
+        glVertex2i(changeX2,350);
+        glVertex2i(changeX1,350);
 
         changeX1=changeX2;
         changeX2=changeX2+40;
         glEnd();
     }
 
+     ///==================================== bottom Road Side Bar
 
 
-    ///==================================== Bottom Road Side Bar Top View
+    int TopChangeX1=0,TopchangeX2=40;
+
+    for(int i=0;i<20;i++){
+        glBegin(GL_POLYGON);
+        if(i%2==1){
+            glColor3ub(1,1,1);  //black color
+        }else{
+            glColor3ub(217, 217, 217);  //white color
+        }
+
+        glVertex2i(TopChangeX1,100);
+        glVertex2i(TopchangeX2,100);
+        glVertex2i(TopchangeX2,120);
+        glVertex2i(TopChangeX1,120);
+
+        TopChangeX1=TopchangeX2;
+        TopchangeX2=TopchangeX2+40;
+        glEnd();
+    }
+
+
+
+
+
+    ///==================================== Top Road Side Bar Top View
     glBegin(GL_LINES);
     glLineWidth(5);
 	glColor3f(204, 153, 0);     //yellow color
-    glVertex2i(0,210);
-    glVertex2i(800,210);
+    glVertex2i(0,420);
+    glVertex2i(800, 420);
     glEnd();
-
-
-
 
 }
 
@@ -229,8 +239,8 @@ void DrawIndustry(){
 
     glBegin(GL_POLYGON);
 	glColor3ub(153, 51, 0);
-    glVertex2i(350,220);
-    glVertex2i(500,220);
+    glVertex2i(350,420);
+    glVertex2i(500,420);
     glVertex2i(500,590);
     glVertex2i(380,590);
     glVertex2i(380,630);
@@ -247,7 +257,7 @@ void DrawIndustry(){
 
     int b4y1=585,b4y2=582;
 	for(int i=0;i<7;i++){
-        //=================flor of building 4
+        //=================floor of building 4
         glBegin(GL_POLYGON);
         glColor3ub(153, 153, 102);
         glVertex2i(350,b4y1);
@@ -259,10 +269,10 @@ void DrawIndustry(){
         b4y2=b4y2-25;
 	}
 
-	int b4y01=250,b4y02=240;
+	int b4y01=438,b4y02=450;
     int b4x01=355,b4x02=370;
 
-    for(int j=1;j<85;j++){
+    for(int j=1;j<37;j++){
         glBegin(GL_POLYGON);
 
         if(j%10==0){
@@ -289,8 +299,127 @@ void DrawIndustry(){
     }
 }
 
+void DrawPassengerStandby(){
 
 
+
+    glBegin(GL_POLYGON);
+    glColor3ub(153, 153, 102);
+    glVertex2i(600,400);
+    glVertex2i(670,400);
+    glVertex2i(670,430);
+    glVertex2i(600,430);
+    glEnd();
+
+
+
+    glBegin(GL_POLYGON);
+    glColor3ub(153, 153, 102);
+    glVertex2i(650,410);
+    glVertex2i(650,380);
+    glVertex2i(670,400);
+    glVertex2i(670,430);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3ub(153, 153, 102);
+    glVertex2i(580,410);
+    glVertex2i(580,380);
+    glVertex2i(600,400);
+    glVertex2i(600,430);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 51, 204);
+    glVertex2i(580,410);
+    glVertex2i(650,410);
+    glVertex2i(670,430);
+    glVertex2i(600,430);
+    glEnd();
+
+}
+void DrawDMP(){
+    ///==================================== Draw Building DMP
+    glBegin(GL_POLYGON);
+	glColor3ub(153, 51, 51);
+    glVertex2i(610,420);
+    glVertex2i(760,420);
+    glVertex2i(760,600);
+    glVertex2i(610,600);
+    glEnd();
+
+    int dmpY1=585,dmpY2=582;
+	for(int i=0;i<8;i++){
+        //=================flor of building 1
+        if(i==2 || i==3){
+
+        }
+        else{
+            glBegin(GL_POLYGON);
+            glColor3ub(153, 153, 102);
+            glVertex2i(610,dmpY1);
+            glVertex2i(760,dmpY1);
+            glVertex2i(760,dmpY2);
+            glVertex2i(610,dmpY2);
+            glEnd();
+        }
+        dmpY1=dmpY1-25;
+        dmpY2=dmpY2-25;
+	}
+
+    //======================================D
+    glBegin(GL_LINES);
+	glColor3ub(0, 0, 0);
+    glVertex2i(630,498);
+    glVertex2i(630,552);
+    glEnd();
+    glBegin(GL_LINE_LOOP);
+	glColor3ub(0, 0, 0);
+    glVertex2i(630,550);
+    glVertex2i(655,550);
+    glVertex2i(660,545);
+    glVertex2i(660,505);
+    glVertex2i(655,500);
+    glVertex2i(630,500);
+    glEnd();
+
+    //======================================M
+    glBegin(GL_LINES);
+	glColor3ub(0, 0, 0);
+    glVertex2i(670,500);
+    glVertex2i(670,550);
+    glEnd();
+    glBegin(GL_LINES);
+	glColor3ub(0, 0, 0);
+    glVertex2i(670,550);
+    glVertex2i(685,530);
+    glEnd();
+    glBegin(GL_LINES);
+	glColor3ub(0, 0, 0);
+    glVertex2i(685,530);
+    glVertex2i(700,550);
+    glEnd();
+    glBegin(GL_LINES);
+	glColor3ub(0, 0, 0);
+    glVertex2i(700,550);
+    glVertex2i(700,500);
+    glEnd();
+
+    //======================================P
+    glBegin(GL_LINES);
+	glColor3ub(0, 0, 0);
+    glVertex2i(710,500);
+    glVertex2i(710,550);
+    glEnd();
+    glBegin(GL_LINE_LOOP);
+	glColor3ub(0, 0, 0);
+    glVertex2i(710,550);
+    glVertex2i(740,550);
+    glVertex2i(740,525);
+    glVertex2i(710,525);
+    glEnd();
+
+}
 void DrawCity()
 {
 
@@ -302,19 +431,19 @@ void DrawCity()
     DrawCloud();
 
 
-
+    DrawDMP();
 
      ///==================================== Draw Building two
     glBegin(GL_POLYGON);
 	glColor3ub(153, 51, 51);
-    glVertex2i(100,220);
-    glVertex2i(200,220);
-    glVertex2i(200,500);
-    glVertex2i(100,500);
+    glVertex2i(100,420);
+    glVertex2i(200,420);
+    glVertex2i(200,600);
+    glVertex2i(100,600);
     glEnd();
 
-    int buildingY1=270,buildingY2=273;
-	for(int i=0;i<66;i++){
+    int buildingY1=570,buildingY2=573;
+	for(int i=0;i<6;i++){
         //=================flor of building 1
         glBegin(GL_POLYGON);
         glColor3ub(153, 153, 102);
@@ -330,22 +459,22 @@ void DrawCity()
 	///==================================== Draw Building One
     glBegin(GL_POLYGON);
 	glColor3ub(102, 153, 153);
-    glVertex2i(10,220);
-    glVertex2i(110,220);
-    glVertex2i(110,470);
-    glVertex2i(10,470);
+    glVertex2i(10,420);
+    glVertex2i(110,420);
+    glVertex2i(110,580);
+    glVertex2i(10,580);
     glEnd();
 
     //===============================gate of building one
     glBegin(GL_POLYGON);
 	glColor3ub(242, 242, 242);
-    glVertex2i(50,220);
-    glVertex2i(70,220);
+    glVertex2i(50,420);
+    glVertex2i(70,420);
     glVertex2i(70,440);
     glVertex2i(50,440);
     glEnd();
 
-    int b1y1=220,b1y2=500;
+    int b1y1=450,b1y2=460;
     int b1x1=15,b1x2=35;
 	for(int i=1;i<16;i++){
         glBegin(GL_POLYGON);
@@ -372,13 +501,13 @@ void DrawCity()
     ///==================================== Draw Building three
     glBegin(GL_POLYGON);
 	glColor3ub(102, 51, 0);
-    glVertex2i(190,220);
-    glVertex2i(300,220);
-    glVertex2i(300,500);
-    glVertex2i(190,500);
+    glVertex2i(190,420);
+    glVertex2i(300,420);
+    glVertex2i(300,560);
+    glVertex2i(190,560);
     glEnd();
 
-    int b3y1=200,b3y2=440;
+    int b3y1=430,b3y2=440;
     int b3x1=200,b3x2=215;
     for(int j=1;j<21;j++){
         glBegin(GL_POLYGON);
@@ -412,144 +541,32 @@ void DrawCity()
             glColor3ub(153,0, 0);
         }
 
-        glVertex2i(200+(i*10),220+(i*5));
-        glVertex2i(290-(i*10),220+(i*5));
-        glVertex2i(290-(i*10),520+(i*5));
-        glVertex2i(200+(i*10),520+(i*5));
+        glVertex2i(200+(i*10),560+(i*5));
+        glVertex2i(290-(i*10),560+(i*5));
+        glVertex2i(290-(i*10),565+(i*5));
+        glVertex2i(200+(i*10),565+(i*5));
         glEnd();
     }
 
     glBegin(GL_POLYGON);
 	glColor3ub(102, 51, 0);
-    glVertex2i(243,500);
-    glVertex2i(247,500);
+    glVertex2i(243,585);
+    glVertex2i(247,585);
     glVertex2i(247,640);
     glVertex2i(243,640);
     glEnd();
 }
-void DrawCar()
-{
-    glPushMatrix();
-    DrawCarOne();
-    DrawCarTow();
 
 
-}
-void DrawBodyOfCarOne(){
-    glVertex2i(0,130);
-    glVertex2i(120,130);
-    glVertex2i(120,145);
-    glVertex2i(115,150);
-    glVertex2i(90,150);
-    glVertex2i(70,165);
-    glVertex2i(40,165);
-    glVertex2i(20,150);
-    glVertex2i(0,150);
-    glEnd();
-}
-void DrawCarOne(){
 
-    glPushMatrix();
-    glTranslatef(moveCar1, 0.0f, 0.0f);
-    positionOfCarOne=120+moveCar1;
-    //==================================Body of a car
-	glBegin(GL_POLYGON);
-    glColor3ub(204, 204, 0);
-    DrawBodyOfCarOne();
-
-
-    glBegin(GL_LINE_LOOP);
-    glColor3ub(255, 255, 255);
-    DrawBodyOfCarOne();
-
-    //==================================glass of a car
-    glBegin(GL_POLYGON);
-    glColor3ub(204, 51, 0);
-    glVertex2i(25,150);
-    glVertex2i(85,150);
-    glVertex2i(67,160);
-    glVertex2i(43,160);
-    glEnd();
-    //==================================chaka of a car
-    glColor3f(0, 0, 0);
-    draw_circle(15+moveCar1,130,10);
-    draw_circle(90+moveCar1,130,10);
-    glPopMatrix();
-}
-
-void DrawCarTow(){
-    glPushMatrix();
-    glTranslatef(moveCar2,moveBusUp, 0.0f);
-
-    positionOfCarTwo=0+moveCar2;
-    //==================================Body of a bus
-	glBegin(GL_POLYGON);
-	glColor3ub(204, 0, 0);
-	DrawBodyOfCarTow();
-
-
-    //==================================Sidebar of Bus
-    glBegin(GL_LINE_LOOP);
-    glColor3ub(255, 255, 255);
-    DrawBodyOfCarTow();
-
-    //==================================glass of of a bus
-	glBegin(GL_POLYGON);
-	glColor3ub(0, 0, 0);
-    glVertex2i(90,70);
-    glVertex2i(110,70);
-    glVertex2i(110,80);
-    glVertex2i(90,80);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-	glColor3ub(0, 0, 0);
-    glVertex2i(65,70);
-    glVertex2i(85,70);
-    glVertex2i(85,80);
-    glVertex2i(65,80);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-	glColor3ub(0, 0, 0);
-    glVertex2i(60,70);
-    glVertex2i(40,70);
-    glVertex2i(40,80);
-    glVertex2i(60,80);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-	glColor3ub(0, 0, 0);
-    glVertex2i(35,70);
-    glVertex2i(15,70);
-    glVertex2i(15,80);
-    glVertex2i(35,80);
-    glEnd();
-
-    //==================================chaka of a bus carTwo
-    glColor3f(0, 0, 0);
-    draw_circle(20+moveCar2,55+moveBusUp,8);
-    draw_circle(105+moveCar2,55+moveBusUp,8);
-    draw_circle(85+moveCar2,55+moveBusUp,8);
-    glPopMatrix();
-}
-void DrawBodyOfCarTow(){
-    glVertex2i(0,60);
-    glVertex2i(5,55);
-    glVertex2i(120,55);
-    glVertex2i(120,90);
-    glVertex2i(5,90);
-    glVertex2i(0,85);
-    glEnd();
-}
 void myDisplay(void)
 {
     glClear (GL_COLOR_BUFFER_BIT);
     DrawCity();
     DrawMainRoad();
-    DrawCar();
 
 
+    DrawPassengerStandby();
     plane();
     glFlush ();
 }
@@ -560,7 +577,7 @@ void myInit (void)
     glColor3f(0.0f, 0.0f, 0.0f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0.0, 800.0, 0.0, 800.0);
+    gluOrtho2D(0.0, 800.0, 100.0, 800.0);
 }
 
 
