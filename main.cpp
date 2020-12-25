@@ -3,6 +3,30 @@
 #include <GL/glut.h>
 #include <math.h>
 
+
+int partN=1000;///deafault particles 1000 shoqing more corona particles
+///change check
+
+void points(double a,double b){ ///gLPoints func
+    glBegin(GL_POINTS);
+    glVertex2d(a,b);
+    glEnd();
+}
+
+
+void CoronaParticle(){          ///Corona particles generator
+for(int i=0;i<partN;i++){
+    int A=rand()%800;
+    int B=rand()%800;
+    glColor3ub(0,255,0);
+    glPointSize(2.0);
+    points(A,B);
+    glEnd();
+}
+
+}
+
+
 void keyboard(unsigned char , int , int );
 void update(int);
 void draw_circle(float x, float y, float radius);
@@ -711,6 +735,9 @@ void myDisplay(void)
     DrawCar();
     DrawGrassField();
     DrawPassengerStandby();
+    CoronaParticle();
+
+
     glFlush ();
 
 
@@ -770,6 +797,10 @@ void keyboard(unsigned char key, int x, int y)
         moveCar1=moveCar1-2;
         moveCar2 = moveCar2+2;
         glutPostRedisplay();
+    }
+
+    if(key=='q'){ ///press q to show that it is in quarantine mode
+        partN=300;
     }
 }
 void update(int value) {
