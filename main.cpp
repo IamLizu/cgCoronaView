@@ -4,28 +4,46 @@
 #include <math.h>
 
 
-int partN=1000;///deafault particles 1000 shoqing more corona particles
-///change check
-
-void points(double a,double b){ ///gLPoints func
+void drawPixelInt(int x, int y) {
     glBegin(GL_POINTS);
-    glVertex2d(a,b);
+    glVertex2i(x, y);
     glEnd();
 }
 
-
-void CoronaParticle(){          ///Corona particles generator
-for(int i=0;i<partN;i++){
-    int A=rand()%800;
-    int B=rand()%800;
-    glColor3ub(0,255,0);
-    glPointSize(2.0);
-    points(A,B);
+void quadHorzInt(int pT, int pB, int fixedP, int fixedQ) {
+    glBegin(GL_QUADS);
+    glVertex2i(pB, fixedP);
+    glVertex2i(pT, fixedP);
+    glVertex2i(pT, fixedQ);
+    glVertex2i(pB, fixedQ);
     glEnd();
 }
 
+void quadHorzInt2(int v0, int v01, int v1, int v11, int v2, int v21, int v3, int v31) {
+    glBegin(GL_QUADS);
+    glVertex2i(v0, v01);
+    glVertex2i(v1, v11);
+    glVertex2i(v2, v21);
+    glVertex2i(v3, v31);
+    glEnd();
 }
 
+void triangleNS(int v0, int v01, int v1, int v11, int v2, int v21) {
+    glBegin(GL_TRIANGLES);
+    glVertex2i(v0, v01);
+    glVertex2i(v1, v11);
+    glVertex2i(v2, v21);
+    glEnd();
+}
+
+void quadHorzFloat(float pT, float pB, float fixedP, float fixedQ) {
+    glBegin(GL_QUADS);
+    glVertex2f(pB, fixedP);
+    glVertex2f(pT, fixedP);
+    glVertex2f(pT, fixedQ);
+    glVertex2f(pB, fixedQ);
+    glEnd();
+}
 
 void keyboard(unsigned char , int , int );
 void update(int);
@@ -43,6 +61,70 @@ void DrawCarTow();
 void DrawBodyOfCarOne();
 void DrawBodyOfCarTow();
 void DrawPassengerStandby();
+
+int partN=1000;///deafault particles 1000 shoqing more corona particles
+
+void points(double a,double b){ ///gLPoints func
+    glBegin(GL_POINTS);
+    glVertex2d(a,b);
+    glEnd();
+}
+
+void CoronaParticle(){          ///Corona particles generator
+    for(int i=0;i<partN;i++){
+        int A=rand()%800;
+        int B=rand()%800;
+        glColor3ub(0,255,0);
+        glPointSize(2.0);
+        points(A,B);
+        glEnd();
+    }
+}
+
+void plane() {
+    static float planeTFactX = -180.0f; // plane translation factor X
+    static float planeTFactY = 0.0f; // plane translation factor Y
+
+    if(planeTFactX >= 900) {
+         planeTFactX = -180.0f;
+         planeTFactY = 0.0f;
+
+    } else {
+        planeTFactX += 1.8f;
+        planeTFactY += 0.005f;
+    }
+
+    // Main Body
+    glColor3ub(115, 110, 109);
+
+    glPushMatrix();
+    glTranslatef(planeTFactX, planeTFactY, 0);
+    quadHorzInt2(30, 700, 100, 700, 100, 715, 35, 715);
+
+    // Head
+    triangleNS(100, 700, 110, 707, 100, 715);
+
+    // Radar
+    quadHorzInt2(37, 715, 57, 715, 40, 730, 20, 730);
+
+    // Left wing
+    quadHorzInt2(70, 715, 80, 715, 60, 735, 50, 735);
+
+    // Right wing
+    quadHorzInt2(70, 700, 80, 700, 60, 680, 50, 680);
+
+    // Windows
+    glColor3ub(255,255,255);
+    int planeWindowX = 95;
+    for (int i = 0; i < 8; i++) {
+        drawPixelInt(planeWindowX, 710);
+        planeWindowX -= 5;
+    }
+
+    glPopMatrix();
+    glutPostRedisplay();
+
+}
 
 void DrawMainRoad(){
 
@@ -604,13 +686,6 @@ void DrawCity()
     glVertex2i(247,640);
     glVertex2i(243,640);
     glEnd();
-
-
-
-
-
-
-
 }
 void DrawCar()
 {
@@ -735,12 +810,9 @@ void myDisplay(void)
     DrawCar();
     DrawGrassField();
     DrawPassengerStandby();
+    plane();
     CoronaParticle();
-
-
     glFlush ();
-
-
 }
 
 void myInit (void)
@@ -758,8 +830,8 @@ int main(int argc, char** argv)
     glutInit(&argc, argv);
     glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize (800, 800);
-    glutInitWindowPosition (0,0);
-    glutCreateWindow ("High Way Road View");
+    glutInitWindowPosition (280,0);
+    glutCreateWindow ("Corona View");
     glutDisplayFunc(myDisplay);
     glutTimerFunc(25, update, 100); //Add a timer
     glutKeyboardFunc(keyboard);     //keyboard
