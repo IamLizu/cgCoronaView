@@ -70,7 +70,7 @@ void plane() {
          planeTFactY = 0.0f;
 
     } else {
-        planeTFactX += 1.8f;
+        planeTFactX += 0.1f;
         planeTFactY += 0.005f;
     }
 
@@ -205,8 +205,6 @@ void DrawMainRoad(){
 
 }
 
-
-
 void DrawCloud(){
     ///==================================== Draw cloud
 
@@ -219,207 +217,7 @@ void DrawCloud(){
     draw_circle(355+move_cloud,730,23);
     draw_circle(445+move_cloud,730,23);
 }
-void DrawIndustry(){
-     ///==================================================garments
 
-     for(int i=0;i<300;i++){
-        glColor3f(0, 0, 0);
-        if(i%2==0){
-            draw_circle(356.5,630+move_dust-(i*5),2);
-            draw_circle(363.5,630+move_dust-(i*5),2);
-            draw_circle(370.5,630+move_dust-(i*5),2);
-        }else{
-            draw_circle(353,630+move_dust-(i*5),2);
-            draw_circle(360,630+move_dust-(i*5),2);
-            draw_circle(367,630+move_dust-(i*5),2);
-            draw_circle(375,630+move_dust-(i*5),2);
-        }
-
-    }
-
-    glBegin(GL_POLYGON);
-	glColor3ub(153, 51, 0);
-    glVertex2i(350,420);
-    glVertex2i(500,420);
-    glVertex2i(500,590);
-    glVertex2i(380,590);
-    glVertex2i(380,630);
-    glVertex2i(350,630);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-	glColor3f(0.0,0.7,1.5);
-    glVertex2i(350,730);
-    glVertex2i(380,730);
-    glVertex2i(380,830);
-    glVertex2i(350,830);
-    glEnd();
-
-    int b4y1=585,b4y2=582;
-	for(int i=0;i<7;i++){
-        //=================floor of building 4
-        glBegin(GL_POLYGON);
-        glColor3ub(153, 153, 102);
-        glVertex2i(350,b4y1);
-        glVertex2i(500,b4y1);
-        glVertex2i(500,b4y2);
-        glVertex2i(350,b4y2);
-        glEnd();
-        b4y1=b4y1-25;
-        b4y2=b4y2-25;
-	}
-
-	int b4y01=438,b4y02=450;
-    int b4x01=355,b4x02=370;
-
-    for(int j=1;j<37;j++){
-        glBegin(GL_POLYGON);
-
-        if(j%10==0){
-            glColor3f(0, 0, 0);
-        }else{
-             glColor3ub(242, 242, 242);
-        }
-        glVertex2i(b4x01,b4y01);
-        glVertex2i(b4x02,b4y01);
-        glVertex2i(b4x02,b4y02);
-        glVertex2i(b4x01,b4y02);
-        glEnd();
-
-
-        b4x01=b4x01+25;
-        b4x02=b4x02+25;
-        if(j%6==0){
-            b4x01=355;
-            b4x02=370;
-            b4y01=b4y01+25;
-            b4y02=b4y02+25;
-        }
-
-    }
-}
-
-void DrawPassengerStandby(){
-
-
-
-    glBegin(GL_POLYGON);
-    glColor3ub(153, 153, 102);
-    glVertex2i(600,400);
-    glVertex2i(670,400);
-    glVertex2i(670,430);
-    glVertex2i(600,430);
-    glEnd();
-
-
-
-    glBegin(GL_POLYGON);
-    glColor3ub(153, 153, 102);
-    glVertex2i(650,410);
-    glVertex2i(650,380);
-    glVertex2i(670,400);
-    glVertex2i(670,430);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glColor3ub(153, 153, 102);
-    glVertex2i(580,410);
-    glVertex2i(580,380);
-    glVertex2i(600,400);
-    glVertex2i(600,430);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 51, 204);
-    glVertex2i(580,410);
-    glVertex2i(650,410);
-    glVertex2i(670,430);
-    glVertex2i(600,430);
-    glEnd();
-
-}
-void DrawDMP(){
-    ///==================================== Draw Building DMP
-    glBegin(GL_POLYGON);
-	glColor3ub(153, 51, 51);
-    glVertex2i(610,420);
-    glVertex2i(760,420);
-    glVertex2i(760,600);
-    glVertex2i(610,600);
-    glEnd();
-
-    int dmpY1=585,dmpY2=582;
-	for(int i=0;i<8;i++){
-        //=================flor of building 1
-        if(i==2 || i==3){
-
-        }
-        else{
-            glBegin(GL_POLYGON);
-            glColor3ub(153, 153, 102);
-            glVertex2i(610,dmpY1);
-            glVertex2i(760,dmpY1);
-            glVertex2i(760,dmpY2);
-            glVertex2i(610,dmpY2);
-            glEnd();
-        }
-        dmpY1=dmpY1-25;
-        dmpY2=dmpY2-25;
-	}
-
-    //======================================D
-    glBegin(GL_LINES);
-	glColor3ub(0, 0, 0);
-    glVertex2i(630,498);
-    glVertex2i(630,552);
-    glEnd();
-    glBegin(GL_LINE_LOOP);
-	glColor3ub(0, 0, 0);
-    glVertex2i(630,550);
-    glVertex2i(655,550);
-    glVertex2i(660,545);
-    glVertex2i(660,505);
-    glVertex2i(655,500);
-    glVertex2i(630,500);
-    glEnd();
-
-    //======================================M
-    glBegin(GL_LINES);
-	glColor3ub(0, 0, 0);
-    glVertex2i(670,500);
-    glVertex2i(670,550);
-    glEnd();
-    glBegin(GL_LINES);
-	glColor3ub(0, 0, 0);
-    glVertex2i(670,550);
-    glVertex2i(685,530);
-    glEnd();
-    glBegin(GL_LINES);
-	glColor3ub(0, 0, 0);
-    glVertex2i(685,530);
-    glVertex2i(700,550);
-    glEnd();
-    glBegin(GL_LINES);
-	glColor3ub(0, 0, 0);
-    glVertex2i(700,550);
-    glVertex2i(700,500);
-    glEnd();
-
-    //======================================P
-    glBegin(GL_LINES);
-	glColor3ub(0, 0, 0);
-    glVertex2i(710,500);
-    glVertex2i(710,550);
-    glEnd();
-    glBegin(GL_LINE_LOOP);
-	glColor3ub(0, 0, 0);
-    glVertex2i(710,550);
-    glVertex2i(740,550);
-    glVertex2i(740,525);
-    glVertex2i(710,525);
-    glEnd();
-
-}
 void DrawCity()
 {
 
@@ -427,11 +225,7 @@ void DrawCity()
     glColor3f(255, 255, 0);   //sun color
     draw_circle(300,760,30);
 
-    DrawIndustry();
     DrawCloud();
-
-
-    DrawDMP();
 
      ///==================================== Draw Building two
     glBegin(GL_POLYGON);
@@ -564,9 +358,6 @@ void myDisplay(void)
     glClear (GL_COLOR_BUFFER_BIT);
     DrawCity();
     DrawMainRoad();
-
-
-    DrawPassengerStandby();
     plane();
     glFlush ();
 }
@@ -585,7 +376,7 @@ int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowSize (800, 800);
+    glutInitWindowSize (800, 680);
     glutInitWindowPosition (280,0);
     glutCreateWindow ("Corona View");
     glutDisplayFunc(myDisplay);
