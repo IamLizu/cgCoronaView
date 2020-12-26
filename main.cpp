@@ -111,57 +111,41 @@ void DrawMainRoad(){
     ///==================================== Main Road
     glBegin(GL_POLYGON);
     glColor3f(0.2,0.2,0.2);
-    glVertex2i(0,200);
-    glVertex2i(800,200);
-    glVertex2i(800,400);
-    glVertex2i(0,400);
+    glVertex2i(0,120);
+    glVertex2i(800,120);
+    glVertex2i(800,330);
+    glVertex2i(0,330);
     glEnd();
+
+
+
 
     glBegin(GL_POLYGON);
     glColor3ub(153, 102, 51);
-    glVertex2i(0,380);
-    glVertex2i(800,380);
-    glVertex2i(800,405);
-    glVertex2i(0,405);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glColor3ub(153, 102, 51);
-    glVertex2i(0,200);
-    glVertex2i(800,200);
-    glVertex2i(800,220);
-    glVertex2i(0,220);
+    glVertex2i(0,350);
+    glVertex2i(800,350);
+    glVertex2i(800,420);
+    glVertex2i(0,420);
     glEnd();
 
 
-    ///====================================Top Border of road
-    glBegin(GL_LINES);
-    glLineWidth(5);
-	glColor3ub(223, 191, 159);
-    glVertex2i(0,380);
-    glVertex2i(800,380);
-    glEnd();
 
-    ///====================================bottom Border of road
-    glBegin(GL_LINES);
-    glLineWidth(5);
-	glColor3f(1.0,1.0,1.0);
-    glVertex2i(0,220);
-    glVertex2i(800,220);
-    glEnd();
+
+
 
      ///====================================road divider
-    glBegin(GL_LINES);
+   glBegin(GL_LINES);
     glColor3f(1.0,1.0,1.0);
     int dividerLine=0;
-    for(int i=0;i<20;i++){
-        glVertex2i(dividerLine+20,300);
-        glVertex2i(dividerLine+40,300);
+    for(int i=0;i<200;i++)
+    {
+        glVertex2i(dividerLine+20,220);
+        glVertex2i(dividerLine+40,220);
         dividerLine=dividerLine+40;
     }
     glEnd();
 
-    ///==================================== Bottom Road Side Bar
+    ///==================================== top Road Side Bar
 
 
     int changeX1=0,changeX2=40;
@@ -174,27 +158,17 @@ void DrawMainRoad(){
             glColor3ub(217, 217, 217);  //white color
         }
 
-        glVertex2i(changeX1,180);
-        glVertex2i(changeX2,180);
-        glVertex2i(changeX2,210);
-        glVertex2i(changeX1,210);
+        glVertex2i(changeX1,330);
+        glVertex2i(changeX2,330);
+        glVertex2i(changeX2,350);
+        glVertex2i(changeX1,350);
 
         changeX1=changeX2;
         changeX2=changeX2+40;
         glEnd();
     }
 
-
-
-    ///==================================== Bottom Road Side Bar Top View
-    glBegin(GL_LINES);
-    glLineWidth(5);
-	glColor3f(204, 153, 0);     //yellow color
-    glVertex2i(0,210);
-    glVertex2i(800,210);
-    glEnd();
-
-     ///==================================== Top Road Side Bar
+     ///==================================== bottom Road Side Bar
 
 
     int TopChangeX1=0,TopchangeX2=40;
@@ -207,15 +181,19 @@ void DrawMainRoad(){
             glColor3ub(217, 217, 217);  //white color
         }
 
-        glVertex2i(TopChangeX1,400);
-        glVertex2i(TopchangeX2,400);
-        glVertex2i(TopchangeX2,420);
-        glVertex2i(TopChangeX1,420);
+        glVertex2i(TopChangeX1,100);
+        glVertex2i(TopchangeX2,100);
+        glVertex2i(TopchangeX2,120);
+        glVertex2i(TopChangeX1,120);
 
         TopChangeX1=TopchangeX2;
         TopchangeX2=TopchangeX2+40;
         glEnd();
     }
+
+
+
+
 
     ///==================================== Top Road Side Bar Top View
     glBegin(GL_LINES);
@@ -228,54 +206,7 @@ void DrawMainRoad(){
 }
 
 
-void DrawGrassField(){
-     ///==================================== add grass
-    glBegin(GL_POLYGON);
-	glColor3f(0,0.60,0);     //green color
-    glVertex2i(0,0);
-    glVertex2i(800, 0);
-    glVertex2i(800,180);
-    glVertex2i(0, 180);
-    glEnd();
 
-    ///====================================1st lane Tree draw
-    int treeDistance=0;
-    for(int i=0;i<4;i++){
-        glBegin(GL_POLYGON);
-        glColor3ub(102, 51, 0);  //tree body color
-        glVertex2i(60+treeDistance,30);
-        glVertex2i(70+treeDistance,30);
-        glVertex2i(65+treeDistance,150);
-        glEnd();
-        glColor3f(0, 153, 0);   //tree leaf color
-        draw_circle(50+treeDistance,100,20);     //tree  top 1st leaf
-        draw_circle(80+treeDistance,100,20);     //tree top 2nd leaf
-        draw_circle(58+treeDistance,130,18);     //tree middle 1st leaf
-        draw_circle(72+treeDistance,130,18);     //tree middle 2nd leaf
-        draw_circle(65+treeDistance,150,14);     //tree top leaf
-
-        treeDistance=treeDistance+200;
-    }
-
-    ///====================================2nd lane Tree draw
-    treeDistance=100;
-    for(int i=0;i<4;i++){
-        glBegin(GL_POLYGON);
-        glColor3ub(102, 51, 0);  //tree body color
-        glVertex2i(60+treeDistance,100);
-        glVertex2i(70+treeDistance,100);
-        glVertex2i(65+treeDistance,220);
-        glEnd();
-        glColor3f(0, 153, 0);   //tree leaf color
-        draw_circle(50+treeDistance,170,20);     //tree  top 1st leaf
-        draw_circle(80+treeDistance,170,20);     //tree top 2nd leaf
-        draw_circle(58+treeDistance,200,18);     //tree middle 1st leaf
-        draw_circle(72+treeDistance,200,18);     //tree middle 2nd leaf
-        draw_circle(65+treeDistance,220,14);     //tree top leaf
-
-        treeDistance=treeDistance+200;
-    }
-}
 void DrawCloud(){
     ///==================================== Draw cloud
 
@@ -326,7 +257,7 @@ void DrawIndustry(){
 
     int b4y1=585,b4y2=582;
 	for(int i=0;i<7;i++){
-        //=================flor of building 4
+        //=================floor of building 4
         glBegin(GL_POLYGON);
         glColor3ub(153, 153, 102);
         glVertex2i(350,b4y1);
@@ -495,48 +426,6 @@ void DrawCity()
     ///==================================== Draw Sun
     glColor3f(255, 255, 0);   //sun color
     draw_circle(300,760,30);
-    //===================================tree
-    glBegin(GL_POLYGON);
-    glColor3ub(112, 51, 0);  //tree body color
-    glVertex2i(310,420);
-    glVertex2i(320,420);
-    glVertex2i(315,540);
-    glEnd();
-    glColor3f(0, 153, 0);   //tree leaf color
-    draw_circle(300,490,20);     //tree  top 1st leaf
-    draw_circle(330,490,20);     //tree top 2nd leaf
-    draw_circle(308,510,18);     //tree middle 1st leaf
-    draw_circle(322,510,18);     //tree middle 2nd leaf
-    draw_circle(315,535,14);     //tree top leaf
-
-
-    //====================================tree
-    glBegin(GL_POLYGON);
-    glColor3ub(112, 51, 0);  //tree body color
-    glVertex2i(600,420);
-    glVertex2i(610,420);
-    glVertex2i(605,540);
-    glEnd();
-    glColor3f(0, 153, 0);   //tree leaf color
-    draw_circle(590,490,20);     //tree  top 1st leaf
-    draw_circle(620,490,20);     //tree top 2nd leaf
-    draw_circle(598,510,18);     //tree middle 1st leaf
-    draw_circle(612,510,18);     //tree middle 2nd leaf
-    draw_circle(605,535,14);     //tree top leaf
-
-    //====================================tree
-    glBegin(GL_POLYGON);
-    glColor3ub(112, 51, 0);  //tree body color
-    glVertex2i(510,420);
-    glVertex2i(520,420);
-    glVertex2i(515,540);
-    glEnd();
-    glColor3f(0, 153, 0);   //tree leaf color
-    draw_circle(500,490,20);     //tree  top 1st leaf
-    draw_circle(530,490,20);     //tree top 2nd leaf
-    draw_circle(508,510,18);     //tree middle 1st leaf
-    draw_circle(522,510,18);     //tree middle 2nd leaf
-    draw_circle(515,535,14);     //tree top leaf
 
     DrawIndustry();
     DrawCloud();
@@ -667,128 +556,16 @@ void DrawCity()
     glVertex2i(243,640);
     glEnd();
 }
-void DrawCar()
-{
-    glPushMatrix();
-    DrawCarOne();
-    DrawCarTow();
 
 
-}
-void DrawBodyOfCarOne(){
-    glVertex2i(0,330);
-    glVertex2i(120,330);
-    glVertex2i(120,345);
-    glVertex2i(115,350);
-    glVertex2i(90,350);
-    glVertex2i(70,365);
-    glVertex2i(40,365);
-    glVertex2i(20,350);
-    glVertex2i(0,350);
-    glEnd();
-}
-void DrawCarOne(){
 
-    glPushMatrix();
-    glTranslatef(moveCar1, 0.0f, 0.0f);
-    positionOfCarOne=120+moveCar1;
-    //==================================Body of a car
-	glBegin(GL_POLYGON);
-    glColor3ub(204, 204, 0);
-    DrawBodyOfCarOne();
-
-
-    glBegin(GL_LINE_LOOP);
-    glColor3ub(255, 255, 255);
-    DrawBodyOfCarOne();
-
-    //==================================glass of a car
-    glBegin(GL_POLYGON);
-    glColor3ub(204, 51, 0);
-    glVertex2i(25,350);
-    glVertex2i(85,350);
-    glVertex2i(67,360);
-    glVertex2i(43,360);
-    glEnd();
-    //==================================chaka of a car
-    glColor3f(0, 0, 0);
-    draw_circle(15+moveCar1,330,10);
-    draw_circle(90+moveCar1,330,10);
-    glPopMatrix();
-}
-
-void DrawCarTow(){
-    glPushMatrix();
-    glTranslatef(moveCar2,moveBusUp, 0.0f);
-
-    positionOfCarTwo=0+moveCar2;
-    //==================================Body of a bus
-	glBegin(GL_POLYGON);
-	glColor3ub(204, 0, 0);
-	DrawBodyOfCarTow();
-
-
-    //==================================Sidebar of Bus
-    glBegin(GL_LINE_LOOP);
-    glColor3ub(255, 255, 255);
-    DrawBodyOfCarTow();
-
-    //==================================glass of of a bus
-	glBegin(GL_POLYGON);
-	glColor3ub(0, 0, 0);
-    glVertex2i(90,270);
-    glVertex2i(110,270);
-    glVertex2i(110,280);
-    glVertex2i(90,280);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-	glColor3ub(0, 0, 0);
-    glVertex2i(65,270);
-    glVertex2i(85,270);
-    glVertex2i(85,280);
-    glVertex2i(65,280);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-	glColor3ub(0, 0, 0);
-    glVertex2i(60,270);
-    glVertex2i(40,270);
-    glVertex2i(40,280);
-    glVertex2i(60,280);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-	glColor3ub(0, 0, 0);
-    glVertex2i(35,270);
-    glVertex2i(15,270);
-    glVertex2i(15,280);
-    glVertex2i(35,280);
-    glEnd();
-
-    //==================================chaka of a bus carTwo
-    glColor3f(0, 0, 0);
-    draw_circle(20+moveCar2,255+moveBusUp,8);
-    draw_circle(105+moveCar2,255+moveBusUp,8);
-    draw_circle(85+moveCar2,255+moveBusUp,8);
-    glPopMatrix();
-}
-void DrawBodyOfCarTow(){
-    glVertex2i(0,260);
-    glVertex2i(5,255);
-    glVertex2i(120,255);
-    glVertex2i(120,290);
-    glVertex2i(5,290);
-    glVertex2i(0,285);
-    glEnd();
-}
 void myDisplay(void)
 {
     glClear (GL_COLOR_BUFFER_BIT);
     DrawCity();
     DrawMainRoad();
-    DrawCar();
-    DrawGrassField();
+
+
     DrawPassengerStandby();
     plane();
     glFlush ();
@@ -800,7 +577,7 @@ void myInit (void)
     glColor3f(0.0f, 0.0f, 0.0f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0.0, 800.0, 0.0, 800.0);
+    gluOrtho2D(0.0, 800.0, 100.0, 800.0);
 }
 
 
