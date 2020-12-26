@@ -47,19 +47,10 @@ void quadHorzFloat(float pT, float pB, float fixedP, float fixedQ) {
 void keyboard(unsigned char , int , int );
 void update(int);
 void draw_circle(float x, float y, float radius);
-float moveCar1 = 0.0f;
-float moveCar2 = 800.0f;
+
 float move_cloud=0;
 float move_dust=0;
-float moveBusUp=0.0f;
-float positionOfCarOne=0;
-float positionOfCarTwo=0;
 
-void DrawCarOne();
-void DrawCarTow();
-void DrawBodyOfCarOne();
-void DrawBodyOfCarTow();
-void DrawPassengerStandby();
 
 void plane() {
     static float planeTFactX = -180.0f; // plane translation factor X
@@ -386,60 +377,17 @@ int main(int argc, char** argv)
     glutMainLoop();
 }
 
+// Keyboard handler
+void keyboard(unsigned char key, int x, int y){}
 
-//=============================================method
-void keyboard(unsigned char key, int x, int y)
-{
-
-    if(key=='s' &&  (moveBusUp+270)<320)
-    {
-        //speed up of car 1
-        moveCar1=moveCar1+5;
-        moveCar2=moveCar2-5;
-        glutPostRedisplay();
-    }
-    else if(key=='u' && (moveBusUp+270)<350)
-    {
-        //speed up of car 2
-
-            moveBusUp=moveBusUp+1;
-            glutPostRedisplay();
-    }
-    else if(key=='d' && (moveBusUp+270)>245)
-    {
-        //speed up of car 2
-        moveBusUp=moveBusUp-1;
-        glutPostRedisplay();
-    }
-    else if(key=='x')
-    {
-        moveCar1=moveCar1-2;
-        moveCar2 = moveCar2+2;
-        glutPostRedisplay();
-    }
-}
 void update(int value) {
-
-    moveCar1 = moveCar1+2;  //initial speed
-
-    moveCar2 = moveCar2-2;  //initial speed
-
-    if(moveCar2< 0 && moveCar1> 800)
+    move_cloud = move_cloud + .5;
+    if(move_cloud > 800)
     {
-        moveCar1 =-200;
-        moveCar2 =1000;
+        move_cloud = -500;
     }
-    move_cloud=move_cloud+.5;
-    if(move_cloud> 800)
-    {
-        move_cloud =-500;
-    }
-    move_dust=move_dust+.2;
+    move_dust = move_dust + .2;
 
-    if((positionOfCarOne==positionOfCarTwo)&& (moveBusUp+270)>320){
-       moveCar1=moveCar1-2;
-       moveCar2 = moveCar2+2;
-    }
 	glutPostRedisplay(); //Tell GLUT that the display has changed
 	glutTimerFunc(25, update, 0);   //Tell GLUT to call update again in 25 milliseconds
 }
