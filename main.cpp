@@ -97,6 +97,91 @@ void plane() {
 
 }
 
+void car() {
+    static float planeTFactX = -180.0f; // plane translation factor X
+    static float planeTFactY = 0.0f; // plane translation factor Y
+
+    if(planeTFactX >= 900) {
+         planeTFactX = -180.0f;
+         planeTFactY = 0.0f;
+
+    } else {
+        planeTFactX += 0.1f;
+        planeTFactY += 0.005f;
+    }
+
+    // Main Body
+
+
+    glPushMatrix();
+    glColor3ub(255, 0, 0);
+    glTranslatef(planeTFactX, planeTFactY, 0);
+    glBegin(GL_POLYGON);
+	glVertex2i(100,150);
+	glVertex2i(200,150);
+	glVertex2i(200,170);
+	glVertex2i(180,170);
+	glVertex2i(180,180);
+	glVertex2i(120,180);
+	glVertex2i(120,170);
+	glVertex2i(100,170);
+	glEnd();
+
+	glColor3ub(0, 255, 0);
+	glBegin(GL_POLYGON);
+	glVertex2i(125,165);
+	glVertex2i(145,165);
+	glVertex2i(145,178);
+	glVertex2i(125,178);
+	glEnd();
+
+	glColor3ub(0, 255, 0);
+	glBegin(GL_POLYGON);
+	glVertex2i(150,165);
+	glVertex2i(170,165);
+	glVertex2i(170,178);
+	glVertex2i(150,178);
+	glEnd();
+
+
+	glColor3f(0,0,0);
+	glTranslatef(120, 150, 0.0f);
+	static const int circle_points = 100;
+    static const float angle = 2.0f * 3.1416f / circle_points;
+
+    glBegin(GL_POLYGON);
+    double angle1=0.0;
+    glVertex2d(8 * cos(0.0) , 8 * sin(0.0));
+    int i;
+    for (i=0; i<circle_points; i++)
+    {
+        glVertex2d(8 * cos(angle1), 8 *sin(angle1));
+        angle1 += angle;
+    }
+    glEnd();
+
+    glColor3f(0,0,0);
+	glTranslatef(60, 1, 0.0f);
+	static const int circle_point = 100;
+    static const float angl = 2.0f * 3.1416f / circle_point;
+
+    glBegin(GL_POLYGON);
+    double angl1=0.0;
+    glVertex2d(8 * cos(0.0) , 8 * sin(0.0));
+    int p;
+    for (p=0; p<circle_point; p++)
+    {
+        glVertex2d(8 * cos(angl1), 8 *sin(angl1));
+        angl1 += angl;
+    }
+    glEnd();
+
+
+    glPopMatrix();
+    glutPostRedisplay();
+
+}
+
 void DrawMainRoad(){
 
     ///==================================== Main Road
@@ -350,6 +435,7 @@ void myDisplay(void)
     DrawCity();
     DrawMainRoad();
     plane();
+    car();
     glFlush ();
 }
 
@@ -378,7 +464,13 @@ int main(int argc, char** argv)
 }
 
 // Keyboard handler
-void keyboard(unsigned char key, int x, int y){}
+void keyboard(unsigned char key, int x, int y){
+    switch (key){
+    case 's':
+        sndPlaySound("CARBY2",SND_ASYNC|SND_LOOP);
+        break;
+    }
+}
 
 void update(int value) {
     move_cloud = move_cloud + .5;
