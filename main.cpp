@@ -1,7 +1,28 @@
 #include <windows.h>
+#include <stdlib.h>
+#include <time.h>
+#include <iostream>
 #include <stdio.h>
 #include <GL/glut.h>
+#include <GL/gl.h>
 #include <math.h>
+
+void *currentfont;
+
+void setFont(void *font)
+{
+	currentfont=font;
+}
+void drawstring(float x,float y,float z,char *string)
+{
+	char *c;
+	glRasterPos3f(x,y,z);
+
+	for(c=string;*c!='\0';c++)
+	{
+		glutBitmapCharacter(currentfont,*c);
+	}
+}
 
 void drawPixelInt(int x, int y) {
     glBegin(GL_POINTS);
@@ -341,16 +362,111 @@ void DrawCity()
     glVertex2i(243,640);
     glEnd();
 }
+int flag=0;///FLAG FOR GOING THROUGH WELCOME,HELP MENU THEN START
 
+void startscreen(void)///welcome screen-------------------------------------
+{
+    setFont(GLUT_BITMAP_HELVETICA_18);
+    glClearColor(0.000, 0.000, 0.000,0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(0,1,0);
+    drawstring(150.0,750.0,0.0,"AMERICAN INTERNATIONAL UNIVERSITY-BANGLADESH");
+    glColor3f(0,0,1);
+    drawstring(147,700,0.0,"FACULTY OF SCIENCE AND INFORMATION TECHNOLOGY");
+    glColor3f(0.7,0.7,0.7);
+    drawstring(325,625,0.0,"PROJECT ON");
+    drawstring(200,590,0.0,"COMPUTER GRAPHICS: CORONA VIEW");
+    glColor3f(1,0.5,0);
+    drawstring(50,500,0.0,"SUBMITTED BY:");
+    glColor3f(1,1,1);
+    drawstring(50,450,0.0,"RAHAT,MD ASHFAQUR RAHMAN       (17-34492-2)");
+    drawstring(50,400,0.0,"HASAN,S M MAHMUDUL   (17-35752-3)");
+    drawstring(50,350,0.0,"RAFAT,RIZWAN KARIM           (17-33609-1)");
+    drawstring(50,300,0.0,"RAFA,HUMAYARA CHOWDHURY      (17-35413-3)");
+    drawstring(50,250,0.0,"UDOY,IKTEDAR AHMED      (17-35667-3)");
+    glColor3f(1,0.5,0);
+    drawstring(600,500,0.0,"SUBMITTED TO:");
+    glColor3f(1,1,1);
+    drawstring(575,450,0.0,"MD. KISHOR MOROL");
+    glColor3f(0,1,0);
+    drawstring(300,175,0.0,"PRESS ENTER TO START");
+    glFlush();
+}
+
+void controlsScreen()
+{
+    setFont(GLUT_BITMAP_TIMES_ROMAN_24);
+    glClearColor(0.000, 0.000, 0.000,0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(0.596, 0.984, 0.596);
+    drawstring(250.0,700.0,0.0,"INSTRUCTIONS");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,640.0,0.0,"DAY MODE");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,640.0,0.0,"PRESS 'D'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,640.0,0.0,"DAY MODE");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,640.0,0.0,"PRESS 'D'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,600.0,0.0,"NIGHT MODE");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,600.0,0.0,"PRESS 'N'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,560.0,0.0,"CAR MOVING");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,560.0,0.0,"PRESS 'C'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,520.0,0.0,"RAIN MODE");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,520.0,0.0,"PRESS 'R'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,480.0,0.0,"NO RAIN");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,480.0,0.0,"PRESS 'E'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,440.0,0.0,"TOP VIEW");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,440.0,0.0,"PRESS 'T'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,400.0,0.0,"PLANE MOVEMENT");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,400.0,0.0,"PRESS 'P'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,360.0,0.0,"Help");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,360.0,0.0,"PRESS 'H'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,320.0,0.0,"Escape");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,320.0,0.0,"PRESS 'ESC'");
+    glColor3f(0.596, 0.984, 0.596);
+    drawstring(250.0,200.0,0.0,"NOW PRESS ENTER");
+    glFlush();
+}
 
 
 void myDisplay(void)
 {
     glClear (GL_COLOR_BUFFER_BIT);
+    if(flag==0){
+        startscreen();///renders the start screen with names and intro
+    }
+
+    if(flag==1){
+    controlsScreen();
+
+    }
+
+    if(flag>1){
+    glClearColor(0.0,0.7,1.5,0.0);
     DrawCity();
     DrawMainRoad();
     plane();
+
+    }
     glFlush ();
+    glutSwapBuffers();
 }
 
 void myInit (void)
@@ -378,7 +494,23 @@ int main(int argc, char** argv)
 }
 
 // Keyboard handler
-void keyboard(unsigned char key, int x, int y){}
+void keyboard(unsigned char key, int x, int y){
+
+  if(key==13)
+{
+    flag++;
+    myDisplay();
+}
+  if(key=='h')
+  {
+    flag=1;
+    myDisplay();
+
+  }
+  }
+
+
+
 
 void update(int value) {
     move_cloud = move_cloud + .5;
