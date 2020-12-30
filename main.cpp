@@ -3,6 +3,7 @@
 #include <GL/glut.h>
 #include <math.h>
 
+// This is a useless comment
 // Draws pixel with integer value
 void drawPixelInt(int x, int y) {
     glBegin(GL_POINTS);
