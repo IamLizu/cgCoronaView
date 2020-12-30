@@ -6,7 +6,9 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <math.h>
-
+int ucounter= 25;/// update counter-------------------
+bool rain;
+bool day=true;
 void *currentfont;
 
 void setFont(void *font)
@@ -229,14 +231,25 @@ void DrawCloud(){
     draw_circle(355+move_cloud,730,23);
     draw_circle(445+move_cloud,730,23);
 }
+void drawSun(){
+ glColor3f(255, 255, 0);   //sun color
+    draw_circle(300,760,30);
+    }
+void drawMoon(){
+    glColor3f(255, 255, 255);   //sun color
+    draw_circle(300,760,20);
+}
 
 void DrawCity()
 {
 
     ///==================================== Draw Sun
-    glColor3f(255, 255, 0);   //sun color
-    draw_circle(300,760,30);
-
+    if(day){
+    drawSun();///==================sun on the day
+    }
+    else{
+    drawMoon();///==================moon on the night
+    }
     DrawCloud();
 
      ///==================================== Draw Building two
@@ -362,6 +375,69 @@ void DrawCity()
     glVertex2i(243,640);
     glEnd();
 }
+void rainfunc()/// rain -------------------------------------------------------
+{
+    int x=0;
+    int y=778;
+    static float a=-760.0f;
+    if(a<=-768)
+    {
+         a=-760.0f;
+
+    }
+    else
+    {
+        a-=0.5f;
+
+    }
+    glColor3ub(255,255,255);
+    glPushMatrix();
+    glTranslatef(0.0f,a,0.0f);
+    glBegin(GL_LINES);
+    for(int i=500;i>=0;i--)
+    {
+        for(int j=0;j<=i;j++)
+        {
+            glVertex3i(x,y,0);
+            glVertex3i(x+3,y+10,0);
+            x+=rand()%1050;
+        }
+        y+=rand()%15;
+        x=0;
+
+    }
+    glEnd();
+    ///ucounter =100;
+    glPopMatrix();
+    glutPostRedisplay();
+
+}
+void daymode(){
+
+glClearColor(0.0,0.7,1.5,0.0);
+    DrawCity();
+    DrawMainRoad();
+    plane();
+    if(rain){
+        rainfunc();
+    }
+
+}
+void nightmode(){
+
+glClearColor(0.0,0.0,0.0,0.0);
+    DrawCity();
+    DrawMainRoad();
+    plane();
+    if(rain){
+        rainfunc();
+    }
+
+}
+
+
+
+
 int flag=0;///FLAG FOR GOING THROUGH WELCOME,HELP MENU THEN START
 
 void startscreen(void)///welcome screen-------------------------------------
@@ -444,7 +520,16 @@ void controlsScreen()
     drawstring(250.0,200.0,0.0,"NOW PRESS ENTER");
     glFlush();
 }
+void display(){
+    if(day){
+        daymode();
+    }
+    else{
+        nightmode();
+    }
 
+
+}
 
 void myDisplay(void)
 {
@@ -459,11 +544,7 @@ void myDisplay(void)
     }
 
     if(flag>1){
-    glClearColor(0.0,0.7,1.5,0.0);
-    DrawCity();
-    DrawMainRoad();
-    plane();
-
+        display();
     }
     glFlush ();
     glutSwapBuffers();
@@ -487,7 +568,7 @@ int main(int argc, char** argv)
     glutInitWindowPosition (280,0);
     glutCreateWindow ("Corona View");
     glutDisplayFunc(myDisplay);
-    glutTimerFunc(25, update, 100); //Add a timer
+    glutTimerFunc(ucounter, update, 100); //Add a timer
     glutKeyboardFunc(keyboard);     //keyboard
     myInit ();
     glutMainLoop();
@@ -507,6 +588,26 @@ void keyboard(unsigned char key, int x, int y){
     myDisplay();
 
   }
+  if(key=='r')
+  {
+    rain=true;
+
+  }
+  if(key=='s')
+  {
+    rain=false;
+
+  }
+   if(key=='d')
+  {
+    day=true;
+
+  }
+   if(key=='n')
+  {
+    day=false;
+
+  }
   }
 
 
@@ -521,7 +622,7 @@ void update(int value) {
     move_dust = move_dust + .2;
 
 	glutPostRedisplay(); //Tell GLUT that the display has changed
-	glutTimerFunc(25, update, 0);   //Tell GLUT to call update again in 25 milliseconds
+	glutTimerFunc(ucounter, update, 0);   //Tell GLUT to call update again in 25 milliseconds
 }
 
 void draw_circle(float x, float y, float radius) {
