@@ -553,8 +553,7 @@ void DrawMaskSeller(){
 
 }
 
-void daymode(){
-    glClearColor(0.0,0.7,1.5,0.0);
+void commonStuff(){
     DrawCity();
     DrawMainRoad();
     DrawBank();
@@ -566,16 +565,14 @@ void daymode(){
     }
 }
 
+void daymode(){
+    glClearColor(0.0,0.7,1.5,0.0);
+    commonStuff();
+}
+
 void nightmode(){
     glClearColor(0.0,0.0,0.0,0.0);
-    DrawCity();
-    DrawMainRoad();
-    DrawBank();
-    DrawMaskSeller();
-    plane();
-    if(rain){
-        rainfunc();
-    }
+    commonStuff();
 }
 
 int flag=0; // FLAG FOR GOING THROUGH WELCOME,HELP MENU THEN START
