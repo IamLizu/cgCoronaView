@@ -135,86 +135,52 @@ void plane() {
 
 }
 
+void roadBar(int heightLoc, int height){
+    int startingLoc =0, endingLoc= 40;
+
+    for(int i = 0; i < 20; i++){
+        if(i % 2 == 0){
+            glColor3ub(1,1,1);  // black color
+        }else{
+            glColor3ub(217, 217, 217);  // white color
+        }
+
+        quadHorzInt(startingLoc, endingLoc, heightLoc, heightLoc + height);
+
+        startingLoc = endingLoc;
+        endingLoc = endingLoc + 40;
+    }
+
+}
+
 void DrawMainRoad(){
     // Main Road
-    glBegin(GL_POLYGON);
     glColor3f(0.2,0.2,0.2);
-    glVertex2i(0,120);
-    glVertex2i(800,120);
-    glVertex2i(800,330);
-    glVertex2i(0,330);
-    glEnd();
+    quadHorzInt(0, 800, 110, 330); // body
 
-    glBegin(GL_POLYGON);
     glColor3ub(153, 102, 51);
-    glVertex2i(0,350);
-    glVertex2i(800,350);
-    glVertex2i(800,420);
-    glVertex2i(0,420);
-    glEnd();
+    quadHorzInt(0, 800, 315, 420); // Footpath
 
     // road divider
-    glBegin(GL_LINES);
-    glColor3f(1.0,1.0,1.0);
-    int dividerLine=0;
-    for(int i=0;i<200;i++)
-    {
-        glVertex2i(dividerLine+20,220);
-        glVertex2i(dividerLine+40,220);
-        dividerLine=dividerLine+40;
+    glColor3f(1.0, 1.0, 1.0);
+    int dividerLine= 0;
+    for(int i = 0; i < 200; i++){
+        twoIntHorzS(dividerLine + 40, dividerLine + 20, 210);
+        dividerLine += 40;
     }
-    glEnd();
 
     // top Road Side Bar
-    int changeX1=0,changeX2=40;
-
-    for(int i=0;i<20;i++){
-        glBegin(GL_POLYGON);
-        if(i%2==0){
-            glColor3ub(1,1,1);  //black color
-        }else{
-            glColor3ub(217, 217, 217);  //white color
-        }
-
-        glVertex2i(changeX1,330);
-        glVertex2i(changeX2,330);
-        glVertex2i(changeX2,350);
-        glVertex2i(changeX1,350);
-
-        changeX1=changeX2;
-        changeX2=changeX2+40;
-        glEnd();
-    }
-
+    roadBar(305, 10);
     // bottom Road Side Bar
-    int TopChangeX1=0,TopchangeX2=40;
+    roadBar(100, 10);
 
-    for(int i=0;i<20;i++){
-        glBegin(GL_POLYGON);
-        if(i%2==1){
-            glColor3ub(1,1,1);  //black color
-        }else{
-            glColor3ub(217, 217, 217);  //white color
-        }
-
-        glVertex2i(TopChangeX1,100);
-        glVertex2i(TopchangeX2,100);
-        glVertex2i(TopchangeX2,120);
-        glVertex2i(TopChangeX1,120);
-
-        TopChangeX1=TopchangeX2;
-        TopchangeX2=TopchangeX2+40;
-        glEnd();
-    }
-
-    // Top Road Side Bar Top View
+    // Top Road Side Bar
     glBegin(GL_LINES);
     glLineWidth(5);
     glColor3f(204, 153, 0); // yellow color
     glVertex2i(0,420);
     glVertex2i(800, 420);
     glEnd();
-
 }
 
 void DrawCloud(){
