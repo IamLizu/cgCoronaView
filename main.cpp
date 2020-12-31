@@ -436,23 +436,20 @@ void DrawMaskSeller(){
 
     glColor3ub(153, 153, 102);
     quadHorzInt2(640, 415, 640, 385, 645, 395, 645, 425); // right board
-    quadHorzInt2(590, 415, 590, 385, 595, 395, 595, 425); // left leg
+//    quadHorzInt2(590, 415, 590, 385, 595, 395, 595, 425); // left leg
 
     glColor3ub(249, 253, 252);
     quadHorzInt2(590, 412, 640, 412, 645, 425, 595, 425); // table board
 
-    // Mask line 1
-//    glColor3b(0, 0, 125);
-//    int mL1 = 590, mL2 = 595, mL3 = 600, mL4 = 595;
-//    for(int i = 0; i < 5; i ++){
-//       quadHorzInt2(mL1, 407, mL2, 407, mL3, 414, mL4, 414);
-//       mL1 += 10;
-//       mL2 += 10;
-//       mL3 += 10;
-//       mL4 += 10;
-//    }
-//
-    // Mask line 2
+    glColor3ub(127, 124, 115);
+    quadHorzInt(590, 640, 385, 415); // table front panel
+
+    glColor3ub(0, 0, 0);
+    setFont(GLUT_BITMAP_HELVETICA_12);
+    drawstring(600.0,405.0,0.0,"Mask");
+    drawstring(598.0,390.0,0.0,"Seller");
+
+    // Mask line
     glColor3b(23, 12, 15);
     int mL11 = 595, mL12 = 600, mL13 = 605, mL14 = 600;
     for(int i = 0; i < 5; i ++){
