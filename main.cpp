@@ -174,13 +174,13 @@ void DrawMainRoad(){
     // bottom Road Side Bar
     roadBar(100, 10);
 
-    // Top Road Side Bar
-    glBegin(GL_LINES);
-    glLineWidth(5);
-    glColor3f(204, 153, 0); // yellow color
-    glVertex2i(0,420);
-    glVertex2i(800, 420);
-    glEnd();
+//    // Top Road Side Bar
+//    glBegin(GL_LINES);
+//    glLineWidth(5);
+//    glColor3f(204, 153, 0); // yellow color
+//    glVertex2i(0,420);
+//    glVertex2i(800, 420);
+//    glEnd();
 }
 
 void DrawCloud(){
