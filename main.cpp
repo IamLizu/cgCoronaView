@@ -153,6 +153,97 @@ void roadBar(int heightLoc, int height){
 
 }
 
+void human(int shiftX, int shiftY){
+    quadHorzInt2(100 + shiftX, 350 + shiftY, 110 + shiftX, 365 + shiftY, 110 + shiftX, 390 + shiftY, 100 + shiftX, 380 + shiftY); // main body
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 107 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 106 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 105 + shiftX);
+    quadHorzInt2(100 + shiftX, 388 + shiftY, 110 + shiftX, 395 + shiftY, 110 + shiftX, 405 + shiftY, 98 + shiftX, 400 + shiftY); // head
+
+    twoIntVertS(355 + shiftX, 340 + shiftX, 104 + shiftY); // left leg
+    twoIntVertS(355 + shiftX, 340 + shiftX, 103 + shiftY);
+
+    twoIntVertS(365 + shiftX, 345 + shiftX, 107 + shiftY); // right leg
+    twoIntVertS(365 + shiftX, 345 + shiftX, 108 + shiftY);
+}
+
+void humanReverse(int shiftX, int shiftY){
+    quadHorzInt2(100 + shiftX, 365 + shiftY, 110 + shiftX, 350 + shiftY, 110 + shiftX, 380 + shiftY, 100 + shiftX, 390 + shiftY); // main body
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 107 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 106 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 105 + shiftX);
+    quadHorzInt2(100 + shiftX, 395 + shiftY, 110 + shiftX, 388 + shiftY, 110 + shiftX, 400 + shiftY, 100 + shiftX, 405 + shiftY); // head
+
+    twoIntVertS(355 + shiftX, 340 + shiftX, 107 + shiftY); // left leg
+    twoIntVertS(355 + shiftX, 340 + shiftX, 108 + shiftY);
+
+    twoIntVertS(365 + shiftX, 345 + shiftX, 103 + shiftY); // right leg
+    twoIntVertS(365 + shiftX, 345 + shiftX, 104 + shiftY);
+}
+
+void pedestrian() {
+    static float humanTFactX1 = -100.0f; // pedestrian 1 translation factor X
+    static float humanTFactX2 = -400.0f; // pedestrian 2 translation factor X
+    static float humanTFactX3 = 900.0f; // pedestrian 3 translation factor X
+    static float humanTFactX4 = -800.0f; // pedestrian 4 translation factor X
+
+    if(humanTFactX1 >= 900) {
+         humanTFactX1 = -100.0f;
+
+    } else {
+        humanTFactX1 += 0.05f;
+    }
+
+    if(humanTFactX2 >= 900) {
+         humanTFactX2 = -400.0f;
+
+    } else {
+        humanTFactX2 += 0.05f;
+    }
+
+    if(humanTFactX3 <= -100) {
+         humanTFactX3 = 900.0f;
+
+    } else {
+        humanTFactX3 -= 0.05f;
+    }
+
+    if(humanTFactX4 >= 900) {
+         humanTFactX4 = -800.0f;
+
+    } else {
+        humanTFactX4 += 0.05f;
+    }
+
+//    glColor3ub(201, 198, 185);
+    glColor3ub(0, 0, 0);
+
+    glPushMatrix();
+    glTranslatef(humanTFactX1, 0, 0);
+    human(0, 0);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(humanTFactX2, 0, 0);
+    human(20, 20);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(humanTFactX3, 0, 0);
+    humanReverse(-20, -20);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(humanTFactX4, 0, 0);
+    human(20, 20);
+    glPopMatrix();
+    glutPostRedisplay();
+
+}
+
 void DrawMainRoad(){
     // Main Road
     glColor3f(0.2,0.2,0.2);
@@ -468,6 +559,7 @@ void daymode(){
     DrawMainRoad();
     DrawBank();
     DrawMaskSeller();
+    pedestrian();
     plane();
     if(rain){
         rainfunc();
