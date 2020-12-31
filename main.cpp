@@ -7,9 +7,12 @@
 #include <GL/gl.h>
 #include <math.h>
 
-int ucounter= 25; // update counter
+int ucounter = 25; // update counter
 bool rain;
-bool day=true;
+bool day = true;
+float move_cloud=0;
+float move_dust=0;
+void *currentfont;
 
 void drawPixelInt(int x, int y) {
     glBegin(GL_POINTS);
@@ -17,12 +20,10 @@ void drawPixelInt(int x, int y) {
     glEnd();
 }
 
-void *currentfont;
-
-void setFont(void *font)
-{
+void setFont(void *font){
 	currentfont=font;
 }
+
 void drawstring(float x,float y,float z,char *string)
 {
 	char *c;
@@ -42,7 +43,7 @@ void twoIntVertS(int pT, int pB, int fixedP) {
     glEnd();
 }
 
-// horzt straight
+// horizontal straight
 void twoIntHorzS(int pT, int pB, int fixedP) {
     glBegin(GL_LINES);
     glVertex2i(pB, fixedP);
@@ -88,10 +89,6 @@ void quadHorzFloat(float pT, float pB, float fixedP, float fixedQ) {
 void keyboard(unsigned char , int , int );
 void update(int);
 void draw_circle(float x, float y, float radius);
-
-float move_cloud=0;
-float move_dust=0;
-
 
 void plane() {
     static float planeTFactX = -180.0f; // plane translation factor X
@@ -139,7 +136,6 @@ void plane() {
 }
 
 void DrawMainRoad(){
-
     // Main Road
     glBegin(GL_POLYGON);
     glColor3f(0.2,0.2,0.2);
@@ -170,7 +166,6 @@ void DrawMainRoad(){
     glEnd();
 
     // top Road Side Bar
-
     int changeX1=0,changeX2=40;
 
     for(int i=0;i<20;i++){
@@ -192,7 +187,6 @@ void DrawMainRoad(){
     }
 
     // bottom Road Side Bar
-
     int TopChangeX1=0,TopchangeX2=40;
 
     for(int i=0;i<20;i++){
@@ -216,7 +210,7 @@ void DrawMainRoad(){
     // Top Road Side Bar Top View
     glBegin(GL_LINES);
     glLineWidth(5);
-	 glColor3f(204, 153, 0); // yellow color
+    glColor3f(204, 153, 0); // yellow color
     glVertex2i(0,420);
     glVertex2i(800, 420);
     glEnd();
@@ -239,23 +233,26 @@ void drawSun(){
     glColor3f(255, 255, 0); // sun color
     draw_circle(300,760,30);
 }
+
 void drawMoon(){
-    glColor3f(255, 255, 255); // moom color
+    glColor3f(255, 255, 255); // moon color
     draw_circle(300,760,20);
 }
 
 void DrawCity(){
     // Draw Sun
     if(day){
-        drawSun();// sun on the day
+        drawSun(); // sun on the day
     }
     else{
-        drawMoon();// moon on the night
+        drawMoon(); // moon on the night
     }
+
     DrawCloud();
+
     // Draw Building two
     glBegin(GL_POLYGON);
-	  glColor3ub(153, 51, 51);
+    glColor3ub(153, 51, 51);
     glVertex2i(100,420);
     glVertex2i(200,420);
     glVertex2i(200,600);
@@ -263,7 +260,7 @@ void DrawCity(){
     glEnd();
 
     int buildingY1=570,buildingY2=573;
-	  for(int i=0;i<6;i++){
+    for(int i=0;i<6;i++){
         // floor of building 1
         glBegin(GL_POLYGON);
         glColor3ub(153, 153, 102);
@@ -274,11 +271,11 @@ void DrawCity(){
         glEnd();
         buildingY1=buildingY1-25;
         buildingY2=buildingY2-25;
-	  }
+    }
 
-	 // Draw Building One
+    // Draw Building One
     glBegin(GL_POLYGON);
-	  glColor3ub(102, 153, 153);
+    glColor3ub(102, 153, 153);
     glVertex2i(10,420);
     glVertex2i(110,420);
     glVertex2i(110,580);
@@ -287,7 +284,7 @@ void DrawCity(){
 
     // gate of building one
     glBegin(GL_POLYGON);
-	  glColor3ub(242, 242, 242);
+    glColor3ub(242, 242, 242);
     glVertex2i(50,420);
     glVertex2i(70,420);
     glVertex2i(70,440);
@@ -296,9 +293,8 @@ void DrawCity(){
 
     int b1y1=450,b1y2=460;
     int b1x1=15,b1x2=35;
-	  for(int i=1;i<16;i++){
+    for(int i=1;i<16;i++){
         glBegin(GL_POLYGON);
-
         glColor3ub(242, 242, 242);
         glVertex2i(b1x1,b1y1);
         glVertex2i(b1x2,b1y1);
@@ -314,11 +310,11 @@ void DrawCity(){
             b1y1=b1y1+25;
             b1y2=b1y2+25;
         }
-	 }
+    }
 
     // Draw Building three
     glBegin(GL_POLYGON);
-	  glColor3ub(102, 51, 0);
+    glColor3ub(102, 51, 0);
     glVertex2i(190,420);
     glVertex2i(300,420);
     glVertex2i(300,560);
@@ -345,12 +341,11 @@ void DrawCity(){
             b3y1=b3y1+25;
             b3y2=b3y2+25;
         }
-
     }
-    // antena
 
+    // antenna
     for(int i=0;i<5;i++){
-        glBegin(GL_POLYGON);
+    glBegin(GL_POLYGON);
         if(i%2==0){
             glColor3ub(153, 204, 0);
         }
@@ -366,7 +361,7 @@ void DrawCity(){
     }
 
     glBegin(GL_POLYGON);
-	  glColor3ub(102, 51, 0);
+    glColor3ub(102, 51, 0);
     glVertex2i(243,585);
     glVertex2i(247,585);
     glVertex2i(247,640);
@@ -379,19 +374,20 @@ void rainfunc(){
     int x=0;
     int y=778;
     static float a=-760.0f;
-    if(a<=-768)
-    {
+
+    if(a<=-768){
          a=-760.0f;
     }
-    else
-    {
+    else{
         a-=0.5f;
 
     }
+
     glColor3ub(255,255,255);
     glPushMatrix();
     glTranslatef(0.0f,a,0.0f);
     glBegin(GL_LINES);
+
     for(int i=500;i>=0;i--)
     {
         for(int j=0;j<=i;j++)
@@ -414,13 +410,13 @@ void rainfunc(){
 void DrawBank(){
     quadHorzInt(470, 580, 420, 470); // sanitation tunnel
 
-	  setFont(GLUT_BITMAP_TIMES_ROMAN_10);
+    setFont(GLUT_BITMAP_TIMES_ROMAN_10);
     glColor3f(0, 0, 0);
     drawstring(475.0,445.0,0.0,"Sanitation Tunnel");
 
     glColor3ub(231, 226, 57);
     quadHorzInt(580, 730, 420, 580); // Main body
-    glColor3ub(0, 0, 0);
+    glColor3ub(34, 10, 60);
     quadHorzInt(550, 580, 420, 600); // Left pillar
     quadHorzInt(730, 760, 420, 600); // Left pillar
     glColor3ub(255, 255, 255);
@@ -475,14 +471,16 @@ void daymode(){
     glClearColor(0.0,0.7,1.5,0.0);
     DrawCity();
     DrawMainRoad();
+    DrawBank();
+    DrawMaskSeller();
     plane();
     if(rain){
         rainfunc();
     }
 }
-void nightmode(){
 
-glClearColor(0.0,0.0,0.0,0.0);
+void nightmode(){
+    glClearColor(0.0,0.0,0.0,0.0);
     DrawCity();
     DrawMainRoad();
     DrawBank();
@@ -491,10 +489,9 @@ glClearColor(0.0,0.0,0.0,0.0);
     if(rain){
         rainfunc();
     }
-
 }
 
-int flag=0;// FLAG FOR GOING THROUGH WELCOME,HELP MENU THEN START
+int flag=0; // FLAG FOR GOING THROUGH WELCOME,HELP MENU THEN START
 
 // welcome screen
 void startscreen(void){
@@ -587,18 +584,19 @@ void display(){
 
 void myDisplay(void){
     glClear (GL_COLOR_BUFFER_BIT);
+
     if(flag==0){
         startscreen(); // renders the start screen with names and intro
     }
 
     if(flag==1){
-    controlsScreen();
-
+        controlsScreen();
     }
 
     if(flag>1){
         display();
     }
+
     glFlush ();
     glutSwapBuffers();
 }
@@ -626,37 +624,26 @@ int main(int argc, char** argv){
 
 // Keyboard handler
 void keyboard(unsigned char key, int x, int y){
-  if(key==13)
-  { 
-      flag++;
-      myDisplay();
-  }
-  if(key=='h')
-  {
-    flag=1;
-    myDisplay();
-
-  }
-  if(key=='r')
-  {
-    rain=true;
-
-  }
-  if(key=='s')
-  {
-    rain=false;
-
-  }
-   if(key=='d')
-  {
-    day=true;
-
-  }
-   if(key=='n')
-  {
-    day=false;
-
-  }
+    if(key==13){
+        flag++;
+        myDisplay();
+    }
+    if(key=='h'){
+        flag=1;
+        myDisplay();
+    }
+    if(key=='r') {
+        rain=true;
+    }
+    if(key=='s'){
+        rain=false;
+    }
+    if(key=='d'){
+        day=true;
+    }
+    if(key=='n'){
+        day=false;
+    }
 }
 
 void update(int value) {
@@ -683,6 +670,7 @@ void draw_circle(float x, float y, float radius) {
     double angle1=0.0;
     glVertex2d(radius * cos(0.0) , radius * sin(0.0));
     int i;
+
     for (i=0; i<circle_points; i++)
     {
         glVertex2d(radius * cos(angle1), radius *sin(angle1));
