@@ -374,25 +374,57 @@ void rainfunc(){
 
 // Bank
 void DrawBank(){
-    quadHorzInt(470, 580, 420, 470); // sanitation tunnel
-
-    setFont(GLUT_BITMAP_TIMES_ROMAN_10);
+    quadHorzInt(460, 580, 420, 480); // sanitation tunnel
+    setFont(GLUT_BITMAP_HELVETICA_18);
     glColor3f(0, 0, 0);
-    drawstring(475.0,445.0,0.0,"Sanitation Tunnel");
+    drawstring(465.0,455.0,0.0,"Sanitation");
+    drawstring(465.0,435.0,0.0,"tunnel");
+
+    // human tall
+    glColor3b(0, 0, 0);
+    draw_circle(448, 465, 7);
+    quadHorzInt(445, 450, 420, 460);
+
+    // human small
+    draw_circle(413, 455, 7);
+    quadHorzInt(410, 415, 420, 455);
 
     glColor3ub(231, 226, 57);
     quadHorzInt(580, 730, 420, 580); // Main body
+
     glColor3ub(34, 10, 60);
-    quadHorzInt(550, 580, 420, 600); // Left pillar
-    quadHorzInt(730, 760, 420, 600); // Left pillar
+    quadHorzInt(550, 580, 420, 600); // bank right pillar
+    quadHorzInt(730, 760, 420, 600); // bank left pillar
+
+    twoIntVertS(615, 600, 565); // board right pillar
+    twoIntVertS(615, 600, 745); // board left pillar
+
+    quadHorzInt(550, 760, 615, 640); // noticeboard
+    glColor3f(255, 255, 255);
+    drawstring(570.0, 620.0, 0.0,"No Mask No Service");
+
     glColor3ub(255, 255, 255);
     twoIntHorzS(550, 760, 580);
     twoIntHorzS(550, 760, 579);
     twoIntHorzS(550, 760, 578);
     glColor3ub(231, 226, 57);
     draw_circle(655,580,30);
-    glColor3ub(0, 0, 0);
 
+    // windows
+    glColor3ub(255, 255, 255);
+    int winStart = 590, winEnd = 630, winH1 = 440, winH2 = 480;
+    for(int i = 0; i < 6; i++) {
+        quadHorzInt(winStart, winEnd, winH1, winH2);
+        winStart += 45;
+        winEnd += 45;
+        if (i == 2) {
+            winStart = 590, winEnd = 630;
+            winH1 += 80;
+            winH2 += 80;
+        }
+    }
+
+    glColor3ub(0, 0, 0);
     setFont(GLUT_BITMAP_HELVETICA_12);
     drawstring(637.0,590.0,0.0,"BANK");
 }
