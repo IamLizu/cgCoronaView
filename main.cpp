@@ -6,9 +6,17 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <math.h>
-int ucounter= 25;/// update counter-------------------
+
+int ucounter= 25; // update counter
 bool rain;
 bool day=true;
+
+void drawPixelInt(int x, int y) {
+    glBegin(GL_POINTS);
+    glVertex2i(x, y);
+    glEnd();
+}
+
 void *currentfont;
 
 void setFont(void *font)
@@ -26,9 +34,19 @@ void drawstring(float x,float y,float z,char *string)
 	}
 }
 
-void drawPixelInt(int x, int y) {
-    glBegin(GL_POINTS);
-    glVertex2i(x, y);
+// vertical straight
+void twoIntVertS(int pT, int pB, int fixedP) {
+    glBegin(GL_LINES);
+    glVertex2i(fixedP, pT);
+    glVertex2i(fixedP, pB);
+    glEnd();
+}
+
+// horzt straight
+void twoIntHorzS(int pT, int pB, int fixedP) {
+    glBegin(GL_LINES);
+    glVertex2i(pB, fixedP);
+    glVertex2i(pT, fixedP);
     glEnd();
 }
 
@@ -122,7 +140,7 @@ void plane() {
 
 void DrawMainRoad(){
 
-    ///==================================== Main Road
+    // Main Road
     glBegin(GL_POLYGON);
     glColor3f(0.2,0.2,0.2);
     glVertex2i(0,120);
@@ -130,9 +148,6 @@ void DrawMainRoad(){
     glVertex2i(800,330);
     glVertex2i(0,330);
     glEnd();
-
-
-
 
     glBegin(GL_POLYGON);
     glColor3ub(153, 102, 51);
@@ -142,13 +157,8 @@ void DrawMainRoad(){
     glVertex2i(0,420);
     glEnd();
 
-
-
-
-
-
-     ///====================================road divider
-   glBegin(GL_LINES);
+    // road divider
+    glBegin(GL_LINES);
     glColor3f(1.0,1.0,1.0);
     int dividerLine=0;
     for(int i=0;i<200;i++)
@@ -159,8 +169,7 @@ void DrawMainRoad(){
     }
     glEnd();
 
-    ///==================================== top Road Side Bar
-
+    // top Road Side Bar
 
     int changeX1=0,changeX2=40;
 
@@ -182,8 +191,7 @@ void DrawMainRoad(){
         glEnd();
     }
 
-     ///==================================== bottom Road Side Bar
-
+    // bottom Road Side Bar
 
     int TopChangeX1=0,TopchangeX2=40;
 
@@ -205,14 +213,10 @@ void DrawMainRoad(){
         glEnd();
     }
 
-
-
-
-
-    ///==================================== Top Road Side Bar Top View
+    // Top Road Side Bar Top View
     glBegin(GL_LINES);
     glLineWidth(5);
-	glColor3f(204, 153, 0);     //yellow color
+	 glColor3f(204, 153, 0); // yellow color
     glVertex2i(0,420);
     glVertex2i(800, 420);
     glEnd();
@@ -220,8 +224,7 @@ void DrawMainRoad(){
 }
 
 void DrawCloud(){
-    ///==================================== Draw cloud
-
+    // Draw cloud
     glColor3f(255, 255, 255);   //cloud color
     draw_circle(100+move_cloud,730,33);
     draw_circle(55+move_cloud,730,23);
@@ -231,30 +234,28 @@ void DrawCloud(){
     draw_circle(355+move_cloud,730,23);
     draw_circle(445+move_cloud,730,23);
 }
+
 void drawSun(){
- glColor3f(255, 255, 0);   //sun color
+    glColor3f(255, 255, 0); // sun color
     draw_circle(300,760,30);
-    }
+}
 void drawMoon(){
-    glColor3f(255, 255, 255);   //sun color
+    glColor3f(255, 255, 255); // moom color
     draw_circle(300,760,20);
 }
 
-void DrawCity()
-{
-
-    ///==================================== Draw Sun
+void DrawCity(){
+    // Draw Sun
     if(day){
-    drawSun();///==================sun on the day
+        drawSun();// sun on the day
     }
     else{
-    drawMoon();///==================moon on the night
+        drawMoon();// moon on the night
     }
     DrawCloud();
-
-     ///==================================== Draw Building two
+    // Draw Building two
     glBegin(GL_POLYGON);
-	glColor3ub(153, 51, 51);
+	  glColor3ub(153, 51, 51);
     glVertex2i(100,420);
     glVertex2i(200,420);
     glVertex2i(200,600);
@@ -262,8 +263,8 @@ void DrawCity()
     glEnd();
 
     int buildingY1=570,buildingY2=573;
-	for(int i=0;i<6;i++){
-        //=================flor of building 1
+	  for(int i=0;i<6;i++){
+        // floor of building 1
         glBegin(GL_POLYGON);
         glColor3ub(153, 153, 102);
         glVertex2i(100,buildingY1);
@@ -273,20 +274,20 @@ void DrawCity()
         glEnd();
         buildingY1=buildingY1-25;
         buildingY2=buildingY2-25;
-	}
+	  }
 
-	///==================================== Draw Building One
+	 // Draw Building One
     glBegin(GL_POLYGON);
-	glColor3ub(102, 153, 153);
+	  glColor3ub(102, 153, 153);
     glVertex2i(10,420);
     glVertex2i(110,420);
     glVertex2i(110,580);
     glVertex2i(10,580);
     glEnd();
 
-    //===============================gate of building one
+    // gate of building one
     glBegin(GL_POLYGON);
-	glColor3ub(242, 242, 242);
+	  glColor3ub(242, 242, 242);
     glVertex2i(50,420);
     glVertex2i(70,420);
     glVertex2i(70,440);
@@ -295,7 +296,7 @@ void DrawCity()
 
     int b1y1=450,b1y2=460;
     int b1x1=15,b1x2=35;
-	for(int i=1;i<16;i++){
+	  for(int i=1;i<16;i++){
         glBegin(GL_POLYGON);
 
         glColor3ub(242, 242, 242);
@@ -305,7 +306,6 @@ void DrawCity()
         glVertex2i(b1x1,b1y2);
         glEnd();
 
-
         b1x1=b1x1+35;
         b1x2=b1x2+35;
         if(i%3==0){
@@ -314,12 +314,11 @@ void DrawCity()
             b1y1=b1y1+25;
             b1y2=b1y2+25;
         }
+	 }
 
-	}
-
-    ///==================================== Draw Building three
+    // Draw Building three
     glBegin(GL_POLYGON);
-	glColor3ub(102, 51, 0);
+	  glColor3ub(102, 51, 0);
     glVertex2i(190,420);
     glVertex2i(300,420);
     glVertex2i(300,560);
@@ -338,7 +337,6 @@ void DrawCity()
         glVertex2i(b3x1,b3y2);
         glEnd();
 
-
         b3x1=b3x1+25;
         b3x2=b3x2+25;
         if(j%4==0){
@@ -349,7 +347,7 @@ void DrawCity()
         }
 
     }
-    //==========================================antina
+    // antena
 
     for(int i=0;i<5;i++){
         glBegin(GL_POLYGON);
@@ -368,22 +366,22 @@ void DrawCity()
     }
 
     glBegin(GL_POLYGON);
-	glColor3ub(102, 51, 0);
+	  glColor3ub(102, 51, 0);
     glVertex2i(243,585);
     glVertex2i(247,585);
     glVertex2i(247,640);
     glVertex2i(243,640);
     glEnd();
 }
-void rainfunc()/// rain -------------------------------------------------------
-{
+
+// Rain
+void rainfunc(){
     int x=0;
     int y=778;
     static float a=-760.0f;
     if(a<=-768)
     {
          a=-760.0f;
-
     }
     else
     {
@@ -407,27 +405,88 @@ void rainfunc()/// rain -------------------------------------------------------
 
     }
     glEnd();
-    ///ucounter =100;
+    // ucounter =100;
     glPopMatrix();
     glutPostRedisplay();
+}
+
+// Bank
+void DrawBank(){
+    quadHorzInt(470, 580, 420, 470); // sanitation tunnel
+
+	  setFont(GLUT_BITMAP_TIMES_ROMAN_10);
+    glColor3f(0, 0, 0);
+    drawstring(475.0,445.0,0.0,"Sanitation Tunnel");
+
+    glColor3ub(231, 226, 57);
+    quadHorzInt(580, 730, 420, 580); // Main body
+    glColor3ub(0, 0, 0);
+    quadHorzInt(550, 580, 420, 600); // Left pillar
+    quadHorzInt(730, 760, 420, 600); // Left pillar
+    glColor3ub(255, 255, 255);
+    twoIntHorzS(550, 760, 580);
+    twoIntHorzS(550, 760, 579);
+    twoIntHorzS(550, 760, 578);
+    glColor3ub(231, 226, 57);
+    draw_circle(655,580,30);
+    glColor3ub(0, 0, 0);
+
+    setFont(GLUT_BITMAP_HELVETICA_12);
+    drawstring(637.0,590.0,0.0,"BANK");
+}
+
+void DrawMaskSeller(){
+    glColor3b(0, 0, 0);
+    draw_circle(625, 447, 8);
+    quadHorzInt(620, 630, 405, 440);
+
+    glColor3ub(153, 153, 102);
+    quadHorzInt2(640, 415, 640, 385, 645, 395, 645, 425); // right board
+    quadHorzInt2(590, 415, 590, 385, 595, 395, 595, 425); // left leg
+
+    glColor3ub(249, 253, 252);
+    quadHorzInt2(590, 412, 640, 412, 645, 425, 595, 425); // table board
+
+    // Mask line 1
+//    glColor3b(0, 0, 125);
+//    int mL1 = 590, mL2 = 595, mL3 = 600, mL4 = 595;
+//    for(int i = 0; i < 5; i ++){
+//       quadHorzInt2(mL1, 407, mL2, 407, mL3, 414, mL4, 414);
+//       mL1 += 10;
+//       mL2 += 10;
+//       mL3 += 10;
+//       mL4 += 10;
+//    }
+//
+    // Mask line 2
+    glColor3b(23, 12, 15);
+    int mL11 = 595, mL12 = 600, mL13 = 605, mL14 = 600;
+    for(int i = 0; i < 5; i ++){
+       quadHorzInt2(mL11, 417,mL12, 417, mL13, 424, mL14, 424);
+       mL11 += 10;
+       mL12 += 10;
+       mL13 += 10;
+       mL14 += 10;
+    }
 
 }
-void daymode(){
 
-glClearColor(0.0,0.7,1.5,0.0);
+void daymode(){
+    glClearColor(0.0,0.7,1.5,0.0);
     DrawCity();
     DrawMainRoad();
     plane();
     if(rain){
         rainfunc();
     }
-
 }
 void nightmode(){
 
 glClearColor(0.0,0.0,0.0,0.0);
     DrawCity();
     DrawMainRoad();
+    DrawBank();
+    DrawMaskSeller();
     plane();
     if(rain){
         rainfunc();
@@ -435,13 +494,10 @@ glClearColor(0.0,0.0,0.0,0.0);
 
 }
 
+int flag=0;// FLAG FOR GOING THROUGH WELCOME,HELP MENU THEN START
 
-
-
-int flag=0;///FLAG FOR GOING THROUGH WELCOME,HELP MENU THEN START
-
-void startscreen(void)///welcome screen-------------------------------------
-{
+// welcome screen
+void startscreen(void){
     setFont(GLUT_BITMAP_HELVETICA_18);
     glClearColor(0.000, 0.000, 0.000,0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -456,7 +512,7 @@ void startscreen(void)///welcome screen-------------------------------------
     drawstring(50,500,0.0,"SUBMITTED BY:");
     glColor3f(1,1,1);
     drawstring(50,450,0.0,"RAHAT,MD ASHFAQUR RAHMAN       (17-34492-2)");
-    drawstring(50,400,0.0,"HASAN,S M MAHMUDUL   (17-35752-3)");
+    drawstring(50,400,0.0,"HASAN, S. M. MAHMUDUL   (17-35752-3)");
     drawstring(50,350,0.0,"RAFAT,RIZWAN KARIM           (17-33609-1)");
     drawstring(50,300,0.0,"RAFA,HUMAYARA CHOWDHURY      (17-35413-3)");
     drawstring(50,250,0.0,"UDOY,IKTEDAR AHMED      (17-35667-3)");
@@ -469,8 +525,7 @@ void startscreen(void)///welcome screen-------------------------------------
     glFlush();
 }
 
-void controlsScreen()
-{
+void controlsScreen(){
     setFont(GLUT_BITMAP_TIMES_ROMAN_24);
     glClearColor(0.000, 0.000, 0.000,0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -499,7 +554,7 @@ void controlsScreen()
     glColor3f(1.000, 0.980, 0.941);
     drawstring(300.0,480.0,0.0,"NO RAIN");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(150.0,480.0,0.0,"PRESS 'E'");
+    drawstring(150.0,480.0,0.0,"PRESS 'S'");
     glColor3f(1.000, 0.980, 0.941);
     drawstring(300.0,440.0,0.0,"TOP VIEW");
     glColor3f(1.000, 0.980, 0.941);
@@ -520,6 +575,7 @@ void controlsScreen()
     drawstring(250.0,200.0,0.0,"NOW PRESS ENTER");
     glFlush();
 }
+
 void display(){
     if(day){
         daymode();
@@ -527,15 +583,12 @@ void display(){
     else{
         nightmode();
     }
-
-
 }
 
-void myDisplay(void)
-{
+void myDisplay(void){
     glClear (GL_COLOR_BUFFER_BIT);
     if(flag==0){
-        startscreen();///renders the start screen with names and intro
+        startscreen(); // renders the start screen with names and intro
     }
 
     if(flag==1){
@@ -550,38 +603,34 @@ void myDisplay(void)
     glutSwapBuffers();
 }
 
-void myInit (void)
-{
-    glClearColor(0.0,0.7,1.5,0.0);  //sky color
+void myInit (void){
+    glClearColor(0.0,0.7,1.5,0.0);  // sky color
     glColor3f(0.0f, 0.0f, 0.0f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0.0, 800.0, 100.0, 800.0);
 }
 
-
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv){
     glutInit(&argc, argv);
     glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize (800, 680);
     glutInitWindowPosition (280,0);
     glutCreateWindow ("Corona View");
     glutDisplayFunc(myDisplay);
-    glutTimerFunc(ucounter, update, 100); //Add a timer
-    glutKeyboardFunc(keyboard);     //keyboard
+    glutTimerFunc(ucounter, update, 100); // Add a timer
+    glutKeyboardFunc(keyboard); // keyboard handler
     myInit ();
     glutMainLoop();
 }
 
 // Keyboard handler
 void keyboard(unsigned char key, int x, int y){
-
   if(key==13)
-{
-    flag++;
-    myDisplay();
-}
+  { 
+      flag++;
+      myDisplay();
+  }
   if(key=='h')
   {
     flag=1;
@@ -608,10 +657,7 @@ void keyboard(unsigned char key, int x, int y){
     day=false;
 
   }
-  }
-
-
-
+}
 
 void update(int value) {
     move_cloud = move_cloud + .5;
@@ -621,8 +667,8 @@ void update(int value) {
     }
     move_dust = move_dust + .2;
 
-	glutPostRedisplay(); //Tell GLUT that the display has changed
-	glutTimerFunc(ucounter, update, 0);   //Tell GLUT to call update again in 25 milliseconds
+	glutPostRedisplay(); // Tell GLUT that the display has changed
+	glutTimerFunc(ucounter, update, 0);   // Tell GLUT to call update again in 25 milliseconds
 }
 
 void draw_circle(float x, float y, float radius) {
