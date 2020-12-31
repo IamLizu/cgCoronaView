@@ -9,6 +9,39 @@ void drawPixelInt(int x, int y) {
     glEnd();
 }
 
+void *currentfont;
+
+void setFont(void *font)
+{
+	currentfont=font;
+}
+void drawstring(float x,float y,float z,char *string)
+{
+	char *c;
+	glRasterPos3f(x,y,z);
+
+	for(c=string;*c!='\0';c++)
+	{
+		glutBitmapCharacter(currentfont,*c);
+	}
+}
+
+// vertical straight
+void twoIntVertS(int pT, int pB, int fixedP) {
+    glBegin(GL_LINES);
+    glVertex2i(fixedP, pT);
+    glVertex2i(fixedP, pB);
+    glEnd();
+}
+
+// horzt straight
+void twoIntHorzS(int pT, int pB, int fixedP) {
+    glBegin(GL_LINES);
+    glVertex2i(pB, fixedP);
+    glVertex2i(pT, fixedP);
+    glEnd();
+}
+
 void quadHorzInt(int pT, int pB, int fixedP, int fixedQ) {
     glBegin(GL_QUADS);
     glVertex2i(pB, fixedP);
@@ -342,13 +375,74 @@ void DrawCity()
     glEnd();
 }
 
+// Bank
+void DrawBank(){
+    quadHorzInt(470, 580, 420, 470); // sanitation tunnel
 
+	setFont(GLUT_BITMAP_TIMES_ROMAN_10);
+    glColor3f(0, 0, 0);
+    drawstring(475.0,445.0,0.0,"Sanitation Tunnel");
+
+    glColor3ub(231, 226, 57);
+    quadHorzInt(580, 730, 420, 580); // Main body
+    glColor3ub(0, 0, 0);
+    quadHorzInt(550, 580, 420, 600); // Left pillar
+    quadHorzInt(730, 760, 420, 600); // Left pillar
+    glColor3ub(255, 255, 255);
+    twoIntHorzS(550, 760, 580);
+    twoIntHorzS(550, 760, 579);
+    twoIntHorzS(550, 760, 578);
+    glColor3ub(231, 226, 57);
+    draw_circle(655,580,30);
+    glColor3ub(0, 0, 0);
+
+    setFont(GLUT_BITMAP_HELVETICA_12);
+    drawstring(637.0,590.0,0.0,"BANK");
+}
+
+void DrawMaskSeller(){
+    glColor3b(0, 0, 0);
+    draw_circle(625, 447, 8);
+    quadHorzInt(620, 630, 405, 440);
+
+    glColor3ub(153, 153, 102);
+    quadHorzInt2(640, 415, 640, 385, 645, 395, 645, 425); // right board
+    quadHorzInt2(590, 415, 590, 385, 595, 395, 595, 425); // left leg
+
+    glColor3ub(249, 253, 252);
+    quadHorzInt2(590, 412, 640, 412, 645, 425, 595, 425); // table board
+
+    // Mask line 1
+//    glColor3b(0, 0, 125);
+//    int mL1 = 590, mL2 = 595, mL3 = 600, mL4 = 595;
+//    for(int i = 0; i < 5; i ++){
+//       quadHorzInt2(mL1, 407, mL2, 407, mL3, 414, mL4, 414);
+//       mL1 += 10;
+//       mL2 += 10;
+//       mL3 += 10;
+//       mL4 += 10;
+//    }
+//
+    // Mask line 2
+    glColor3b(23, 12, 15);
+    int mL11 = 595, mL12 = 600, mL13 = 605, mL14 = 600;
+    for(int i = 0; i < 5; i ++){
+       quadHorzInt2(mL11, 417,mL12, 417, mL13, 424, mL14, 424);
+       mL11 += 10;
+       mL12 += 10;
+       mL13 += 10;
+       mL14 += 10;
+    }
+
+}
 
 void myDisplay(void)
 {
     glClear (GL_COLOR_BUFFER_BIT);
     DrawCity();
     DrawMainRoad();
+    DrawBank();
+    DrawMaskSeller();
     plane();
     glFlush ();
 }
