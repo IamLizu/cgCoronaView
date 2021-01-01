@@ -253,6 +253,10 @@ void DrawMainRoad(){
     glColor3ub(153, 102, 51);
     quadHorzInt(0, 800, 315, 420); // Footpath
 
+    glColor3b(0,0,0);
+    quadHorzInt(0,800,419,420);//footpath upper border
+
+
     // road divider
     glColor3f(1.0, 1.0, 1.0);
     int dividerLine= 0;
@@ -308,7 +312,7 @@ void DrawCity(){
 
     DrawCloud();
 
-  
+
    // Draw Building two
     glBegin(GL_POLYGON);
     glColor3ub(153, 51, 51);
