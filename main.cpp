@@ -253,8 +253,8 @@ void DrawMainRoad(){
     glColor3ub(153, 102, 51);
     quadHorzInt(0, 800, 315, 420); // Footpath
 
-    glColor3b(0,0,0);
-    quadHorzInt(0,800,419,420);//footpath upper border
+   // glColor3b(0,0,0);
+   // quadHorzInt(0,800,419,420);//footpath upper border
 
 
     // road divider
