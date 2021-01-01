@@ -553,6 +553,361 @@ void DrawMaskSeller(){
 
 }
 
+void otherCircle(GLfloat x, GLfloat y,GLfloat z, GLfloat radius,int r,int g,int b)
+{
+	int i;
+	int triangleAmount = 20; //# of triangles used to draw circle
+
+	//GLfloat radius = 0.8f; //radius
+	GLfloat twicePi = 2.0f * 3.1416;
+    int counter=0;
+    glColor3ub(r,g,b);
+	glBegin(GL_TRIANGLE_FAN);
+		glVertex3f(x, y,z); // center of circle
+		for(i = 0; i <= triangleAmount;i++) {
+			counter+=1;
+			glVertex3f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount)),z
+			);
+		}
+	glEnd();
+}
+
+void car()
+{
+    static float a=-400.0f;
+    if(a>=1324)
+    {
+         a=-400.0f;
+
+    }
+    else
+    {
+        a+=0.2f;
+        //glColor3ub(r,g,b);
+    }
+    glColor3ub(255,0,0);
+    glPushMatrix();
+    glTranslatef(a,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(20,140,0);
+    glVertex3i(220,140,0);
+    glVertex3i(220,180,0);
+    glVertex3i(20,180,0);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3i(40,180,0);
+    glVertex3i(200,180,0);
+    glVertex3i(160,210,0);
+    glVertex3i(80,210,0);
+    glEnd();
+
+    glColor3ub(0,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(115,180,0);
+    glVertex3i(190,180,0);
+    glVertex3i(155,205,0);
+    glVertex3i(115,205,0);
+    glEnd();
+
+    glColor3ub(0,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(45,180,0);
+    glVertex3i(110,180,0);
+    glVertex3i(110,205,0);
+    glVertex3i(80,205,0);
+    glEnd();
+
+    //handle
+    glColor3ub(0,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(115,170,0);
+    glVertex3i(135,170,0);
+    glVertex3i(135,175,0);
+    glVertex3i(115,175,0);
+    glEnd();
+
+    glColor3ub(0,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(45,170,0);
+    glVertex3i(65,170,0);
+    glVertex3i(65,175,0);
+    glVertex3i(45,175,0);
+    glEnd();
+
+    //backbumper
+    otherCircle(30.0f,160.0f,0.0f,19.0f,255,0,0);
+    //front bumper
+    otherCircle(210.0f,160.0f,0.0f,19.0f,255,0,0);
+
+//Light
+    glColor3ub(250,250,0);
+    glBegin(GL_QUADS);
+    glVertex3i(225,155,0);
+    glVertex3i(230,155,0);
+    glVertex3i(230,165,0);
+    glVertex3i(225,165,0);
+    glEnd();
+
+    //carlight
+    if(day==2)
+    {
+        glColor3ub(200,200,200);
+        glBegin(GL_QUADS);
+        glVertex3i(230,155,0);
+        glVertex3i(280,120,0);
+        glVertex3i(280,195,0);
+        glVertex3i(225,165,0);
+        glEnd();
+    }
+
+    otherCircle(60.0f,140.0f,0.0f,18.0f,0,0,0);
+    otherCircle(60.0f,140.0f,0.0f,10.0f,137,137,137);
+    otherCircle(170.0f,140.0f,0.0f,18.0f,0,0,0);
+    otherCircle(170.0f,140.0f,0.0f,10.0f,137,137,137);
+
+    glPopMatrix();
+    glutPostRedisplay();
+}
+
+
+void car2()
+{
+    static float a=-800.0f;
+    if(a>=1324)
+    {
+         a=-800.0f;
+
+    }
+    else
+    {
+        a+=0.2f;
+        //glColor3ub(r,g,b);
+    }
+    glColor3ub(0,0,255);
+    glPushMatrix();
+    glTranslatef(a,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(20,140,0);
+    glVertex3i(220,140,0);
+    glVertex3i(220,180,0);
+    glVertex3i(20,180,0);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3i(40,180,0);
+    glVertex3i(200,180,0);
+    glVertex3i(160,210,0);
+    glVertex3i(80,210,0);
+    glEnd();
+
+    glColor3ub(0,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(115,180,0);
+    glVertex3i(190,180,0);
+    glVertex3i(155,205,0);
+    glVertex3i(115,205,0);
+    glEnd();
+
+    glColor3ub(0,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(45,180,0);
+    glVertex3i(110,180,0);
+    glVertex3i(110,205,0);
+    glVertex3i(80,205,0);
+    glEnd();
+
+    //handle
+    glColor3ub(0,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(115,170,0);
+    glVertex3i(135,170,0);
+    glVertex3i(135,175,0);
+    glVertex3i(115,175,0);
+    glEnd();
+
+    glColor3ub(0,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(45,170,0);
+    glVertex3i(65,170,0);
+    glVertex3i(65,175,0);
+    glVertex3i(45,175,0);
+    glEnd();
+
+    //backbumper
+    otherCircle(30.0f,160.0f,0.0f,19.0f,0,0,255);
+    //front bumper
+    otherCircle(210.0f,160.0f,0.0f,19.0f,0,0,255);
+
+//Light
+    glColor3ub(250,250,0);
+    glBegin(GL_QUADS);
+    glVertex3i(225,155,0);
+    glVertex3i(230,155,0);
+    glVertex3i(230,165,0);
+    glVertex3i(225,165,0);
+    glEnd();
+
+    //carlight
+    if(day==2)
+    {
+        glColor3ub(200,200,200);
+        glBegin(GL_QUADS);
+        glVertex3i(230,155,0);
+        glVertex3i(280,120,0);
+        glVertex3i(280,195,0);
+        glVertex3i(225,165,0);
+        glEnd();
+    }
+
+    otherCircle(60.0f,140.0f,0.0f,18.0f,0,0,0);
+    otherCircle(60.0f,140.0f,0.0f,10.0f,137,137,137);
+    otherCircle(170.0f,140.0f,0.0f,18.0f,0,0,0);
+    otherCircle(170.0f,140.0f,0.0f,10.0f,137,137,137);
+
+    glPopMatrix();
+    glutPostRedisplay();
+}
+
+void truck()
+{
+    static float a=650.0f;
+    if(a<=-1300)
+    {
+         a=550.0f;
+
+    }
+    else
+    {
+        a-=0.2f;
+        //glColor3ub(r,g,b);
+    }
+    glColor3ub(0,0,255);
+    //frontbumper
+    glPushMatrix();
+    glTranslatef(a,0,0);
+    otherCircle(780.0f,270.0f,0.0f,41.0f,0,0,255);
+    //main body
+    glBegin(GL_QUADS);
+    glVertex3i(750,230,0);
+    glVertex3i(1000,230,0);
+    glVertex3i(1000,280,0);
+    glVertex3i(750,280,0);
+    glEnd();
+
+
+    glBegin(GL_QUADS);
+    glVertex3i(750,280,0);
+    glVertex3i(860,280,0);
+    glVertex3i(860,300,0);
+    glVertex3i(750,300,0);
+    glEnd();
+    //window
+    glBegin(GL_QUADS);
+    glVertex3i(750,300,0);
+    glVertex3i(860,300,0);
+    glVertex3i(860,330,0);
+    glVertex3i(800,330,0);
+    glEnd();
+
+    glColor3ub(0,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(760,300,0);
+    glVertex3i(855,300,0);
+    glVertex3i(855,325,0);
+    glVertex3i(800,325,0);
+    glEnd();
+
+    //handle
+    glBegin(GL_QUADS);
+    glVertex3i(840,285,0);
+    glVertex3i(855,285,0);
+    glVertex3i(855,290,0);
+    glVertex3i(840,290,0);
+    glEnd();
+
+    //gril
+    glColor3ub(0,0,0);
+    glBegin(GL_LINES);
+    glVertex3i(860,300,0);
+    glVertex3i(1000,300,0);
+    glVertex3i(860,299,0);
+    glVertex3i(1000,299,0);
+    glVertex3i(1000,300,0);
+    glVertex3i(1000,300,0);
+    glVertex3i(990,300,0);
+    glVertex3i(990,280,0);
+    glVertex3i(980,300,0);
+    glVertex3i(980,280,0);
+    glVertex3i(970,300,0);
+    glVertex3i(970,280,0);
+    glVertex3i(960,300,0);
+    glVertex3i(960,280,0);
+    glVertex3i(950,300,0);
+    glVertex3i(950,280,0);
+    glVertex3i(940,300,0);
+    glVertex3i(940,280,0);
+    glVertex3i(930,300,0);
+    glVertex3i(930,280,0);
+    glVertex3i(920,300,0);
+    glVertex3i(920,280,0);
+    glVertex3i(910,300,0);
+    glVertex3i(910,280,0);
+    glVertex3i(900,300,0);
+    glVertex3i(900,280,0);
+    glVertex3i(890,300,0);
+    glVertex3i(890,280,0);
+    glVertex3i(880,300,0);
+    glVertex3i(880,280,0);
+    glVertex3i(870,300,0);
+    glVertex3i(870,280,0);
+    glEnd();
+
+
+
+    //wheel
+    otherCircle(800.0f,240.0f,0.0f,21.0f,0,0,0);
+    otherCircle(800.0f,240.0f,0.0f,15.0f,131,131,131);
+    otherCircle(950.0f,240.0f,0.0f,21.0f,0,0,0);
+    otherCircle(950.0f,240.0f,0.0f,15.0f,131,131,131);
+
+    //backlight
+    glColor3ub(255,0,0);
+    glBegin(GL_QUADS);
+    glVertex3i(1000,250,0);
+    glVertex3i(1005,250,0);
+    glVertex3i(1005,260,0);
+    glVertex3i(1000,260,0);
+    glEnd();
+
+    //frontlignt
+    glColor3ub(255,255,0);
+    glBegin(GL_QUADS);
+    glVertex3i(740,230,0);
+    glVertex3i(750,230,0);
+    glVertex3i(750,242,0);
+    glVertex3i(740,242,0);
+    glEnd();
+
+
+
+    //trucklight
+    if(day==2)
+    {
+        glColor3ub(200,200,200);
+        glBegin(GL_QUADS);
+        glVertex3i(680,200,0);
+        glVertex3i(740,200,0);
+        glVertex3i(740,242,0);
+        glVertex3i(680,270,0);
+        glEnd();
+    }
+    glPopMatrix();
+    glutPostRedisplay();
+}
+
 void commonStuff(){
     DrawCity();
     DrawMainRoad();
@@ -560,6 +915,9 @@ void commonStuff(){
     DrawMaskSeller();
     pedestrian();
     plane();
+    car();
+    car2();
+    truck();
     if(rain){
         rainfunc();
     }
@@ -702,6 +1060,7 @@ int main(int argc, char** argv){
     glutDisplayFunc(myDisplay);
     glutTimerFunc(ucounter, update, 100); // Add a timer
     glutKeyboardFunc(keyboard); // keyboard handler
+    sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP);
     myInit ();
     glutMainLoop();
 }
