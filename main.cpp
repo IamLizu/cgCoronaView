@@ -9,6 +9,7 @@
 
 int ucounter = 25; // update counter
 bool rain;
+bool carv=false;
 bool day = true;
 float move_cloud=0;
 float move_dust=0;
@@ -652,7 +653,7 @@ void car()
     glEnd();
 
     //carlight
-    if(day==2)
+    if(day==false)
     {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
@@ -751,7 +752,7 @@ void car2()
     glEnd();
 
     //carlight
-    if(day==2)
+    if(day==false)
     {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
@@ -894,12 +895,12 @@ void truck()
 
 
     //trucklight
-    if(day==2)
+    if(day==false)
     {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
-        glVertex3i(680,200,0);
-        glVertex3i(740,200,0);
+        glVertex3i(680,220,0);
+        glVertex3i(740,220,0);
         glVertex3i(740,242,0);
         glVertex3i(680,270,0);
         glEnd();
@@ -915,9 +916,12 @@ void commonStuff(){
     DrawMaskSeller();
     pedestrian();
     plane();
-    car();
-    car2();
-    truck();
+    if(carv)
+        {
+            truck();
+            car();
+            car2();
+        }
     if(rain){
         rainfunc();
     }
@@ -1086,6 +1090,14 @@ void keyboard(unsigned char key, int x, int y){
     }
     if(key=='n'){
         day=false;
+    }
+    if(key=='c')
+    {
+        carv=true;
+    }
+    if(key=='v')
+    {
+        carv=false;
     }
 }
 
