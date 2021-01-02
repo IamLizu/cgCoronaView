@@ -648,85 +648,31 @@ void otherCircle(GLfloat x, GLfloat y,GLfloat z, GLfloat radius,int r,int g,int 
 	glEnd();
 }
 
-void car()
-{
-    static float a=-400.0f;
-    if(a>=1324)
-    {
-         a=-400.0f;
+void carBase(int r, int g, int b) {
+    glColor3ub(r, g, b);
+    quadHorzInt(20, 220, 140, 180); // lower part
 
-    }
-    else
-    {
-        a+=0.2f;
-        //glColor3ub(r,g,b);
-    }
-    glColor3ub(255,0,0);
-    glPushMatrix();
-    glTranslatef(a,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(20,140,0);
-    glVertex3i(220,140,0);
-    glVertex3i(220,180,0);
-    glVertex3i(20,180,0);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex3i(40,180,0);
-    glVertex3i(200,180,0);
-    glVertex3i(160,210,0);
-    glVertex3i(80,210,0);
-    glEnd();
+    quadHorzInt2(40, 180, 200, 180, 160, 210, 80, 210); // body higher part
 
     glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(115,180,0);
-    glVertex3i(190,180,0);
-    glVertex3i(155,205,0);
-    glVertex3i(115,205,0);
-    glEnd();
+    quadHorzInt2(115, 180, 190, 180, 155, 205, 115, 205); // car window front
 
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(45,180,0);
-    glVertex3i(110,180,0);
-    glVertex3i(110,205,0);
-    glVertex3i(80,205,0);
-    glEnd();
+    quadHorzInt2(45, 180, 110, 180, 110, 205, 80, 205); // car window back
 
-    //handle
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(115,170,0);
-    glVertex3i(135,170,0);
-    glVertex3i(135,175,0);
-    glVertex3i(115,175,0);
-    glEnd();
+    quadHorzInt(115, 135, 170, 175); // handle front
 
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(45,170,0);
-    glVertex3i(65,170,0);
-    glVertex3i(65,175,0);
-    glVertex3i(45,175,0);
-    glEnd();
+    quadHorzInt(45, 65, 170, 175); // handle back
 
-    //backbumper
-    otherCircle(30.0f,160.0f,0.0f,19.0f,255,0,0);
-    //front bumper
-    otherCircle(210.0f,160.0f,0.0f,19.0f,255,0,0);
+    otherCircle(30.0f,160.0f,0.0f,19.0f, r, g, b); // back bumper
 
-//Light
+    otherCircle(210.0f,160.0f,0.0f,19.0f, r, g, b); // front bumper
+
+    // Light
     glColor3ub(250,250,0);
-    glBegin(GL_QUADS);
-    glVertex3i(225,155,0);
-    glVertex3i(230,155,0);
-    glVertex3i(230,165,0);
-    glVertex3i(225,165,0);
-    glEnd();
+    quadHorzInt(225, 230, 155, 165);
 
-    //carlight
-    if(day==false)
+    // car light
+    if(day == false)
     {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
@@ -741,107 +687,36 @@ void car()
     otherCircle(60.0f,140.0f,0.0f,10.0f,137,137,137);
     otherCircle(170.0f,140.0f,0.0f,18.0f,0,0,0);
     otherCircle(170.0f,140.0f,0.0f,10.0f,137,137,137);
-
-    glPopMatrix();
-    glutPostRedisplay();
 }
 
+void cars() {
+    static float car1Position = -400.0f;
+    static float car2Position = -800.0f;
 
-void car2()
-{
-    static float a=-800.0f;
-    if(a>=1324)
-    {
-         a=-800.0f;
+    if(car1Position >= 1324){
+         car1Position = -400.0f;
+    }
+    else {
+        car1Position += 0.2f;
+    }
 
+    if(car2Position >= 1324){
+         car2Position = -800.0f;
     }
-    else
-    {
-        a+=0.2f;
-        //glColor3ub(r,g,b);
+    else {
+        car2Position += 0.2f;
     }
-    glColor3ub(0,0,255);
+
     glPushMatrix();
-    glTranslatef(a,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(20,140,0);
-    glVertex3i(220,140,0);
-    glVertex3i(220,180,0);
-    glVertex3i(20,180,0);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex3i(40,180,0);
-    glVertex3i(200,180,0);
-    glVertex3i(160,210,0);
-    glVertex3i(80,210,0);
-    glEnd();
-
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(115,180,0);
-    glVertex3i(190,180,0);
-    glVertex3i(155,205,0);
-    glVertex3i(115,205,0);
-    glEnd();
-
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(45,180,0);
-    glVertex3i(110,180,0);
-    glVertex3i(110,205,0);
-    glVertex3i(80,205,0);
-    glEnd();
-
-    //handle
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(115,170,0);
-    glVertex3i(135,170,0);
-    glVertex3i(135,175,0);
-    glVertex3i(115,175,0);
-    glEnd();
-
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(45,170,0);
-    glVertex3i(65,170,0);
-    glVertex3i(65,175,0);
-    glVertex3i(45,175,0);
-    glEnd();
-
-    //backbumper
-    otherCircle(30.0f,160.0f,0.0f,19.0f,0,0,255);
-    //front bumper
-    otherCircle(210.0f,160.0f,0.0f,19.0f,0,0,255);
-
-//Light
-    glColor3ub(250,250,0);
-    glBegin(GL_QUADS);
-    glVertex3i(225,155,0);
-    glVertex3i(230,155,0);
-    glVertex3i(230,165,0);
-    glVertex3i(225,165,0);
-    glEnd();
-
-    //carlight
-    if(day==false)
-    {
-        glColor3ub(200,200,200);
-        glBegin(GL_QUADS);
-        glVertex3i(230,155,0);
-        glVertex3i(280,120,0);
-        glVertex3i(280,195,0);
-        glVertex3i(225,165,0);
-        glEnd();
-    }
-
-    otherCircle(60.0f,140.0f,0.0f,18.0f,0,0,0);
-    otherCircle(60.0f,140.0f,0.0f,10.0f,137,137,137);
-    otherCircle(170.0f,140.0f,0.0f,18.0f,0,0,0);
-    otherCircle(170.0f,140.0f,0.0f,10.0f,137,137,137);
-
+    glTranslatef(car1Position, 0, 0);
+    carBase(255, 0, 0);
     glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(car2Position, 0, 0);
+    carBase(0, 0, 255);
+    glPopMatrix();
+
     glutPostRedisplay();
 }
 
@@ -983,8 +858,7 @@ void commonStuff(){
     if(carv)
         {
             truck();
-            car();
-            car2();
+            cars();
         }
     if(rain){
         rainfunc();
