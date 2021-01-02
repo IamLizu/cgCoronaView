@@ -15,6 +15,10 @@ float move_cloud=0;
 float move_dust=0;
 void *currentfont;
 
+// Truck Movement
+static float truckSpeed = 0.2f;
+static float tempTruckSpeed;
+
 void drawPixelInt(int x, int y) {
     glBegin(GL_POINTS);
     glVertex2i(x, y);
@@ -909,32 +913,26 @@ void car2()
     glutPostRedisplay();
 }
 
-void truck()
-{
-    static float a=650.0f;
-    if(a<=-1300)
-    {
-         a=550.0f;
+void truck() {
+    static float truckPosition = 650.0f;
 
+    if(truckPosition <= -1300)
+    {
+         truckPosition = 550.0f;
     }
     else
     {
-        a-=0.2f;
-        //glColor3ub(r,g,b);
+        truckPosition -= truckSpeed;
     }
+
     glColor3ub(0,0,255);
     //frontbumper
     glPushMatrix();
-    glTranslatef(a,0,0);
+    glTranslatef(truckPosition, 0, 0);
     otherCircle(780.0f,270.0f,0.0f,41.0f,0,0,255);
     //main body
-    glBegin(GL_QUADS);
-    glVertex3i(750,230,0);
-    glVertex3i(1000,230,0);
-    glVertex3i(1000,280,0);
-    glVertex3i(750,280,0);
-    glEnd();
 
+    quadHorzInt(750, 1000, 230, 280); // x1, x2, y1, y2
 
     glBegin(GL_QUADS);
     glVertex3i(750,280,0);
@@ -942,6 +940,7 @@ void truck()
     glVertex3i(860,300,0);
     glVertex3i(750,300,0);
     glEnd();
+
     //window
     glBegin(GL_QUADS);
     glVertex3i(750,300,0);
@@ -1003,8 +1002,6 @@ void truck()
     glVertex3i(870,280,0);
     glEnd();
 
-
-
     //wheel
     otherCircle(800.0f,240.0f,0.0f,21.0f,0,0,0);
     otherCircle(800.0f,240.0f,0.0f,15.0f,131,131,131);
@@ -1028,8 +1025,6 @@ void truck()
     glVertex3i(750,242,0);
     glVertex3i(740,242,0);
     glEnd();
-
-
 
     //trucklight
     if(day==false)
@@ -1201,7 +1196,6 @@ int main(int argc, char** argv){
     glutDisplayFunc(myDisplay);
     glutTimerFunc(ucounter, update, 100); // Add a timer
     glutKeyboardFunc(keyboard); // keyboard handler
-//    sndPlaySound("E:\\cgCoronaView\\TrafficSound.wav",SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
     myInit ();
     glutMainLoop();
 }
@@ -1228,16 +1222,29 @@ void keyboard(unsigned char key, int x, int y){
     if(key=='n'){
         day=false;
     }
+    // Car appear
     if(key=='c')
     {
         carv=true;
         sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
     }
+    // Car disappear
     if(key=='v')
     {
         carv=false;
-        sndPlaySound(NULL,SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
+        sndPlaySound(NULL, SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
     }
+    // Stops all car
+    if (key == '.') {
+        sndPlaySound(NULL, SND_ASYNC|SND_LOOP);
+        tempTruckSpeed = truckSpeed;
+        truckSpeed = 0.0f;
+    }
+    if (key == ',') {
+        truckSpeed = tempTruckSpeed;
+        sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP);
+    }
+
 }
 
 void update(int value) {
