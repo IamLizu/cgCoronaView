@@ -15,6 +15,10 @@ float move_cloud=0;
 float move_dust=0;
 void *currentfont;
 
+// Truck Movement
+static float truckSpeed = 0.2f;
+static float tempTruckSpeed;
+
 void drawPixelInt(int x, int y) {
     glBegin(GL_POINTS);
     glVertex2i(x, y);
@@ -253,6 +257,10 @@ void DrawMainRoad(){
     glColor3ub(153, 102, 51);
     quadHorzInt(0, 800, 315, 420); // Footpath
 
+   // glColor3b(0,0,0);
+   // quadHorzInt(0,800,419,420);//footpath upper border
+
+
     // road divider
     glColor3f(1.0, 1.0, 1.0);
     int dividerLine= 0;
@@ -308,50 +316,145 @@ void DrawCity(){
 
     DrawCloud();
 
-    // Draw Building two
+
+   // Draw Building two
     glBegin(GL_POLYGON);
     glColor3ub(153, 51, 51);
-    glVertex2i(100,420);
-    glVertex2i(200,420);
-    glVertex2i(200,600);
-    glVertex2i(100,600);
+    glVertex2i(120,420);
+    glVertex2i(250,420);
+    glVertex2i(250,630);
+    glVertex2i(120,630);
     glEnd();
 
-    int buildingY1=570,buildingY2=573;
-    for(int i=0;i<6;i++){
-        // floor of building 1
+
+
+    int buildingY1=590,buildingY2=593;
+    for(int i=0;i<3;i++){
+        // floor of building 2
         glBegin(GL_POLYGON);
         glColor3ub(153, 153, 102);
-        glVertex2i(100,buildingY1);
-        glVertex2i(200,buildingY1);
-        glVertex2i(200,buildingY2);
-        glVertex2i(100,buildingY2);
+        glVertex2i(120,buildingY1);
+        glVertex2i(250,buildingY1);
+        glVertex2i(250,buildingY2);
+        glVertex2i(120,buildingY2);
         glEnd();
-        buildingY1=buildingY1-25;
-        buildingY2=buildingY2-25;
+        buildingY1=buildingY1-55;
+        buildingY2=buildingY2-55;
     }
 
-    // Draw Building One
+//building 2 windows
+     int b2y1=495,b2y2=520;
+    int b2x1=130,b2x2=160;
+    for(int j=1;j<7;j++){
+        glBegin(GL_POLYGON);
+
+        glColor3ub(242, 242, 242);
+        glVertex2i(b2x1,b2y1);
+        glVertex2i(b2x2,b2y1);
+        glVertex2i(b2x2,b2y2);
+        glVertex2i(b2x1,b2y2);
+        glEnd();
+
+        b2x1=b2x1+85;
+        b2x2=b2x2+85;
+        if(j%2==0){
+            b2x1=130;
+            b2x2=160;
+            b2y1=b2y1+50;
+            b2y2=b2y2+50;
+        }
+    }
+
+
+   //gate building 2
     glBegin(GL_POLYGON);
-    glColor3ub(102, 153, 153);
+    glColor3ub(169, 169, 242);
+    glVertex2i(170,420);
+    glVertex2i(200,420);
+    glVertex2i(200,460);
+    glVertex2i(170,460);
+    glEnd();
+
+    //gate_lines
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(177,420);
+    glVertex2i(180,420);
+    glVertex2i(180,460);
+    glVertex2i(177,460);
+    glEnd();
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(190,420);
+    glVertex2i(193,420);
+    glVertex2i(193,460);
+    glVertex2i(190,460);
+    glEnd();
+
+
+
+    // Draw Building One
+
+    glBegin(GL_POLYGON);
+    glColor3ub(245, 0, 0);
+    glVertex2i(5,580);
+    glVertex2i(80,625);
+    glVertex2i(155,580);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3ub(150, 153, 153);
     glVertex2i(10,420);
-    glVertex2i(110,420);
-    glVertex2i(110,580);
+    glVertex2i(150,420);
+    glVertex2i(150,580);
     glVertex2i(10,580);
     glEnd();
 
+
+
     // gate of building one
     glBegin(GL_POLYGON);
-    glColor3ub(242, 242, 242);
-    glVertex2i(50,420);
-    glVertex2i(70,420);
-    glVertex2i(70,440);
-    glVertex2i(50,440);
+    glColor3ub(169, 169, 242);
+    glVertex2i(62,420);
+    glVertex2i(92,420);
+    glVertex2i(92,468);
+    glVertex2i(62,468);
+    glEnd();
+    //vertical black
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(65,420);
+    glVertex2i(67,420);
+    glVertex2i(67,468);
+    glVertex2i(65,468);
+    glEnd();
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(88,420);
+    glVertex2i(90,420);
+    glVertex2i(90,468);
+    glVertex2i(88,468);
+    glEnd();
+    //horizontal black
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(62,440);
+    glVertex2i(92,440);
+    glVertex2i(92,443);
+    glVertex2i(62,443);
+    glEnd();
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(62,445);
+    glVertex2i(92,445);
+    glVertex2i(92,448);
+    glVertex2i(62,448);
     glEnd();
 
-    int b1y1=450,b1y2=460;
-    int b1x1=15,b1x2=35;
-    for(int i=1;i<16;i++){
+//windows
+    int b1y1=470,b1y2=500;
+    int b1x1=15,b1x2=52;
+    for(int i=1;i<5;i++){
         glBegin(GL_POLYGON);
         glColor3ub(242, 242, 242);
         glVertex2i(b1x1,b1y1);
@@ -360,28 +463,90 @@ void DrawCity(){
         glVertex2i(b1x1,b1y2);
         glEnd();
 
-        b1x1=b1x1+35;
-        b1x2=b1x2+35;
-        if(i%3==0){
+        b1x1=b1x1+85;
+        b1x2=b1x2+85;
+        if(i%2==0){
             b1x1=15;
-            b1x2=35;
-            b1y1=b1y1+25;
-            b1y2=b1y2+25;
+            b1x2=52;
+            b1y1=b1y1+65;
+            b1y2=b1y2+65;
         }
     }
+
 
     // Draw Building three
     glBegin(GL_POLYGON);
     glColor3ub(102, 51, 0);
-    glVertex2i(190,420);
-    glVertex2i(300,420);
-    glVertex2i(300,560);
-    glVertex2i(190,560);
+    glVertex2i(210,420);
+    glVertex2i(350,420);
+    glVertex2i(350,560);
+    glVertex2i(210,560);
     glEnd();
 
-    int b3y1=430,b3y2=440;
-    int b3x1=200,b3x2=215;
-    for(int j=1;j<21;j++){
+     //flag
+
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 106, 77);
+    glVertex2i(315,570);
+    glVertex2i(365,570);
+    glVertex2i(365,610);
+    glVertex2i(315,610);
+    glEnd();
+
+    glColor3f(255, 0, 0);
+    draw_circle(340,590,10);
+
+
+    //flag stand
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(310,560);
+    glVertex2i(315,560);
+    glVertex2i(315,615);
+    glVertex2i(310,615);
+    glEnd();
+
+
+    //building 3 gate
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 200, 242);
+    glVertex2i(250,420);
+    glVertex2i(310,420);
+    glVertex2i(310,460);
+    glVertex2i(250,460);
+    glEnd();
+    //horizontal black
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(250,440);
+    glVertex2i(310,440);
+    glVertex2i(310,443);
+    glVertex2i(250,443);
+    glEnd();
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(250,430);
+    glVertex2i(310,430);
+    glVertex2i(310,433);
+    glVertex2i(250,433);
+    glEnd();
+    glBegin(GL_POLYGON);
+    glColor3ub(0, 0, 0);
+    glVertex2i(290,420);
+    glVertex2i(293,420);
+    glVertex2i(293,460);
+    glVertex2i(290,460);
+    glEnd();
+
+
+
+
+
+
+//windows
+    int b3y1=470,b3y2=500;
+    int b3x1=220,b3x2=255;
+    for(int j=1;j<5;j++){
         glBegin(GL_POLYGON);
 
         glColor3ub(242, 242, 242);
@@ -391,40 +556,16 @@ void DrawCity(){
         glVertex2i(b3x1,b3y2);
         glEnd();
 
-        b3x1=b3x1+25;
-        b3x2=b3x2+25;
-        if(j%4==0){
-            b3x1=200;
-            b3x2=215;
-            b3y1=b3y1+25;
-            b3y2=b3y2+25;
+        b3x1=b3x1+85;
+        b3x2=b3x2+85;
+        if(j%2==0){
+            b3x1=220;
+            b3x2=255;
+            b3y1=b3y1+45;
+            b3y2=b3y2+45;
         }
     }
 
-    // antenna
-    for(int i=0;i<5;i++){
-    glBegin(GL_POLYGON);
-        if(i%2==0){
-            glColor3ub(153, 204, 0);
-        }
-        else{
-            glColor3ub(153,0, 0);
-        }
-
-        glVertex2i(200+(i*10),560+(i*5));
-        glVertex2i(290-(i*10),560+(i*5));
-        glVertex2i(290-(i*10),565+(i*5));
-        glVertex2i(200+(i*10),565+(i*5));
-        glEnd();
-    }
-
-    glBegin(GL_POLYGON);
-    glColor3ub(102, 51, 0);
-    glVertex2i(243,585);
-    glVertex2i(247,585);
-    glVertex2i(247,640);
-    glVertex2i(243,640);
-    glEnd();
 }
 
 // Rain
@@ -772,32 +913,26 @@ void car2()
     glutPostRedisplay();
 }
 
-void truck()
-{
-    static float a=650.0f;
-    if(a<=-1300)
-    {
-         a=550.0f;
+void truck() {
+    static float truckPosition = 650.0f;
 
+    if(truckPosition <= -1300)
+    {
+         truckPosition = 550.0f;
     }
     else
     {
-        a-=0.2f;
-        //glColor3ub(r,g,b);
+        truckPosition -= truckSpeed;
     }
+
     glColor3ub(0,0,255);
     //frontbumper
     glPushMatrix();
-    glTranslatef(a,0,0);
+    glTranslatef(truckPosition, 0, 0);
     otherCircle(780.0f,270.0f,0.0f,41.0f,0,0,255);
     //main body
-    glBegin(GL_QUADS);
-    glVertex3i(750,230,0);
-    glVertex3i(1000,230,0);
-    glVertex3i(1000,280,0);
-    glVertex3i(750,280,0);
-    glEnd();
 
+    quadHorzInt(750, 1000, 230, 280); // x1, x2, y1, y2
 
     glBegin(GL_QUADS);
     glVertex3i(750,280,0);
@@ -805,6 +940,7 @@ void truck()
     glVertex3i(860,300,0);
     glVertex3i(750,300,0);
     glEnd();
+
     //window
     glBegin(GL_QUADS);
     glVertex3i(750,300,0);
@@ -866,8 +1002,6 @@ void truck()
     glVertex3i(870,280,0);
     glEnd();
 
-
-
     //wheel
     otherCircle(800.0f,240.0f,0.0f,21.0f,0,0,0);
     otherCircle(800.0f,240.0f,0.0f,15.0f,131,131,131);
@@ -891,8 +1025,6 @@ void truck()
     glVertex3i(750,242,0);
     glVertex3i(740,242,0);
     glEnd();
-
-
 
     //trucklight
     if(day==false)
@@ -958,7 +1090,7 @@ void startscreen(void){
     drawstring(50,400,0.0,"HASAN, S. M. MAHMUDUL   (17-35752-3)");
     drawstring(50,350,0.0,"RAFAT,RIZWAN KARIM           (17-33609-1)");
     drawstring(50,300,0.0,"RAFA,HUMAYARA CHOWDHURY      (17-35413-3)");
-    drawstring(50,250,0.0,"UDOY,IKTEDAR AHMED      (17-35667-3)");
+    drawstring(50,250,0.0,"UDOY,IKTEDER AKHAND      (17-35667-3)");
     glColor3f(1,0.5,0);
     drawstring(600,500,0.0,"SUBMITTED TO:");
     glColor3f(1,1,1);
@@ -1064,7 +1196,6 @@ int main(int argc, char** argv){
     glutDisplayFunc(myDisplay);
     glutTimerFunc(ucounter, update, 100); // Add a timer
     glutKeyboardFunc(keyboard); // keyboard handler
-    sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP);
     myInit ();
     glutMainLoop();
 }
@@ -1091,14 +1222,29 @@ void keyboard(unsigned char key, int x, int y){
     if(key=='n'){
         day=false;
     }
+    // Car appear
     if(key=='c')
     {
         carv=true;
+        sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
     }
+    // Car disappear
     if(key=='v')
     {
         carv=false;
+        sndPlaySound(NULL, SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
     }
+    // Stops all car
+    if (key == '.') {
+        sndPlaySound(NULL, SND_ASYNC|SND_LOOP);
+        tempTruckSpeed = truckSpeed;
+        truckSpeed = 0.0f;
+    }
+    if (key == ',') {
+        truckSpeed = tempTruckSpeed;
+        sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP);
+    }
+
 }
 
 void update(int value) {
