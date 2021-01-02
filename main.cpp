@@ -197,7 +197,7 @@ void humanReverse(int shiftX, int shiftY){
     twoIntVertS(365 + shiftX, 345 + shiftX, 104 + shiftY);
 }
 
-void qhuman(int shiftX, int shiftY){
+void qhuman(int shiftX, int shiftY){///===============================Rahat
     glColor3ub(127, 187, 6);
     quadHorzInt2(100 + shiftX, 350 + shiftY, 110 + shiftX, 365 + shiftY, 110 + shiftX, 390 + shiftY, 100 + shiftX, 380 + shiftY); // main body
     twoIntVertS(400-2 + shiftY, 383 + shiftY, 107 + shiftX);
@@ -215,7 +215,7 @@ void qhuman(int shiftX, int shiftY){
     twoIntVertS(365 + shiftX, 345 + shiftX, 108 + shiftY);
 }
 
-void qhumanReverse(int shiftX, int shiftY){
+void qhumanReverse(int shiftX, int shiftY){///================================Rahat
     glColor3ub(127, 187, 6);
     quadHorzInt2(100 + shiftX, 365 + shiftY, 110 + shiftX, 350 + shiftY, 110 + shiftX, 380 + shiftY, 100 + shiftX, 390 + shiftY); // main body
     twoIntVertS(400-2 + shiftY, 383 + shiftY, 107 + shiftX);
@@ -538,7 +538,7 @@ void DrawCity(){
 }
 
 // Rain
-void rainfunc(){
+void rainfunc(){///================================Rahat
     int x=0;
     int y=778;
     static float a=-760.0f;
@@ -876,7 +876,7 @@ void nightmode(){
 int flag=0; // FLAG FOR GOING THROUGH WELCOME,HELP MENU THEN START
 
 // welcome screen
-void startscreen(void){
+void startscreen(void){///========================================Rahat
     setFont(GLUT_BITMAP_HELVETICA_18);
     glClearColor(0.000, 0.000, 0.000,0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -904,7 +904,7 @@ void startscreen(void){
     glFlush();
 }
 
-void controlsScreen(){
+void controlsScreen(){///================================================Rahat
     setFont(GLUT_BITMAP_TIMES_ROMAN_24);
     glClearColor(0.000, 0.000, 0.000,0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -1013,7 +1013,7 @@ int main(int argc, char** argv){
 }
 
 // Keyboard handler
-void keyboard(unsigned char key, int x, int y){
+void keyboard(unsigned char key, int x, int y){///====================================Rahat
     if(key==13){
         flag++;
         myDisplay();
