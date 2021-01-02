@@ -431,7 +431,7 @@ void DrawCity(){
 
     //flag stand
 
-    glColor3ub(0, 0, 0);
+    glColor3ub(0, 0, 128);
     quadHorzInt(310,315,560,615);
 
 
