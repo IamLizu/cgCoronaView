@@ -219,7 +219,7 @@ void pedestrian(T func, T func2) { // Takes two function as param
     }
 
 //    glColor3ub(201, 198, 185);
-    glColor3ub(0, 0, 0);
+    glColor3ub(127, 187, 6);
 
     glPushMatrix();
     glTranslatef(humanTFactX1, 0, 0);
@@ -325,9 +325,8 @@ void DrawMainRoad(){
     glColor3ub(153, 102, 51);
     quadHorzInt(0, 800, 315, 420); // Footpath
 
-   // glColor3b(0,0,0);
-   // quadHorzInt(0,800,419,420);//footpath upper border
-
+    glColor3b(0,0,0);
+    quadHorzInt(0,800,419,420);//footpath upper border
 
     // road divider
     glColor3f(1.0, 1.0, 1.0);
@@ -341,14 +340,6 @@ void DrawMainRoad(){
     roadBar(305, 10);
     // bottom Road Side Bar
     roadBar(100, 10);
-
-//    // Top Road Side Bar
-//    glBegin(GL_LINES);
-//    glLineWidth(5);
-//    glColor3f(204, 153, 0); // yellow color
-//    glVertex2i(0,420);
-//    glVertex2i(800, 420);
-//    glEnd();
 }
 
 void drawCloud(int r, int g, int b){
