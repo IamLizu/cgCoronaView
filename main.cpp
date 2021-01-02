@@ -1201,7 +1201,7 @@ int main(int argc, char** argv){
     glutDisplayFunc(myDisplay);
     glutTimerFunc(ucounter, update, 100); // Add a timer
     glutKeyboardFunc(keyboard); // keyboard handler
-    sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
+//    sndPlaySound("E:\\cgCoronaView\\TrafficSound.wav",SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
     myInit ();
     glutMainLoop();
 }
@@ -1231,10 +1231,12 @@ void keyboard(unsigned char key, int x, int y){
     if(key=='c')
     {
         carv=true;
+        sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
     }
     if(key=='v')
     {
         carv=false;
+        sndPlaySound(NULL,SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
     }
 }
 
