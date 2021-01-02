@@ -998,6 +998,22 @@ void myInit (void){
     glLoadIdentity();
     gluOrtho2D(0.0, 800.0, 100.0, 800.0);
 }
+void handleMouse(int button, int state, int x, int y)
+{
+	if (button == GLUT_LEFT_BUTTON)
+	{
+		if (state == GLUT_DOWN)
+		{
+		     day=false;
+		}
+	}
+	else
+        if (state == GLUT_DOWN)
+		{
+		     day=true;
+		}
+	glutPostRedisplay();
+}
 
 int main(int argc, char** argv){
     glutInit(&argc, argv);
@@ -1008,6 +1024,7 @@ int main(int argc, char** argv){
     glutDisplayFunc(myDisplay);
     glutTimerFunc(ucounter, update, 100); // Add a timer
     glutKeyboardFunc(keyboard); // keyboard handler
+    glutMouseFunc(handleMouse);//mouse handler
     myInit ();
     glutMainLoop();
 }
