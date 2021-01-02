@@ -6,6 +6,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <math.h>
+#include <functional>
 
 int ucounter = 25; // update counter
 bool rain;
@@ -186,36 +187,33 @@ void humanReverse(int shiftX, int shiftY){
     twoIntVertS(365 + shiftX, 345 + shiftX, 104 + shiftY);
 }
 
-void pedestrian() {
+template <class T>
+void pedestrian(T func, T func2) { // Takes two function as param
     static float humanTFactX1 = -100.0f; // pedestrian 1 translation factor X
     static float humanTFactX2 = -400.0f; // pedestrian 2 translation factor X
     static float humanTFactX3 = 900.0f; // pedestrian 3 translation factor X
-    static float humanTFactX4 = -800.0f; // pedestrian 4 translation factor X
+    static float humanTFactX4 = -650.0f; // pedestrian 4 translation factor X
 
     if(humanTFactX1 >= 900) {
          humanTFactX1 = -100.0f;
-
     } else {
         humanTFactX1 += 0.05f;
     }
 
     if(humanTFactX2 >= 900) {
          humanTFactX2 = -400.0f;
-
     } else {
         humanTFactX2 += 0.05f;
     }
 
     if(humanTFactX3 <= -100) {
          humanTFactX3 = 900.0f;
-
     } else {
         humanTFactX3 -= 0.05f;
     }
 
     if(humanTFactX4 >= 900) {
-         humanTFactX4 = -800.0f;
-
+         humanTFactX4 = -650.0f;
     } else {
         humanTFactX4 += 0.05f;
     }
@@ -225,28 +223,98 @@ void pedestrian() {
 
     glPushMatrix();
     glTranslatef(humanTFactX1, 0, 0);
-    human(0, 0);
+    func(0, 0);
     glPopMatrix();
     glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX2, 0, 0);
-    human(20, 20);
+    func(20, 20);
     glPopMatrix();
     glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX3, 0, 0);
-    humanReverse(-20, -20);
+    func2(-20, -20);
     glPopMatrix();
     glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX4, 0, 0);
-    human(20, 20);
+    func(20, 20);
+    glPopMatrix();
+    glutPostRedisplay();
+}
+
+template <class T>
+void pedestrianBeforeC(T func, T func2) { // Takes two function as param
+    pedestrian(human, humanReverse);
+
+    static float humanTFactX1 = -300.0f; // pedestrian 1 translation factor X
+    static float humanTFactX3 = 900.0f; // pedestrian 3 translation factor X
+    static float humanTFactX4 = -300.0f; // pedestrian 4 translation factor X
+    static float humanTFactX5 = -900.0f; // pedestrian 5 translation factor X
+    static float humanTFactX6 = 1200.0f; // pedestrian 6 translation factor X
+
+    if(humanTFactX1 >= 900) {
+         humanTFactX1 = -100.0f;
+    } else {
+        humanTFactX1 += 0.05f;
+    }
+
+    if(humanTFactX3 <= -100) {
+         humanTFactX3 = 900.0f;
+    } else {
+        humanTFactX3 -= 0.05f;
+    }
+
+    if(humanTFactX4 >= 900) {
+         humanTFactX4 = -100.0f;
+    } else {
+        humanTFactX4 += 0.05f;
+    }
+
+    if(humanTFactX5 >= 900) {
+         humanTFactX5 = -900.0f;
+    } else {
+        humanTFactX5 += 0.05f;
+    }
+
+    if(humanTFactX6 <= -100) {
+         humanTFactX6 = 1200.0f;
+    } else {
+        humanTFactX6 -= 0.05f;
+    }
+
+    glPushMatrix();
+    glTranslatef(humanTFactX1, 0, 0);
+    func(0, 0);
     glPopMatrix();
     glutPostRedisplay();
 
+    glPushMatrix();
+    glTranslatef(humanTFactX3, 0, 0);
+    func2(40, 40);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(humanTFactX4, 0, 0);
+    func(20, 20);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(humanTFactX5, 0, 0);
+    func(20, 20);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(humanTFactX6, 0, 0);
+    func2(-20, -20);
+    glPopMatrix();
+    glutPostRedisplay();
 }
 
 void DrawMainRoad(){
@@ -495,22 +563,35 @@ void rainfunc(){
     glutPostRedisplay();
 }
 
-// Bank
-void DrawBank(){
-    quadHorzInt(460, 580, 420, 480); // sanitation tunnel
+void sanitinzationTunnel() {
+    quadHorzInt(450, 580, 420, 480); // sanitation tunnel
     setFont(GLUT_BITMAP_HELVETICA_18);
     glColor3f(0, 0, 0);
-    drawstring(465.0,455.0,0.0,"Sanitation");
-    drawstring(465.0,435.0,0.0,"tunnel");
+    drawstring(455.0,455.0,0.0,"Sanitization");
+    drawstring(455.0,435.0,0.0,"tunnel");
 
     // human tall
     glColor3b(0, 0, 0);
-    draw_circle(448, 465, 7);
-    quadHorzInt(445, 450, 420, 460);
+    draw_circle(440, 465, 7);
+    quadHorzInt(437, 442, 420, 460);
 
     // human small
-    draw_circle(413, 455, 7);
-    quadHorzInt(410, 415, 420, 455);
+    draw_circle(405, 455, 7);
+    quadHorzInt(402, 407, 420, 455);
+}
+
+void bankCoronaNotice() {
+    twoIntVertS(615, 600, 565); // board right pillar
+    twoIntVertS(615, 600, 745); // board left pillar
+
+    quadHorzInt(550, 760, 615, 640); // noticeboard
+    glColor3f(255, 255, 255);
+    drawstring(570.0, 620.0, 0.0,"No Mask No Service");
+}
+
+// Bank
+void DrawBank(){
+//    sanitinzationTunnel();
 
     glColor3ub(231, 226, 57);
     quadHorzInt(580, 730, 420, 580); // Main body
@@ -519,12 +600,7 @@ void DrawBank(){
     quadHorzInt(550, 580, 420, 600); // bank right pillar
     quadHorzInt(730, 760, 420, 600); // bank left pillar
 
-    twoIntVertS(615, 600, 565); // board right pillar
-    twoIntVertS(615, 600, 745); // board left pillar
-
-    quadHorzInt(550, 760, 615, 640); // noticeboard
-    glColor3f(255, 255, 255);
-    drawstring(570.0, 620.0, 0.0,"No Mask No Service");
+//    bankCoronaNotice();
 
     glColor3ub(255, 255, 255);
     twoIntHorzS(550, 760, 580);
@@ -935,8 +1011,8 @@ void commonStuff(){
     DrawCity();
     DrawMainRoad();
     DrawBank();
-    DrawMaskSeller();
-    pedestrian();
+//    DrawMaskSeller();
+    pedestrianBeforeC(human, humanReverse); // Passing human and humanReverse (without mask, before corona)
     plane();
     if(carv)
         {
