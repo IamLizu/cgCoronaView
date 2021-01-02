@@ -723,9 +723,9 @@ void carBase(int r, int g, int b) {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
         glVertex3i(230,155,0);
-        glVertex3i(280,120,0);
+        glVertex3i(280,155,0);
         glVertex3i(280,195,0);
-        glVertex3i(225,165,0);
+        glVertex3i(230,165,0);
         glEnd();
     }
 
@@ -827,8 +827,8 @@ void truck() {
     {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
-        glVertex3i(680,220,0);
-        glVertex3i(740,220,0);
+        glVertex3i(680,230,0);
+        glVertex3i(740,230,0);
         glVertex3i(740,242,0);
         glVertex3i(680,270,0);
         glEnd();
@@ -881,20 +881,20 @@ void startscreen(void){
     glClearColor(0.000, 0.000, 0.000,0);
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(0,1,0);
-    drawstring(150.0,750.0,0.0,"AMERICAN INTERNATIONAL UNIVERSITY-BANGLADESH");
+    drawstring(130.0,750.0,0.0,"AMERICAN INTERNATIONAL UNIVERSITY-BANGLADESH (AIUB)");
     glColor3f(0,0,1);
     drawstring(147,700,0.0,"FACULTY OF SCIENCE AND INFORMATION TECHNOLOGY");
     glColor3f(0.7,0.7,0.7);
     drawstring(325,625,0.0,"PROJECT ON");
-    drawstring(200,590,0.0,"COMPUTER GRAPHICS: CORONA VIEW");
+    drawstring(220,590,0.0,"COMPUTER GRAPHICS: CORONA VIEW");
     glColor3f(1,0.5,0);
     drawstring(50,500,0.0,"SUBMITTED BY:");
     glColor3f(1,1,1);
-    drawstring(50,450,0.0,"RAHAT,MD ASHFAQUR RAHMAN       (17-34492-2)");
-    drawstring(50,400,0.0,"HASAN, S. M. MAHMUDUL   (17-35752-3)");
-    drawstring(50,350,0.0,"RAFAT,RIZWAN KARIM           (17-33609-1)");
-    drawstring(50,300,0.0,"RAFA,HUMAYARA CHOWDHURY      (17-35413-3)");
-    drawstring(50,250,0.0,"UDOY,IKTEDER AKHAND      (17-35667-3)");
+    drawstring(50,450,0.0,"RAHAT,MD ASHFAQUR RAHMAN (17-34492-2)");
+    drawstring(50,400,0.0,"HASAN, S. M. MAHMUDUL    (17-35752-3)");
+    drawstring(50,350,0.0,"RAFAT, RIZWAN KARIM      (17-33609-1)");
+    drawstring(50,300,0.0,"RAFA, HUMAYARA CHOWDHURY (17-35413-3)");
+    drawstring(50,250,0.0,"UDOY, IKTEDER AKHAND     (17-35667-3)");
     glColor3f(1,0.5,0);
     drawstring(600,500,0.0,"SUBMITTED TO:");
     glColor3f(1,1,1);
@@ -1040,13 +1040,15 @@ void keyboard(unsigned char key, int x, int y){
     // Stops all car
     if (key == '.') {
         sndPlaySound(NULL, SND_ASYNC|SND_LOOP);
-        tempTruckSpeed = truckSpeed;
+
+        if (car2Speed != 0.0f) {
+            tempTruckSpeed = truckSpeed;
+            tempCar1Speed = car1Speed;
+            tempCar2Speed = car2Speed;
+        }
+
         truckSpeed = 0.0f;
-
-        tempCar1Speed = car1Speed;
         car1Speed = 0.0f;
-
-        tempCar2Speed = car2Speed;
         car2Speed = 0.0f;
     }
     if (key == ',') {
