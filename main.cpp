@@ -959,7 +959,7 @@ void controlsScreen(){
     drawstring(150.0,240.0,0.0,"PRESS 'H'");
     drawstring(300.0,200.0,0.0,"ClOSE PROJECT");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(150.0,200.0,0.0,"PRESS 'EXC'");
+    drawstring(150.0,200.0,0.0,"PRESS 'ESC'");
 
     glColor3f(0.596, 0.984, 0.596);
     drawstring(250.0,150.0,0.0,"NOW PRESS ENTER");
