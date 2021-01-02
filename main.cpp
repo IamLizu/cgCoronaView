@@ -359,8 +359,6 @@ void DrawCity(){
     //gate_lines
     glColor3ub(0, 10, 0);
     quadHorzInt(177,180,420,460);
-
-    glColor3ub(0, 10, 0);
     quadHorzInt(190,193,420,460);
 
 
@@ -368,12 +366,8 @@ void DrawCity(){
     // Draw Building One
 
     //triangle head
-    glBegin(GL_POLYGON);
     glColor3ub(245, 0, 0);
-    glVertex2i(5,580);
-    glVertex2i(80,625);
-    glVertex2i(155,580);
-    glEnd();
+    triangleNS(5,580,80,625,155,580);
 
 
    //building 1 body
@@ -388,13 +382,9 @@ void DrawCity(){
     //vertical black
     glColor3ub(0, 10, 0);
     quadHorzInt(65,67,420,468);
-    glColor3ub(0, 10, 0);
     quadHorzInt(88,90,420,468);
     //horizontal black
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 10, 0);
     quadHorzInt(62,92,440,443);
-    glColor3ub(0, 10, 0);
     quadHorzInt(62,92,445,448);
 
 //windows
@@ -441,9 +431,7 @@ void DrawCity(){
     //horizontal black
     glColor3ub(0, 10, 0);
     quadHorzInt(250,310,440,443);
-    glColor3ub(0, 10, 0);
     quadHorzInt(250,310,430,433);
-    glColor3ub(0, 10, 0);
     quadHorzInt(290,293,420,460);
 
 
