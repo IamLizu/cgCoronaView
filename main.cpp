@@ -12,7 +12,7 @@ int ucounter = 25; // update counter
 bool rain;
 bool carv=false;
 bool day = true;
-bool Corona =false;
+bool corona =false;
 float move_cloud=0;
 float move_dust=0;
 void *currentfont;
@@ -20,6 +20,8 @@ void *currentfont;
 // Truck Movement
 static float truckSpeed = 0.2f;
 static float tempTruckSpeed;
+
+void dummy(void){} // does nothing
 
 void drawPixelInt(int x, int y) {
     glBegin(GL_POINTS);
@@ -206,7 +208,7 @@ void qhuman(int shiftX, int shiftY){
     twoIntVertS(365 + shiftX, 345 + shiftX, 108 + shiftY);
 }
 
-void  qhumanReverse(int shiftX, int shiftY){
+void qhumanReverse(int shiftX, int shiftY){
     glColor3ub(127, 187, 6);
     quadHorzInt2(100 + shiftX, 365 + shiftY, 110 + shiftX, 350 + shiftY, 110 + shiftX, 380 + shiftY, 100 + shiftX, 390 + shiftY); // main body
     twoIntVertS(400-2 + shiftY, 383 + shiftY, 107 + shiftX);
@@ -566,6 +568,7 @@ void rainfunc(){
 }
 
 void sanitinzationTunnel() {
+    glColor3ub(242, 242, 242);
     quadHorzInt(450, 580, 420, 480); // sanitation tunnel
     setFont(GLUT_BITMAP_HELVETICA_18);
     glColor3f(0, 0, 0);
@@ -573,7 +576,6 @@ void sanitinzationTunnel() {
     drawstring(455.0,435.0,0.0,"tunnel");
 
     // human tall
-    glColor3b(0, 0, 0);
     draw_circle(440, 465, 7);
     quadHorzInt(437, 442, 420, 460);
 
@@ -592,8 +594,9 @@ void bankCoronaNotice() {
 }
 
 // Bank
-void DrawBank(){
-//    sanitinzationTunnel();
+template <class T>
+void DrawBank(T func1, T func2){ // render based on before and after corona
+    func1(); // placeholder for sanitizationTunnel
 
     glColor3ub(231, 226, 57);
     quadHorzInt(580, 730, 420, 580); // Main body
@@ -602,7 +605,7 @@ void DrawBank(){
     quadHorzInt(550, 580, 420, 600); // bank right pillar
     quadHorzInt(730, 760, 420, 600); // bank left pillar
 
-//    bankCoronaNotice();
+    func2(); // placeholder for bankCoronaNotice
 
     glColor3ub(255, 255, 255);
     twoIntHorzS(550, 760, 580);
@@ -830,15 +833,20 @@ void truck() {
 void commonStuff(){
     DrawCity();
     DrawMainRoad();
-    DrawBank();
-//    DrawMaskSeller();
-    //pedestrianBeforeC(human, humanReverse); // Passing human and humanReverse (without mask, before corona)
+    DrawBank(dummy, dummy); // passing dummy because no rendering of sanitization tunnel or maskseller needed
+    if (corona) {
+        DrawBank(sanitinzationTunnel, bankCoronaNotice);
+        DrawMaskSeller();
+        pedestrian(qhuman, qhumanReverse); // humans with mask
+    }
+    else {
+        pedestrianBeforeC(human, humanReverse); // Passing human and humanReverse (without mask, before corona)
+    }
     plane();
-    if(carv)
-        {
-            truck();
-            cars();
-        }
+    if(carv){
+        truck();
+        cars();
+    }
     if(rain){
         rainfunc();
     }
@@ -941,21 +949,10 @@ void controlsScreen(){
 
 void display(){
     if(day){
-            daymode();
-        if(Corona){}
-        else{
-
-        }
+        daymode();
     }
     else{
         nightmode();
-    if(Corona){
-
-
-        }
-        else{
-
-        }
     }
 }
 
@@ -1044,11 +1041,11 @@ void keyboard(unsigned char key, int x, int y){
         sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP);
     }
 
-    if(key=='q'){
-        Corona=true;
+    if(key == 'q'){
+        corona = true;
     }
-    if(key=='u'){
-        Corona=false;
+    if(key == 'u'){
+        corona = false;
     }
 
 }
