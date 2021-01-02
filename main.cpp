@@ -759,17 +759,15 @@ void cars() {
 void truck() {
     static float truckPosition = 650.0f;
 
-    if(truckPosition <= -1300)
-    {
+    if(truckPosition <= -1300) {
          truckPosition = 550.0f;
     }
-    else
-    {
+    else{
         truckPosition -= truckSpeed;
     }
 
     glColor3ub(0,0,255);
-    //frontbumper
+    //front bumper
     glPushMatrix();
     glTranslatef(truckPosition, 0, 0);
     otherCircle(780.0f,270.0f,0.0f,41.0f,0,0,255);
@@ -777,100 +775,45 @@ void truck() {
 
     quadHorzInt(750, 1000, 230, 280); // x1, x2, y1, y2
 
-    glBegin(GL_QUADS);
-    glVertex3i(750,280,0);
-    glVertex3i(860,280,0);
-    glVertex3i(860,300,0);
-    glVertex3i(750,300,0);
-    glEnd();
+    quadHorzInt(750, 860, 280, 300);
 
-    //window
-    glBegin(GL_QUADS);
-    glVertex3i(750,300,0);
-    glVertex3i(860,300,0);
-    glVertex3i(860,330,0);
-    glVertex3i(800,330,0);
-    glEnd();
+    // window
+    quadHorzInt2(750, 300, 860, 300, 860, 330, 800, 330);
 
     glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(760,300,0);
-    glVertex3i(855,300,0);
-    glVertex3i(855,325,0);
-    glVertex3i(800,325,0);
-    glEnd();
+    quadHorzInt2(760, 300, 855, 300, 855, 325, 800, 325);
 
-    //handle
-    glBegin(GL_QUADS);
-    glVertex3i(840,285,0);
-    glVertex3i(855,285,0);
-    glVertex3i(855,290,0);
-    glVertex3i(840,290,0);
-    glEnd();
+    // handle
+    quadHorzInt(840, 855, 285, 290);
 
-    //gril
+    // grill
     glColor3ub(0,0,0);
-    glBegin(GL_LINES);
-    glVertex3i(860,300,0);
-    glVertex3i(1000,300,0);
-    glVertex3i(860,299,0);
-    glVertex3i(1000,299,0);
-    glVertex3i(1000,300,0);
-    glVertex3i(1000,300,0);
-    glVertex3i(990,300,0);
-    glVertex3i(990,280,0);
-    glVertex3i(980,300,0);
-    glVertex3i(980,280,0);
-    glVertex3i(970,300,0);
-    glVertex3i(970,280,0);
-    glVertex3i(960,300,0);
-    glVertex3i(960,280,0);
-    glVertex3i(950,300,0);
-    glVertex3i(950,280,0);
-    glVertex3i(940,300,0);
-    glVertex3i(940,280,0);
-    glVertex3i(930,300,0);
-    glVertex3i(930,280,0);
-    glVertex3i(920,300,0);
-    glVertex3i(920,280,0);
-    glVertex3i(910,300,0);
-    glVertex3i(910,280,0);
-    glVertex3i(900,300,0);
-    glVertex3i(900,280,0);
-    glVertex3i(890,300,0);
-    glVertex3i(890,280,0);
-    glVertex3i(880,300,0);
-    glVertex3i(880,280,0);
-    glVertex3i(870,300,0);
-    glVertex3i(870,280,0);
-    glEnd();
+    twoIntHorzS(860, 1000, 300);
+    twoIntHorzS(860, 1000, 299);
+    twoIntHorzS(1000, 1000, 300);
 
-    //wheel
+    int gx1 = 1000, gy1 = 280, gy2 = 300;
+    for (int i = 0; i < 14; i++) {
+        twoIntVertS(gy2, gy1, gx1);
+        gx1 -= 10;
+    }
+
+    // wheel
     otherCircle(800.0f,240.0f,0.0f,21.0f,0,0,0);
     otherCircle(800.0f,240.0f,0.0f,15.0f,131,131,131);
     otherCircle(950.0f,240.0f,0.0f,21.0f,0,0,0);
     otherCircle(950.0f,240.0f,0.0f,15.0f,131,131,131);
 
-    //backlight
+    // back light
     glColor3ub(255,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(1000,250,0);
-    glVertex3i(1005,250,0);
-    glVertex3i(1005,260,0);
-    glVertex3i(1000,260,0);
-    glEnd();
+    quadHorzInt(1000, 1005, 250, 260);
 
-    //frontlignt
+    //front light
     glColor3ub(255,255,0);
-    glBegin(GL_QUADS);
-    glVertex3i(740,230,0);
-    glVertex3i(750,230,0);
-    glVertex3i(750,242,0);
-    glVertex3i(740,242,0);
-    glEnd();
+    quadHorzFloat(740, 750, 230, 242);
 
-    //trucklight
-    if(day==false)
+    //truck light
+    if(day == false)
     {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
