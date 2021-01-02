@@ -353,7 +353,7 @@ void DrawCity(){
 
    //gate building 2
 
-    glColor3ub(169, 169, 242);
+    glColor3ub(160, 169, 242);
     quadHorzInt(170,200,420,460);
 
     //gate_lines
@@ -377,7 +377,7 @@ void DrawCity(){
 
 
    //building 1 body
-    glColor3ub(150, 153, 153);
+    glColor3ub(255,182,193);
     quadHorzInt(10,150,420,580);
 
 
