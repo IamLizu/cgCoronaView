@@ -723,9 +723,9 @@ void carBase(int r, int g, int b) {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
         glVertex3i(230,155,0);
-        glVertex3i(280,120,0);
+        glVertex3i(280,155,0);
         glVertex3i(280,195,0);
-        glVertex3i(225,165,0);
+        glVertex3i(230,165,0);
         glEnd();
     }
 
@@ -827,8 +827,8 @@ void truck() {
     {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
-        glVertex3i(680,220,0);
-        glVertex3i(740,220,0);
+        glVertex3i(680,230,0);
+        glVertex3i(740,230,0);
         glVertex3i(740,242,0);
         glVertex3i(680,270,0);
         glEnd();
