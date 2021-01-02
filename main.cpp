@@ -488,10 +488,10 @@ void DrawCity(){
     glVertex2i(365,610);
     glVertex2i(315,610);
     glEnd();
-    glBegin(GL_POLYGON);
+
     glColor3f(255, 0, 0);
     draw_circle(340,590,10);
-    glEnd();
+
 
     //flag stand
     glBegin(GL_POLYGON);
@@ -1201,7 +1201,7 @@ int main(int argc, char** argv){
     glutDisplayFunc(myDisplay);
     glutTimerFunc(ucounter, update, 100); // Add a timer
     glutKeyboardFunc(keyboard); // keyboard handler
-    sndPlaySound("E:\\Compiler\\testing\\TrafficSound.wav",SND_ASYNC|SND_LOOP); // Use directory of the file
+    sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP); // Use directory of the file example "E:\\Compiler\\testing\\TrafficSound.wav"
     myInit ();
     glutMainLoop();
 }
