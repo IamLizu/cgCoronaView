@@ -317,27 +317,16 @@ void DrawCity(){
     DrawCloud();
 
 
-   // Draw Building two
-    glBegin(GL_POLYGON);
+    // Draw Building two
     glColor3ub(153, 51, 51);
-    glVertex2i(120,420);
-    glVertex2i(250,420);
-    glVertex2i(250,630);
-    glVertex2i(120,630);
-    glEnd();
-
+    quadHorzInt(120,250,420,630);
 
 
     int buildingY1=590,buildingY2=593;
     for(int i=0;i<3;i++){
         // floor of building 2
-        glBegin(GL_POLYGON);
         glColor3ub(153, 153, 102);
-        glVertex2i(120,buildingY1);
-        glVertex2i(250,buildingY1);
-        glVertex2i(250,buildingY2);
-        glVertex2i(120,buildingY2);
-        glEnd();
+        quadHorzInt(120,250,buildingY1,buildingY2);
         buildingY1=buildingY1-55;
         buildingY2=buildingY2-55;
     }
@@ -346,14 +335,10 @@ void DrawCity(){
      int b2y1=495,b2y2=520;
     int b2x1=130,b2x2=160;
     for(int j=1;j<7;j++){
-        glBegin(GL_POLYGON);
+
 
         glColor3ub(242, 242, 242);
-        glVertex2i(b2x1,b2y1);
-        glVertex2i(b2x2,b2y1);
-        glVertex2i(b2x2,b2y2);
-        glVertex2i(b2x1,b2y2);
-        glEnd();
+        quadHorzInt(b2x1,b2x2,b2y1,b2y2);
 
         b2x1=b2x1+85;
         b2x2=b2x2+85;
@@ -367,34 +352,22 @@ void DrawCity(){
 
 
    //gate building 2
-    glBegin(GL_POLYGON);
+
     glColor3ub(169, 169, 242);
-    glVertex2i(170,420);
-    glVertex2i(200,420);
-    glVertex2i(200,460);
-    glVertex2i(170,460);
-    glEnd();
+    quadHorzInt(170,200,420,460);
 
     //gate_lines
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(177,420);
-    glVertex2i(180,420);
-    glVertex2i(180,460);
-    glVertex2i(177,460);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(190,420);
-    glVertex2i(193,420);
-    glVertex2i(193,460);
-    glVertex2i(190,460);
-    glEnd();
+    glColor3ub(0, 10, 0);
+    quadHorzInt(177,180,420,460);
+
+    glColor3ub(0, 10, 0);
+    quadHorzInt(190,193,420,460);
 
 
 
     // Draw Building One
 
+    //triangle head
     glBegin(GL_POLYGON);
     glColor3ub(245, 0, 0);
     glVertex2i(5,580);
@@ -402,66 +375,34 @@ void DrawCity(){
     glVertex2i(155,580);
     glEnd();
 
-    glBegin(GL_POLYGON);
+
+   //building 1 body
     glColor3ub(150, 153, 153);
-    glVertex2i(10,420);
-    glVertex2i(150,420);
-    glVertex2i(150,580);
-    glVertex2i(10,580);
-    glEnd();
+    quadHorzInt(10,150,420,580);
 
 
 
     // gate of building one
-    glBegin(GL_POLYGON);
     glColor3ub(169, 169, 242);
-    glVertex2i(62,420);
-    glVertex2i(92,420);
-    glVertex2i(92,468);
-    glVertex2i(62,468);
-    glEnd();
+    quadHorzInt(62,92,420,468);
     //vertical black
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(65,420);
-    glVertex2i(67,420);
-    glVertex2i(67,468);
-    glVertex2i(65,468);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(88,420);
-    glVertex2i(90,420);
-    glVertex2i(90,468);
-    glVertex2i(88,468);
-    glEnd();
+    glColor3ub(0, 10, 0);
+    quadHorzInt(65,67,420,468);
+    glColor3ub(0, 10, 0);
+    quadHorzInt(88,90,420,468);
     //horizontal black
     glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(62,440);
-    glVertex2i(92,440);
-    glVertex2i(92,443);
-    glVertex2i(62,443);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(62,445);
-    glVertex2i(92,445);
-    glVertex2i(92,448);
-    glVertex2i(62,448);
-    glEnd();
+    glColor3ub(0, 10, 0);
+    quadHorzInt(62,92,440,443);
+    glColor3ub(0, 10, 0);
+    quadHorzInt(62,92,445,448);
 
 //windows
     int b1y1=470,b1y2=500;
     int b1x1=15,b1x2=52;
     for(int i=1;i<5;i++){
-        glBegin(GL_POLYGON);
         glColor3ub(242, 242, 242);
-        glVertex2i(b1x1,b1y1);
-        glVertex2i(b1x2,b1y1);
-        glVertex2i(b1x2,b1y2);
-        glVertex2i(b1x1,b1y2);
-        glEnd();
+        quadHorzInt(b1x1,b1x2,b1y1,b1y2);
 
         b1x1=b1x1+85;
         b1x2=b1x2+85;
@@ -475,69 +416,35 @@ void DrawCity(){
 
 
     // Draw Building three
-    glBegin(GL_POLYGON);
     glColor3ub(102, 51, 0);
-    glVertex2i(210,420);
-    glVertex2i(350,420);
-    glVertex2i(350,560);
-    glVertex2i(210,560);
-    glEnd();
+    quadHorzInt(210,350,420,560);
 
      //flag
 
-    glBegin(GL_POLYGON);
+
     glColor3ub(0, 106, 77);
-    glVertex2i(315,570);
-    glVertex2i(365,570);
-    glVertex2i(365,610);
-    glVertex2i(315,610);
-    glEnd();
+    quadHorzInt(315,365,570,610);
 
     glColor3f(255, 0, 0);
     draw_circle(340,590,10);
 
 
     //flag stand
-    glBegin(GL_POLYGON);
+
     glColor3ub(0, 0, 0);
-    glVertex2i(310,560);
-    glVertex2i(315,560);
-    glVertex2i(315,615);
-    glVertex2i(310,615);
-    glEnd();
+    quadHorzInt(310,315,560,615);
 
 
     //building 3 gate
-    glBegin(GL_POLYGON);
     glColor3ub(0, 200, 242);
-    glVertex2i(250,420);
-    glVertex2i(310,420);
-    glVertex2i(310,460);
-    glVertex2i(250,460);
-    glEnd();
+    quadHorzInt(250,310,420,460);
     //horizontal black
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(250,440);
-    glVertex2i(310,440);
-    glVertex2i(310,443);
-    glVertex2i(250,443);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(250,430);
-    glVertex2i(310,430);
-    glVertex2i(310,433);
-    glVertex2i(250,433);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(290,420);
-    glVertex2i(293,420);
-    glVertex2i(293,460);
-    glVertex2i(290,460);
-    glEnd();
-
+    glColor3ub(0, 10, 0);
+    quadHorzInt(250,310,440,443);
+    glColor3ub(0, 10, 0);
+    quadHorzInt(250,310,430,433);
+    glColor3ub(0, 10, 0);
+    quadHorzInt(290,293,420,460);
 
 
 
@@ -547,14 +454,9 @@ void DrawCity(){
     int b3y1=470,b3y2=500;
     int b3x1=220,b3x2=255;
     for(int j=1;j<5;j++){
-        glBegin(GL_POLYGON);
 
         glColor3ub(242, 242, 242);
-        glVertex2i(b3x1,b3y1);
-        glVertex2i(b3x2,b3y1);
-        glVertex2i(b3x2,b3y2);
-        glVertex2i(b3x1,b3y2);
-        glEnd();
+        quadHorzInt(b3x1,b3x2,b3y1,b3y2);
 
         b3x1=b3x1+85;
         b3x2=b3x2+85;
