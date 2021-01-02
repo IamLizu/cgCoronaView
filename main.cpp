@@ -337,8 +337,8 @@ void DrawCity(){
         buildingY1=buildingY1-55;
         buildingY2=buildingY2-55;
     }
-    glEnd();
 
+//building 2 windows
      int b2y1=495,b2y2=520;
     int b2x1=130,b2x2=160;
     for(int j=1;j<7;j++){
@@ -360,7 +360,7 @@ void DrawCity(){
             b2y2=b2y2+50;
         }
     }
-    glEnd();
+
 
    //gate building 2
     glBegin(GL_POLYGON);
@@ -424,7 +424,7 @@ void DrawCity(){
     glVertex2i(67,468);
     glVertex2i(65,468);
     glEnd();
-     glBegin(GL_POLYGON);
+    glBegin(GL_POLYGON);
     glColor3ub(0, 0, 0);
     glVertex2i(88,420);
     glVertex2i(90,420);
@@ -469,6 +469,7 @@ void DrawCity(){
         }
     }
 
+
     // Draw Building three
     glBegin(GL_POLYGON);
     glColor3ub(102, 51, 0);
@@ -487,6 +488,7 @@ void DrawCity(){
     glVertex2i(365,610);
     glVertex2i(315,610);
     glEnd();
+    glBegin(GL_POLYGON);
     glColor3f(255, 0, 0);
     draw_circle(340,590,10);
     glEnd();
@@ -559,6 +561,7 @@ void DrawCity(){
             b3y2=b3y2+45;
         }
     }
+
 }
 
 // Rain
@@ -1092,7 +1095,7 @@ void startscreen(void){
     drawstring(50,400,0.0,"HASAN, S. M. MAHMUDUL   (17-35752-3)");
     drawstring(50,350,0.0,"RAFAT,RIZWAN KARIM           (17-33609-1)");
     drawstring(50,300,0.0,"RAFA,HUMAYARA CHOWDHURY      (17-35413-3)");
-    drawstring(50,250,0.0,"UDOY,IKTEDAR AHMED      (17-35667-3)");
+    drawstring(50,250,0.0,"UDOY,IKTEDER AKHAND      (17-35667-3)");
     glColor3f(1,0.5,0);
     drawstring(600,500,0.0,"SUBMITTED TO:");
     glColor3f(1,1,1);
@@ -1198,7 +1201,7 @@ int main(int argc, char** argv){
     glutDisplayFunc(myDisplay);
     glutTimerFunc(ucounter, update, 100); // Add a timer
     glutKeyboardFunc(keyboard); // keyboard handler
-    sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP);
+    sndPlaySound("E:\\Compiler\\testing\\TrafficSound.wav",SND_ASYNC|SND_LOOP); // Use directory of the file
     myInit ();
     glutMainLoop();
 }
