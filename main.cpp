@@ -1040,13 +1040,15 @@ void keyboard(unsigned char key, int x, int y){
     // Stops all car
     if (key == '.') {
         sndPlaySound(NULL, SND_ASYNC|SND_LOOP);
-        tempTruckSpeed = truckSpeed;
+
+        if (car2Speed != 0.0f) {
+            tempTruckSpeed = truckSpeed;
+            tempCar1Speed = car1Speed;
+            tempCar2Speed = car2Speed;
+        }
+
         truckSpeed = 0.0f;
-
-        tempCar1Speed = car1Speed;
         car1Speed = 0.0f;
-
-        tempCar2Speed = car2Speed;
         car2Speed = 0.0f;
     }
     if (key == ',') {
