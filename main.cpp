@@ -911,7 +911,6 @@ void controlsScreen(){
     glColor3f(0.596, 0.984, 0.596);
     drawstring(250.0,700.0,0.0,"INSTRUCTIONS");
     glColor3f(1.000, 0.980, 0.941);
-
     drawstring(150.0,640.0,0.0,"PRESS 'D'");
     glColor3f(1.000, 0.980, 0.941);
     drawstring(300.0,640.0,0.0,"DAY MODE");
@@ -922,7 +921,7 @@ void controlsScreen(){
     glColor3f(1.000, 0.980, 0.941);
     drawstring(150.0,600.0,0.0,"PRESS 'N'");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(300.0,560.0,0.0,"CAR MOVING");
+    drawstring(300.0,560.0,0.0,"CAR APPEAR");
     glColor3f(1.000, 0.980, 0.941);
     drawstring(150.0,560.0,0.0,"PRESS 'C'");
     glColor3f(1.000, 0.980, 0.941);
@@ -942,15 +941,25 @@ void controlsScreen(){
     glColor3f(1.000, 0.980, 0.941);
     drawstring(150.0,400.0,0.0,"PRESS 'U'");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(300.0,360.0,0.0,"Help");
+    drawstring(300.0,360.0,0.0,"CAR STOP");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(150.0,360.0,0.0,"PRESS 'H'");
+    drawstring(150.0,360.0,0.0,"PRESS '.'");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(300.0,320.0,0.0,"Escape");
+    drawstring(300.0,320.0,0.0,"CAR MOVE");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(150.0,320.0,0.0,"PRESS 'ESC'");
+    drawstring(150.0,320.0,0.0,"PRESS ','");
+    drawstring(300.0,280.0,0.0,"CAR DISSAPEAR");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,280.0,0.0,"PRESS 'V'");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(300.0,240.0,0.0,"HELP");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,240.0,0.0,"PRESS 'H'");
+    drawstring(300.0,200.0,0.0,"ClOSE PROJECT");
+    glColor3f(1.000, 0.980, 0.941);
+    drawstring(150.0,200.0,0.0,"PRESS 'ESC'");
     glColor3f(0.596, 0.984, 0.596);
-    drawstring(250.0,200.0,0.0,"NOW PRESS ENTER");
+    drawstring(250.0,150.0,0.0,"NOW PRESS ENTER");
     glFlush();
 }
 
@@ -1063,6 +1072,9 @@ void keyboard(unsigned char key, int x, int y){
     }
     if(key == 'u'){
         corona = false;
+    }
+    if(key==27){
+        exit(0);
     }
 
 }
