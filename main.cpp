@@ -6,11 +6,13 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <math.h>
+#include <functional>
 
 int ucounter = 25; // update counter
 bool rain;
 bool carv=false;
 bool day = true;
+bool corona =false;
 float move_cloud=0;
 float move_dust=0;
 void *currentfont;
@@ -18,6 +20,15 @@ void *currentfont;
 // Truck Movement
 static float truckSpeed = 0.2f;
 static float tempTruckSpeed;
+
+// Car Movement
+static float car1Speed = 0.2f;
+static float tempCar1Speed;
+
+static float car2Speed = 0.2f;
+static float tempCar2Speed;
+
+void dummy(void){} // does nothing
 
 void drawPixelInt(int x, int y) {
     glBegin(GL_POINTS);
@@ -186,67 +197,169 @@ void humanReverse(int shiftX, int shiftY){
     twoIntVertS(365 + shiftX, 345 + shiftX, 104 + shiftY);
 }
 
-void pedestrian() {
+void qhuman(int shiftX, int shiftY){
+    glColor3ub(127, 187, 6);
+    quadHorzInt2(100 + shiftX, 350 + shiftY, 110 + shiftX, 365 + shiftY, 110 + shiftX, 390 + shiftY, 100 + shiftX, 380 + shiftY); // main body
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 107 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 106 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 105 + shiftX);
+    quadHorzInt2(100 + shiftX, 388 + shiftY, 110 + shiftX, 395 + shiftY, 110 + shiftX, 405 + shiftY, 98 + shiftX, 400 + shiftY); // head
+    glColor3ub(255,255,255);
+    quadHorzInt2(100 + shiftX, 388 + shiftY, 110 + shiftX, 395 + shiftY, 110 + shiftX, 400 + shiftY, 100 + shiftX, 394 + shiftY);  // mask
+    glColor3ub(127, 187, 6);
+
+    twoIntVertS(355 + shiftX, 340 + shiftX, 104 + shiftY); // left leg
+    twoIntVertS(355 + shiftX, 340 + shiftX, 103 + shiftY);
+
+    twoIntVertS(365 + shiftX, 345 + shiftX, 107 + shiftY); // right leg
+    twoIntVertS(365 + shiftX, 345 + shiftX, 108 + shiftY);
+}
+
+void qhumanReverse(int shiftX, int shiftY){
+    glColor3ub(127, 187, 6);
+    quadHorzInt2(100 + shiftX, 365 + shiftY, 110 + shiftX, 350 + shiftY, 110 + shiftX, 380 + shiftY, 100 + shiftX, 390 + shiftY); // main body
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 107 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 106 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 105 + shiftX);
+    quadHorzInt2(100 + shiftX, 395 + shiftY, 110 + shiftX, 388 + shiftY, 110 + shiftX, 400 + shiftY, 100 + shiftX, 405 + shiftY); // head
+    glColor3ub(255, 255, 255);
+    quadHorzInt2(100 + shiftX, 395 + shiftY, 109 + shiftX, 388 + shiftY, 109 + shiftX, 395 + shiftY, 100 + shiftX, 400 + shiftY);///,mask
+    glColor3ub(127, 187, 6);
+    twoIntVertS(355 + shiftX, 340 + shiftX, 107 + shiftY); // left leg
+    twoIntVertS(355 + shiftX, 340 + shiftX, 108 + shiftY);
+
+    twoIntVertS(365 + shiftX, 345 + shiftX, 103 + shiftY); // right leg
+    twoIntVertS(365 + shiftX, 345 + shiftX, 104 + shiftY);
+}
+
+template <class T>
+void pedestrian(T func, T func2) { // Takes two function as param
     static float humanTFactX1 = -100.0f; // pedestrian 1 translation factor X
     static float humanTFactX2 = -400.0f; // pedestrian 2 translation factor X
     static float humanTFactX3 = 900.0f; // pedestrian 3 translation factor X
-    static float humanTFactX4 = -800.0f; // pedestrian 4 translation factor X
+    static float humanTFactX4 = -650.0f; // pedestrian 4 translation factor X
 
     if(humanTFactX1 >= 900) {
          humanTFactX1 = -100.0f;
-
     } else {
         humanTFactX1 += 0.05f;
     }
 
     if(humanTFactX2 >= 900) {
          humanTFactX2 = -400.0f;
-
     } else {
         humanTFactX2 += 0.05f;
     }
 
     if(humanTFactX3 <= -100) {
          humanTFactX3 = 900.0f;
-
     } else {
         humanTFactX3 -= 0.05f;
     }
 
     if(humanTFactX4 >= 900) {
-         humanTFactX4 = -800.0f;
-
+         humanTFactX4 = -650.0f;
     } else {
         humanTFactX4 += 0.05f;
     }
 
-//    glColor3ub(201, 198, 185);
-    glColor3ub(0, 0, 0);
+   glColor3ub(127, 187, 6);
+
 
     glPushMatrix();
     glTranslatef(humanTFactX1, 0, 0);
-    human(0, 0);
+    func(0, 0);
     glPopMatrix();
     glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX2, 0, 0);
-    human(20, 20);
+    func(20, 20);
     glPopMatrix();
     glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX3, 0, 0);
-    humanReverse(-20, -20);
+    func2(-20, -20);
     glPopMatrix();
     glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX4, 0, 0);
-    human(20, 20);
+    func(20, 20);
+    glPopMatrix();
+    glutPostRedisplay();
+}
+
+template <class T>
+void pedestrianBeforeC(T func, T func2) { // Takes two function as param
+    pedestrian(human, humanReverse);
+
+    static float humanTFactX1 = -300.0f; // pedestrian 1 translation factor X
+    static float humanTFactX3 = 900.0f; // pedestrian 3 translation factor X
+    static float humanTFactX4 = -300.0f; // pedestrian 4 translation factor X
+    static float humanTFactX5 = -900.0f; // pedestrian 5 translation factor X
+    static float humanTFactX6 = 1200.0f; // pedestrian 6 translation factor X
+
+    if(humanTFactX1 >= 900) {
+         humanTFactX1 = -100.0f;
+    } else {
+        humanTFactX1 += 0.05f;
+    }
+
+    if(humanTFactX3 <= -100) {
+         humanTFactX3 = 900.0f;
+    } else {
+        humanTFactX3 -= 0.05f;
+    }
+
+    if(humanTFactX4 >= 900) {
+         humanTFactX4 = -100.0f;
+    } else {
+        humanTFactX4 += 0.05f;
+    }
+
+    if(humanTFactX5 >= 900) {
+         humanTFactX5 = -900.0f;
+    } else {
+        humanTFactX5 += 0.05f;
+    }
+
+    if(humanTFactX6 <= -100) {
+         humanTFactX6 = 1200.0f;
+    } else {
+        humanTFactX6 -= 0.05f;
+    }
+
+    glPushMatrix();
+    glTranslatef(humanTFactX1, 0, 0);
+    func(0, 0);
     glPopMatrix();
     glutPostRedisplay();
 
+    glPushMatrix();
+    glTranslatef(humanTFactX3, 0, 0);
+    func2(40, 40);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(humanTFactX4, 0, 0);
+    func(20, 20);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(humanTFactX5, 0, 0);
+    func(20, 20);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(humanTFactX6, 0, 0);
+    func2(-20, -20);
+    glPopMatrix();
+    glutPostRedisplay();
 }
 
 void DrawMainRoad(){
@@ -257,9 +370,8 @@ void DrawMainRoad(){
     glColor3ub(153, 102, 51);
     quadHorzInt(0, 800, 315, 420); // Footpath
 
-   // glColor3b(0,0,0);
-   // quadHorzInt(0,800,419,420);//footpath upper border
-
+    glColor3b(0,0,0);
+    quadHorzInt(0,800,419,420);//footpath upper border
 
     // road divider
     glColor3f(1.0, 1.0, 1.0);
@@ -273,26 +385,19 @@ void DrawMainRoad(){
     roadBar(305, 10);
     // bottom Road Side Bar
     roadBar(100, 10);
-
-//    // Top Road Side Bar
-//    glBegin(GL_LINES);
-//    glLineWidth(5);
-//    glColor3f(204, 153, 0); // yellow color
-//    glVertex2i(0,420);
-//    glVertex2i(800, 420);
-//    glEnd();
 }
 
-void DrawCloud(){
-    // Draw cloud
-    glColor3f(255, 255, 255);   //cloud color
-    draw_circle(100+move_cloud,730,33);
-    draw_circle(55+move_cloud,730,23);
-    draw_circle(145+move_cloud,730,23);
+void drawCloud(int r, int g, int b){
+    // Cloud 1
+    glColor3ub(r, g, b);
+    draw_circle(100 + move_cloud, 730, 33);
+    draw_circle(55 + move_cloud, 730, 23);
+    draw_circle(145 + move_cloud, 730, 23);
 
-    draw_circle(400+move_cloud,730,33);
-    draw_circle(355+move_cloud,730,23);
-    draw_circle(445+move_cloud,730,23);
+    // Cloud 2
+    draw_circle(400 + move_cloud, 730, 33);
+    draw_circle(355 + move_cloud, 730, 23);
+    draw_circle(445 + move_cloud, 730, 23);
 }
 
 void drawSun(){
@@ -306,38 +411,16 @@ void drawMoon(){
 }
 
 void DrawCity(){
-    // Draw Sun
-    if(day){
-        drawSun(); // sun on the day
-    }
-    else{
-        drawMoon(); // moon on the night
-    }
-
-    DrawCloud();
-
-
-   // Draw Building two
-    glBegin(GL_POLYGON);
+    // Draw Building two
     glColor3ub(153, 51, 51);
-    glVertex2i(120,420);
-    glVertex2i(250,420);
-    glVertex2i(250,630);
-    glVertex2i(120,630);
-    glEnd();
-
+    quadHorzInt(120,250,420,630);
 
 
     int buildingY1=590,buildingY2=593;
     for(int i=0;i<3;i++){
         // floor of building 2
-        glBegin(GL_POLYGON);
         glColor3ub(153, 153, 102);
-        glVertex2i(120,buildingY1);
-        glVertex2i(250,buildingY1);
-        glVertex2i(250,buildingY2);
-        glVertex2i(120,buildingY2);
-        glEnd();
+        quadHorzInt(120,250,buildingY1,buildingY2);
         buildingY1=buildingY1-55;
         buildingY2=buildingY2-55;
     }
@@ -346,14 +429,10 @@ void DrawCity(){
      int b2y1=495,b2y2=520;
     int b2x1=130,b2x2=160;
     for(int j=1;j<7;j++){
-        glBegin(GL_POLYGON);
+
 
         glColor3ub(242, 242, 242);
-        glVertex2i(b2x1,b2y1);
-        glVertex2i(b2x2,b2y1);
-        glVertex2i(b2x2,b2y2);
-        glVertex2i(b2x1,b2y2);
-        glEnd();
+        quadHorzInt(b2x1,b2x2,b2y1,b2y2);
 
         b2x1=b2x1+85;
         b2x2=b2x2+85;
@@ -367,101 +446,42 @@ void DrawCity(){
 
 
    //gate building 2
-    glBegin(GL_POLYGON);
-    glColor3ub(169, 169, 242);
-    glVertex2i(170,420);
-    glVertex2i(200,420);
-    glVertex2i(200,460);
-    glVertex2i(170,460);
-    glEnd();
+
+    glColor3ub(88, 86, 85);
+    quadHorzInt(170,200,420,460);
 
     //gate_lines
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(177,420);
-    glVertex2i(180,420);
-    glVertex2i(180,460);
-    glVertex2i(177,460);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(190,420);
-    glVertex2i(193,420);
-    glVertex2i(193,460);
-    glVertex2i(190,460);
-    glEnd();
-
-
+    glColor3ub(0, 10, 0);
+    quadHorzInt(177,180,420,460);
+    quadHorzInt(190,193,420,460);
 
     // Draw Building One
 
-    glBegin(GL_POLYGON);
-    glColor3ub(245, 0, 0);
-    glVertex2i(5,580);
-    glVertex2i(80,625);
-    glVertex2i(155,580);
-    glEnd();
+    //triangle head
+    glColor3ub(236, 238, 58);
+    triangleNS(5,580,80,625,155,580);
 
-    glBegin(GL_POLYGON);
-    glColor3ub(150, 153, 153);
-    glVertex2i(10,420);
-    glVertex2i(150,420);
-    glVertex2i(150,580);
-    glVertex2i(10,580);
-    glEnd();
-
-
+   //building 1 body
+    glColor3ub(201, 195, 200);
+    quadHorzInt(10,150,420,580);
 
     // gate of building one
-    glBegin(GL_POLYGON);
-    glColor3ub(169, 169, 242);
-    glVertex2i(62,420);
-    glVertex2i(92,420);
-    glVertex2i(92,468);
-    glVertex2i(62,468);
-    glEnd();
+    glColor3ub(88, 86, 85);
+    quadHorzInt(62,92,420,468);
     //vertical black
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(65,420);
-    glVertex2i(67,420);
-    glVertex2i(67,468);
-    glVertex2i(65,468);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(88,420);
-    glVertex2i(90,420);
-    glVertex2i(90,468);
-    glVertex2i(88,468);
-    glEnd();
+    glColor3ub(0, 10, 0);
+    quadHorzInt(65,67,420,468);
+    quadHorzInt(88,90,420,468);
     //horizontal black
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(62,440);
-    glVertex2i(92,440);
-    glVertex2i(92,443);
-    glVertex2i(62,443);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(62,445);
-    glVertex2i(92,445);
-    glVertex2i(92,448);
-    glVertex2i(62,448);
-    glEnd();
+    quadHorzInt(62,92,440,443);
+    quadHorzInt(62,92,445,448);
 
 //windows
     int b1y1=470,b1y2=500;
     int b1x1=15,b1x2=52;
     for(int i=1;i<5;i++){
-        glBegin(GL_POLYGON);
         glColor3ub(242, 242, 242);
-        glVertex2i(b1x1,b1y1);
-        glVertex2i(b1x2,b1y1);
-        glVertex2i(b1x2,b1y2);
-        glVertex2i(b1x1,b1y2);
-        glEnd();
+        quadHorzInt(b1x1,b1x2,b1y1,b1y2);
 
         b1x1=b1x1+85;
         b1x2=b1x2+85;
@@ -473,88 +493,37 @@ void DrawCity(){
         }
     }
 
-
     // Draw Building three
-    glBegin(GL_POLYGON);
     glColor3ub(102, 51, 0);
-    glVertex2i(210,420);
-    glVertex2i(350,420);
-    glVertex2i(350,560);
-    glVertex2i(210,560);
-    glEnd();
+    quadHorzInt(210,350,420,560);
 
      //flag
-
-    glBegin(GL_POLYGON);
     glColor3ub(0, 106, 77);
-    glVertex2i(315,570);
-    glVertex2i(365,570);
-    glVertex2i(365,610);
-    glVertex2i(315,610);
-    glEnd();
+    quadHorzInt(315,365,570,610);
 
     glColor3f(255, 0, 0);
     draw_circle(340,590,10);
 
-
     //flag stand
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(310,560);
-    glVertex2i(315,560);
-    glVertex2i(315,615);
-    glVertex2i(310,615);
-    glEnd();
-
+    glColor3ub(0, 0, 128);
+    quadHorzInt(310,315,560,615);
 
     //building 3 gate
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 200, 242);
-    glVertex2i(250,420);
-    glVertex2i(310,420);
-    glVertex2i(310,460);
-    glVertex2i(250,460);
-    glEnd();
+    glColor3ub(88, 86, 85);
+    quadHorzInt(250,310,420,460);
     //horizontal black
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(250,440);
-    glVertex2i(310,440);
-    glVertex2i(310,443);
-    glVertex2i(250,443);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(250,430);
-    glVertex2i(310,430);
-    glVertex2i(310,433);
-    glVertex2i(250,433);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glColor3ub(0, 0, 0);
-    glVertex2i(290,420);
-    glVertex2i(293,420);
-    glVertex2i(293,460);
-    glVertex2i(290,460);
-    glEnd();
+    glColor3ub(0, 10, 0);
+    quadHorzInt(250,310,440,443);
+    quadHorzInt(250,310,430,433);
+    quadHorzInt(290,293,420,460);
 
-
-
-
-
-
-//windows
+    //windows
     int b3y1=470,b3y2=500;
     int b3x1=220,b3x2=255;
     for(int j=1;j<5;j++){
-        glBegin(GL_POLYGON);
 
         glColor3ub(242, 242, 242);
-        glVertex2i(b3x1,b3y1);
-        glVertex2i(b3x2,b3y1);
-        glVertex2i(b3x2,b3y2);
-        glVertex2i(b3x1,b3y2);
-        glEnd();
+        quadHorzInt(b3x1,b3x2,b3y1,b3y2);
 
         b3x1=b3x1+85;
         b3x2=b3x2+85;
@@ -605,22 +574,36 @@ void rainfunc(){
     glutPostRedisplay();
 }
 
-// Bank
-void DrawBank(){
-    quadHorzInt(460, 580, 420, 480); // sanitation tunnel
+void sanitinzationTunnel() {
+    glColor3ub(242, 242, 242);
+    quadHorzInt(450, 580, 420, 480); // sanitation tunnel
     setFont(GLUT_BITMAP_HELVETICA_18);
     glColor3f(0, 0, 0);
-    drawstring(465.0,455.0,0.0,"Sanitation");
-    drawstring(465.0,435.0,0.0,"tunnel");
+    drawstring(455.0,455.0,0.0,"Sanitization");
+    drawstring(455.0,435.0,0.0,"tunnel");
 
     // human tall
-    glColor3b(0, 0, 0);
-    draw_circle(448, 465, 7);
-    quadHorzInt(445, 450, 420, 460);
+    draw_circle(440, 465, 7);
+    quadHorzInt(437, 442, 420, 460);
 
     // human small
-    draw_circle(413, 455, 7);
-    quadHorzInt(410, 415, 420, 455);
+    draw_circle(405, 455, 7);
+    quadHorzInt(402, 407, 420, 455);
+}
+
+void bankCoronaNotice() {
+    twoIntVertS(615, 600, 565); // board right pillar
+    twoIntVertS(615, 600, 745); // board left pillar
+
+    quadHorzInt(550, 760, 615, 640); // noticeboard
+    glColor3f(255, 255, 255);
+    drawstring(570.0, 620.0, 0.0,"No Mask No Service");
+}
+
+// Bank
+template <class T>
+void DrawBank(T func1, T func2){ // render based on before and after corona
+    func1(); // placeholder for sanitizationTunnel
 
     glColor3ub(231, 226, 57);
     quadHorzInt(580, 730, 420, 580); // Main body
@@ -629,12 +612,7 @@ void DrawBank(){
     quadHorzInt(550, 580, 420, 600); // bank right pillar
     quadHorzInt(730, 760, 420, 600); // bank left pillar
 
-    twoIntVertS(615, 600, 565); // board right pillar
-    twoIntVertS(615, 600, 745); // board left pillar
-
-    quadHorzInt(550, 760, 615, 640); // noticeboard
-    glColor3f(255, 255, 255);
-    drawstring(570.0, 620.0, 0.0,"No Mask No Service");
+    func2(); // placeholder for bankCoronaNotice
 
     glColor3ub(255, 255, 255);
     twoIntHorzS(550, 760, 580);
@@ -716,85 +694,31 @@ void otherCircle(GLfloat x, GLfloat y,GLfloat z, GLfloat radius,int r,int g,int 
 	glEnd();
 }
 
-void car()
-{
-    static float a=-400.0f;
-    if(a>=1324)
-    {
-         a=-400.0f;
+void carBase(int r, int g, int b) {
+    glColor3ub(r, g, b);
+    quadHorzInt(20, 220, 140, 180); // lower part
 
-    }
-    else
-    {
-        a+=0.2f;
-        //glColor3ub(r,g,b);
-    }
-    glColor3ub(255,0,0);
-    glPushMatrix();
-    glTranslatef(a,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(20,140,0);
-    glVertex3i(220,140,0);
-    glVertex3i(220,180,0);
-    glVertex3i(20,180,0);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex3i(40,180,0);
-    glVertex3i(200,180,0);
-    glVertex3i(160,210,0);
-    glVertex3i(80,210,0);
-    glEnd();
+    quadHorzInt2(40, 180, 200, 180, 160, 210, 80, 210); // body higher part
 
     glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(115,180,0);
-    glVertex3i(190,180,0);
-    glVertex3i(155,205,0);
-    glVertex3i(115,205,0);
-    glEnd();
+    quadHorzInt2(115, 180, 190, 180, 155, 205, 115, 205); // car window front
 
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(45,180,0);
-    glVertex3i(110,180,0);
-    glVertex3i(110,205,0);
-    glVertex3i(80,205,0);
-    glEnd();
+    quadHorzInt2(45, 180, 110, 180, 110, 205, 80, 205); // car window back
 
-    //handle
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(115,170,0);
-    glVertex3i(135,170,0);
-    glVertex3i(135,175,0);
-    glVertex3i(115,175,0);
-    glEnd();
+    quadHorzInt(115, 135, 170, 175); // handle front
 
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(45,170,0);
-    glVertex3i(65,170,0);
-    glVertex3i(65,175,0);
-    glVertex3i(45,175,0);
-    glEnd();
+    quadHorzInt(45, 65, 170, 175); // handle back
 
-    //backbumper
-    otherCircle(30.0f,160.0f,0.0f,19.0f,255,0,0);
-    //front bumper
-    otherCircle(210.0f,160.0f,0.0f,19.0f,255,0,0);
+    otherCircle(30.0f,160.0f,0.0f,19.0f, r, g, b); // back bumper
 
-//Light
+    otherCircle(210.0f,160.0f,0.0f,19.0f, r, g, b); // front bumper
+
+    // Light
     glColor3ub(250,250,0);
-    glBegin(GL_QUADS);
-    glVertex3i(225,155,0);
-    glVertex3i(230,155,0);
-    glVertex3i(230,165,0);
-    glVertex3i(225,165,0);
-    glEnd();
+    quadHorzInt(225, 230, 155, 165);
 
-    //carlight
-    if(day==false)
+    // car light
+    if(day == false)
     {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
@@ -809,124 +733,51 @@ void car()
     otherCircle(60.0f,140.0f,0.0f,10.0f,137,137,137);
     otherCircle(170.0f,140.0f,0.0f,18.0f,0,0,0);
     otherCircle(170.0f,140.0f,0.0f,10.0f,137,137,137);
-
-    glPopMatrix();
-    glutPostRedisplay();
 }
 
+void cars() {
+    static float car1Position = -400.0f;
+    static float car2Position = -800.0f;
 
-void car2()
-{
-    static float a=-800.0f;
-    if(a>=1324)
-    {
-         a=-800.0f;
+    if(car1Position >= 1324){
+         car1Position = -400.0f;
+    }
+    else {
+        car1Position += car1Speed;
+    }
 
+    if(car2Position >= 1324){
+         car2Position = -800.0f;
     }
-    else
-    {
-        a+=0.2f;
-        //glColor3ub(r,g,b);
+    else {
+        car2Position += car2Speed;
     }
-    glColor3ub(0,0,255);
+
     glPushMatrix();
-    glTranslatef(a,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(20,140,0);
-    glVertex3i(220,140,0);
-    glVertex3i(220,180,0);
-    glVertex3i(20,180,0);
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex3i(40,180,0);
-    glVertex3i(200,180,0);
-    glVertex3i(160,210,0);
-    glVertex3i(80,210,0);
-    glEnd();
-
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(115,180,0);
-    glVertex3i(190,180,0);
-    glVertex3i(155,205,0);
-    glVertex3i(115,205,0);
-    glEnd();
-
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(45,180,0);
-    glVertex3i(110,180,0);
-    glVertex3i(110,205,0);
-    glVertex3i(80,205,0);
-    glEnd();
-
-    //handle
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(115,170,0);
-    glVertex3i(135,170,0);
-    glVertex3i(135,175,0);
-    glVertex3i(115,175,0);
-    glEnd();
-
-    glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(45,170,0);
-    glVertex3i(65,170,0);
-    glVertex3i(65,175,0);
-    glVertex3i(45,175,0);
-    glEnd();
-
-    //backbumper
-    otherCircle(30.0f,160.0f,0.0f,19.0f,0,0,255);
-    //front bumper
-    otherCircle(210.0f,160.0f,0.0f,19.0f,0,0,255);
-
-//Light
-    glColor3ub(250,250,0);
-    glBegin(GL_QUADS);
-    glVertex3i(225,155,0);
-    glVertex3i(230,155,0);
-    glVertex3i(230,165,0);
-    glVertex3i(225,165,0);
-    glEnd();
-
-    //carlight
-    if(day==false)
-    {
-        glColor3ub(200,200,200);
-        glBegin(GL_QUADS);
-        glVertex3i(230,155,0);
-        glVertex3i(280,120,0);
-        glVertex3i(280,195,0);
-        glVertex3i(225,165,0);
-        glEnd();
-    }
-
-    otherCircle(60.0f,140.0f,0.0f,18.0f,0,0,0);
-    otherCircle(60.0f,140.0f,0.0f,10.0f,137,137,137);
-    otherCircle(170.0f,140.0f,0.0f,18.0f,0,0,0);
-    otherCircle(170.0f,140.0f,0.0f,10.0f,137,137,137);
-
+    glTranslatef(car1Position, 0, 0);
+    carBase(255, 0, 0);
     glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(car2Position, 0, 0);
+    carBase(0, 0, 255);
+    glPopMatrix();
+
     glutPostRedisplay();
 }
 
 void truck() {
     static float truckPosition = 650.0f;
 
-    if(truckPosition <= -1300)
-    {
+    if(truckPosition <= -1300) {
          truckPosition = 550.0f;
     }
-    else
-    {
+    else{
         truckPosition -= truckSpeed;
     }
 
     glColor3ub(0,0,255);
-    //frontbumper
+    //front bumper
     glPushMatrix();
     glTranslatef(truckPosition, 0, 0);
     otherCircle(780.0f,270.0f,0.0f,41.0f,0,0,255);
@@ -934,100 +785,45 @@ void truck() {
 
     quadHorzInt(750, 1000, 230, 280); // x1, x2, y1, y2
 
-    glBegin(GL_QUADS);
-    glVertex3i(750,280,0);
-    glVertex3i(860,280,0);
-    glVertex3i(860,300,0);
-    glVertex3i(750,300,0);
-    glEnd();
+    quadHorzInt(750, 860, 280, 300);
 
-    //window
-    glBegin(GL_QUADS);
-    glVertex3i(750,300,0);
-    glVertex3i(860,300,0);
-    glVertex3i(860,330,0);
-    glVertex3i(800,330,0);
-    glEnd();
+    // window
+    quadHorzInt2(750, 300, 860, 300, 860, 330, 800, 330);
 
     glColor3ub(0,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(760,300,0);
-    glVertex3i(855,300,0);
-    glVertex3i(855,325,0);
-    glVertex3i(800,325,0);
-    glEnd();
+    quadHorzInt2(760, 300, 855, 300, 855, 325, 800, 325);
 
-    //handle
-    glBegin(GL_QUADS);
-    glVertex3i(840,285,0);
-    glVertex3i(855,285,0);
-    glVertex3i(855,290,0);
-    glVertex3i(840,290,0);
-    glEnd();
+    // handle
+    quadHorzInt(840, 855, 285, 290);
 
-    //gril
+    // grill
     glColor3ub(0,0,0);
-    glBegin(GL_LINES);
-    glVertex3i(860,300,0);
-    glVertex3i(1000,300,0);
-    glVertex3i(860,299,0);
-    glVertex3i(1000,299,0);
-    glVertex3i(1000,300,0);
-    glVertex3i(1000,300,0);
-    glVertex3i(990,300,0);
-    glVertex3i(990,280,0);
-    glVertex3i(980,300,0);
-    glVertex3i(980,280,0);
-    glVertex3i(970,300,0);
-    glVertex3i(970,280,0);
-    glVertex3i(960,300,0);
-    glVertex3i(960,280,0);
-    glVertex3i(950,300,0);
-    glVertex3i(950,280,0);
-    glVertex3i(940,300,0);
-    glVertex3i(940,280,0);
-    glVertex3i(930,300,0);
-    glVertex3i(930,280,0);
-    glVertex3i(920,300,0);
-    glVertex3i(920,280,0);
-    glVertex3i(910,300,0);
-    glVertex3i(910,280,0);
-    glVertex3i(900,300,0);
-    glVertex3i(900,280,0);
-    glVertex3i(890,300,0);
-    glVertex3i(890,280,0);
-    glVertex3i(880,300,0);
-    glVertex3i(880,280,0);
-    glVertex3i(870,300,0);
-    glVertex3i(870,280,0);
-    glEnd();
+    twoIntHorzS(860, 1000, 300);
+    twoIntHorzS(860, 1000, 299);
+    twoIntHorzS(1000, 1000, 300);
 
-    //wheel
+    int gx1 = 1000, gy1 = 280, gy2 = 300;
+    for (int i = 0; i < 14; i++) {
+        twoIntVertS(gy2, gy1, gx1);
+        gx1 -= 10;
+    }
+
+    // wheel
     otherCircle(800.0f,240.0f,0.0f,21.0f,0,0,0);
     otherCircle(800.0f,240.0f,0.0f,15.0f,131,131,131);
     otherCircle(950.0f,240.0f,0.0f,21.0f,0,0,0);
     otherCircle(950.0f,240.0f,0.0f,15.0f,131,131,131);
 
-    //backlight
+    // back light
     glColor3ub(255,0,0);
-    glBegin(GL_QUADS);
-    glVertex3i(1000,250,0);
-    glVertex3i(1005,250,0);
-    glVertex3i(1005,260,0);
-    glVertex3i(1000,260,0);
-    glEnd();
+    quadHorzInt(1000, 1005, 250, 260);
 
-    //frontlignt
+    //front light
     glColor3ub(255,255,0);
-    glBegin(GL_QUADS);
-    glVertex3i(740,230,0);
-    glVertex3i(750,230,0);
-    glVertex3i(750,242,0);
-    glVertex3i(740,242,0);
-    glEnd();
+    quadHorzFloat(740, 750, 230, 242);
 
-    //trucklight
-    if(day==false)
+    //truck light
+    if(day == false)
     {
         glColor3ub(200,200,200);
         glBegin(GL_QUADS);
@@ -1044,27 +840,35 @@ void truck() {
 void commonStuff(){
     DrawCity();
     DrawMainRoad();
-    DrawBank();
-    DrawMaskSeller();
-    pedestrian();
+    DrawBank(dummy, dummy); // passing dummy because no rendering of sanitization tunnel or maskseller needed
+    if (corona) {
+        DrawBank(sanitinzationTunnel, bankCoronaNotice);
+        DrawMaskSeller();
+        pedestrian(qhuman, qhumanReverse); // humans with mask
+    }
+    else {
+        pedestrianBeforeC(human, humanReverse); // Passing human and humanReverse (without mask, before corona)
+    }
     plane();
-    if(carv)
-        {
-            truck();
-            car();
-            car2();
-        }
+    if(carv){
+        truck();
+        cars();
+    }
     if(rain){
         rainfunc();
     }
 }
 
 void daymode(){
+    drawSun();
+    drawCloud(255, 255, 255);
     glClearColor(0.0,0.7,1.5,0.0);
     commonStuff();
 }
 
 void nightmode(){
+    drawMoon();
+    drawCloud(232, 225, 224);
     glClearColor(0.0,0.0,0.0,0.0);
     commonStuff();
 }
@@ -1107,8 +911,7 @@ void controlsScreen(){
     glColor3f(0.596, 0.984, 0.596);
     drawstring(250.0,700.0,0.0,"INSTRUCTIONS");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(300.0,640.0,0.0,"DAY MODE");
-    glColor3f(1.000, 0.980, 0.941);
+
     drawstring(150.0,640.0,0.0,"PRESS 'D'");
     glColor3f(1.000, 0.980, 0.941);
     drawstring(300.0,640.0,0.0,"DAY MODE");
@@ -1131,13 +934,13 @@ void controlsScreen(){
     glColor3f(1.000, 0.980, 0.941);
     drawstring(150.0,480.0,0.0,"PRESS 'S'");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(300.0,440.0,0.0,"TOP VIEW");
+    drawstring(300.0,440.0,0.0,"CORONA MODE");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(150.0,440.0,0.0,"PRESS 'T'");
+    drawstring(150.0,440.0,0.0,"PRESS 'Q'");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(300.0,400.0,0.0,"PLANE MOVEMENT");
+    drawstring(300.0,400.0,0.0,"BEFORE CORONA");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(150.0,400.0,0.0,"PRESS 'P'");
+    drawstring(150.0,400.0,0.0,"PRESS 'U'");
     glColor3f(1.000, 0.980, 0.941);
     drawstring(300.0,360.0,0.0,"Help");
     glColor3f(1.000, 0.980, 0.941);
@@ -1239,10 +1042,25 @@ void keyboard(unsigned char key, int x, int y){
         sndPlaySound(NULL, SND_ASYNC|SND_LOOP);
         tempTruckSpeed = truckSpeed;
         truckSpeed = 0.0f;
+
+        tempCar1Speed = car1Speed;
+        car1Speed = 0.0f;
+
+        tempCar2Speed = car2Speed;
+        car2Speed = 0.0f;
     }
     if (key == ',') {
         truckSpeed = tempTruckSpeed;
+        car1Speed = tempCar1Speed;
+        car2Speed = tempCar2Speed;
         sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP);
+    }
+
+    if(key == 'q'){
+        corona = true;
+    }
+    if(key == 'u'){
+        corona = false;
     }
 
 }
