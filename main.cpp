@@ -21,6 +21,13 @@ void *currentfont;
 static float truckSpeed = 0.2f;
 static float tempTruckSpeed;
 
+// Car Movement
+static float car1Speed = 0.2f;
+static float tempCar1Speed;
+
+static float car2Speed = 0.2f;
+static float tempCar2Speed;
+
 void dummy(void){} // does nothing
 
 void drawPixelInt(int x, int y) {
@@ -736,14 +743,14 @@ void cars() {
          car1Position = -400.0f;
     }
     else {
-        car1Position += 0.2f;
+        car1Position += car1Speed;
     }
 
     if(car2Position >= 1324){
          car2Position = -800.0f;
     }
     else {
-        car2Position += 0.2f;
+        car2Position += car2Speed;
     }
 
     glPushMatrix();
@@ -1035,9 +1042,17 @@ void keyboard(unsigned char key, int x, int y){
         sndPlaySound(NULL, SND_ASYNC|SND_LOOP);
         tempTruckSpeed = truckSpeed;
         truckSpeed = 0.0f;
+
+        tempCar1Speed = car1Speed;
+        car1Speed = 0.0f;
+
+        tempCar2Speed = car2Speed;
+        car2Speed = 0.0f;
     }
     if (key == ',') {
         truckSpeed = tempTruckSpeed;
+        car1Speed = tempCar1Speed;
+        car2Speed = tempCar2Speed;
         sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP);
     }
 
