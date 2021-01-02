@@ -12,6 +12,7 @@ int ucounter = 25; // update counter
 bool rain;
 bool carv=false;
 bool day = true;
+bool Corona =false;
 float move_cloud=0;
 float move_dust=0;
 void *currentfont;
@@ -187,6 +188,41 @@ void humanReverse(int shiftX, int shiftY){
     twoIntVertS(365 + shiftX, 345 + shiftX, 104 + shiftY);
 }
 
+void qhuman(int shiftX, int shiftY){
+    glColor3ub(127, 187, 6);
+    quadHorzInt2(100 + shiftX, 350 + shiftY, 110 + shiftX, 365 + shiftY, 110 + shiftX, 390 + shiftY, 100 + shiftX, 380 + shiftY); // main body
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 107 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 106 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 105 + shiftX);
+    quadHorzInt2(100 + shiftX, 388 + shiftY, 110 + shiftX, 395 + shiftY, 110 + shiftX, 405 + shiftY, 98 + shiftX, 400 + shiftY); // head
+    glColor3ub(255,255,255);
+    quadHorzInt2(100 + shiftX, 388 + shiftY, 110 + shiftX, 395 + shiftY, 110 + shiftX, 400 + shiftY, 100 + shiftX, 394 + shiftY);  // mask
+    glColor3ub(127, 187, 6);
+
+    twoIntVertS(355 + shiftX, 340 + shiftX, 104 + shiftY); // left leg
+    twoIntVertS(355 + shiftX, 340 + shiftX, 103 + shiftY);
+
+    twoIntVertS(365 + shiftX, 345 + shiftX, 107 + shiftY); // right leg
+    twoIntVertS(365 + shiftX, 345 + shiftX, 108 + shiftY);
+}
+
+void  qhumanReverse(int shiftX, int shiftY){
+    glColor3ub(127, 187, 6);
+    quadHorzInt2(100 + shiftX, 365 + shiftY, 110 + shiftX, 350 + shiftY, 110 + shiftX, 380 + shiftY, 100 + shiftX, 390 + shiftY); // main body
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 107 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 106 + shiftX);
+    twoIntVertS(400-2 + shiftY, 383 + shiftY, 105 + shiftX);
+    quadHorzInt2(100 + shiftX, 395 + shiftY, 110 + shiftX, 388 + shiftY, 110 + shiftX, 400 + shiftY, 100 + shiftX, 405 + shiftY); // head
+    glColor3ub(255, 255, 255);
+    quadHorzInt2(100 + shiftX, 395 + shiftY, 109 + shiftX, 388 + shiftY, 109 + shiftX, 395 + shiftY, 100 + shiftX, 400 + shiftY);///,mask
+    glColor3ub(127, 187, 6);
+    twoIntVertS(355 + shiftX, 340 + shiftX, 107 + shiftY); // left leg
+    twoIntVertS(355 + shiftX, 340 + shiftX, 108 + shiftY);
+
+    twoIntVertS(365 + shiftX, 345 + shiftX, 103 + shiftY); // right leg
+    twoIntVertS(365 + shiftX, 345 + shiftX, 104 + shiftY);
+}
+
 template <class T>
 void pedestrian(T func, T func2) { // Takes two function as param
     static float humanTFactX1 = -100.0f; // pedestrian 1 translation factor X
@@ -218,8 +254,8 @@ void pedestrian(T func, T func2) { // Takes two function as param
         humanTFactX4 += 0.05f;
     }
 
-//    glColor3ub(201, 198, 185);
-    glColor3ub(127, 187, 6);
+   glColor3ub(201, 198, 185);
+
 
     glPushMatrix();
     glTranslatef(humanTFactX1, 0, 0);
@@ -285,6 +321,7 @@ void pedestrianBeforeC(T func, T func2) { // Takes two function as param
     } else {
         humanTFactX6 -= 0.05f;
     }
+     glColor3ub(201, 198, 185);
 
     glPushMatrix();
     glTranslatef(humanTFactX1, 0, 0);
@@ -316,6 +353,77 @@ void pedestrianBeforeC(T func, T func2) { // Takes two function as param
     glPopMatrix();
     glutPostRedisplay();
 }
+template <class T>
+void pedestrianAfterC(T func, T func2) { // Takes two function as param
+    pedestrian(qhuman, qhumanReverse);
+
+    static float qhumanTFactX1 = -300.0f; // pedestrian 1 translation factor X
+    static float qhumanTFactX3 = 900.0f; // pedestrian 3 translation factor X
+    static float qhumanTFactX4 = -300.0f; // pedestrian 4 translation factor X
+    static float qhumanTFactX5 = -900.0f; // pedestrian 5 translation factor X
+    static float qhumanTFactX6 = 1200.0f; // pedestrian 6 translation factor X
+
+    if(qhumanTFactX1 >= 900) {
+         qhumanTFactX1 = -100.0f;
+    } else {
+        qhumanTFactX1 += 0.05f;
+    }
+
+    if(qhumanTFactX3 <= -100) {
+         qhumanTFactX3 = 900.0f;
+    } else {
+        qhumanTFactX3 -= 0.05f;
+    }
+
+    if(qhumanTFactX4 >= 900) {
+         qhumanTFactX4 = -100.0f;
+    } else {
+        qhumanTFactX4 += 0.05f;
+    }
+
+    if(qhumanTFactX5 >= 900) {
+         qhumanTFactX5 = -900.0f;
+    } else {
+        qhumanTFactX5 += 0.05f;
+    }
+
+    if(qhumanTFactX6 <= -100) {
+         qhumanTFactX6 = 1200.0f;
+    } else {
+        qhumanTFactX6 -= 0.05f;
+    }
+
+//    glPushMatrix();
+//    glTranslatef(qhumanTFactX1, 0, 0);
+//    func(0, 0);
+//    glPopMatrix();
+//    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(qhumanTFactX3, 0, 0);
+    func2(40, 40);
+    glPopMatrix();
+    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(qhumanTFactX4, 0, 0);
+    func(20, 20);
+    glPopMatrix();
+    glutPostRedisplay();
+
+//    glPushMatrix();
+//    glTranslatef(qhumanTFactX5, 0, 0);
+//    func(20, 20);
+//    glPopMatrix();
+//    glutPostRedisplay();
+
+    glPushMatrix();
+    glTranslatef(qhumanTFactX6, 0, 0);
+    func2(-20, -20);
+    glPopMatrix();
+    glutPostRedisplay();
+}
+
 
 void DrawMainRoad(){
     // Main Road
@@ -853,7 +961,7 @@ void commonStuff(){
     DrawMainRoad();
     DrawBank();
 //    DrawMaskSeller();
-    pedestrianBeforeC(human, humanReverse); // Passing human and humanReverse (without mask, before corona)
+    //pedestrianBeforeC(human, humanReverse); // Passing human and humanReverse (without mask, before corona)
     plane();
     if(carv)
         {
@@ -917,8 +1025,7 @@ void controlsScreen(){
     glColor3f(0.596, 0.984, 0.596);
     drawstring(250.0,700.0,0.0,"INSTRUCTIONS");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(300.0,640.0,0.0,"DAY MODE");
-    glColor3f(1.000, 0.980, 0.941);
+
     drawstring(150.0,640.0,0.0,"PRESS 'D'");
     glColor3f(1.000, 0.980, 0.941);
     drawstring(300.0,640.0,0.0,"DAY MODE");
@@ -941,13 +1048,13 @@ void controlsScreen(){
     glColor3f(1.000, 0.980, 0.941);
     drawstring(150.0,480.0,0.0,"PRESS 'S'");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(300.0,440.0,0.0,"TOP VIEW");
+    drawstring(300.0,440.0,0.0,"CORONA MODE");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(150.0,440.0,0.0,"PRESS 'T'");
+    drawstring(150.0,440.0,0.0,"PRESS 'Q'");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(300.0,400.0,0.0,"PLANE MOVEMENT");
+    drawstring(300.0,400.0,0.0,"BEFORE CORONA");
     glColor3f(1.000, 0.980, 0.941);
-    drawstring(150.0,400.0,0.0,"PRESS 'P'");
+    drawstring(150.0,400.0,0.0,"PRESS 'U'");
     glColor3f(1.000, 0.980, 0.941);
     drawstring(300.0,360.0,0.0,"Help");
     glColor3f(1.000, 0.980, 0.941);
@@ -963,10 +1070,31 @@ void controlsScreen(){
 
 void display(){
     if(day){
-        daymode();
+            daymode();
+        if(Corona){
+
+        sanitinzationTunnel();
+        DrawMaskSeller();
+        bankCoronaNotice();
+          pedestrianAfterC(qhuman,qhumanReverse);
+        }
+        else{
+           pedestrianBeforeC(human,humanReverse);
+        }
     }
     else{
         nightmode();
+    if(Corona){
+
+        sanitinzationTunnel();
+        DrawMaskSeller();
+        bankCoronaNotice();
+        pedestrianAfterC(qhuman,qhumanReverse);
+
+        }
+        else{
+            pedestrianBeforeC(human,humanReverse);
+        }
     }
 }
 
@@ -1053,6 +1181,13 @@ void keyboard(unsigned char key, int x, int y){
     if (key == ',') {
         truckSpeed = tempTruckSpeed;
         sndPlaySound("TrafficSound.wav",SND_ASYNC|SND_LOOP);
+    }
+
+    if(key=='q'){
+        Corona=true;
+    }
+    if(key=='u'){
+        Corona=false;
     }
 
 }
