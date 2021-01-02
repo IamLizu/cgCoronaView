@@ -385,7 +385,7 @@ void DrawCity(){
     DrawCloud();
 
 
-    // Draw Building two
+  // Draw Building two
     glColor3ub(153, 51, 51);
     quadHorzInt(120,250,420,630);
 
@@ -421,7 +421,7 @@ void DrawCity(){
 
    //gate building 2
 
-    glColor3ub(160, 169, 242);
+    glColor3ub(88, 86, 85);
     quadHorzInt(170,200,420,460);
 
     //gate_lines
@@ -429,23 +429,18 @@ void DrawCity(){
     quadHorzInt(177,180,420,460);
     quadHorzInt(190,193,420,460);
 
-
-
     // Draw Building One
 
     //triangle head
-    glColor3ub(245, 0, 0);
+    glColor3ub(236, 238, 58);
     triangleNS(5,580,80,625,155,580);
 
-
    //building 1 body
-    glColor3ub(255,182,193);
+    glColor3ub(201, 195, 200);
     quadHorzInt(10,150,420,580);
 
-
-
     // gate of building one
-    glColor3ub(169, 169, 242);
+    glColor3ub(88, 86, 85);
     quadHorzInt(62,92,420,468);
     //vertical black
     glColor3ub(0, 10, 0);
@@ -472,29 +467,23 @@ void DrawCity(){
         }
     }
 
-
     // Draw Building three
     glColor3ub(102, 51, 0);
     quadHorzInt(210,350,420,560);
 
      //flag
-
-
     glColor3ub(0, 106, 77);
     quadHorzInt(315,365,570,610);
 
     glColor3f(255, 0, 0);
     draw_circle(340,590,10);
 
-
     //flag stand
-
     glColor3ub(0, 0, 128);
     quadHorzInt(310,315,560,615);
 
-
     //building 3 gate
-    glColor3ub(0, 200, 242);
+    glColor3ub(88, 86, 85);
     quadHorzInt(250,310,420,460);
     //horizontal black
     glColor3ub(0, 10, 0);
@@ -502,11 +491,7 @@ void DrawCity(){
     quadHorzInt(250,310,430,433);
     quadHorzInt(290,293,420,460);
 
-
-
-
-
-//windows
+    //windows
     int b3y1=470,b3y2=500;
     int b3x1=220,b3x2=255;
     for(int j=1;j<5;j++){
