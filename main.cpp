@@ -263,26 +263,22 @@ void pedestrian(T func, T func2) { // Takes two function as param
         humanTFactX4 += 0.05f;
     }
 
-   glColor3ub(127, 187, 6);
-
+    glColor3ub(127, 187, 6);
 
     glPushMatrix();
     glTranslatef(humanTFactX1, 0, 0);
     func(0, 0);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX2, 0, 0);
     func(20, 20);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX3, 0, 0);
     func2(-20, -20);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX4, 0, 0);
@@ -335,25 +331,21 @@ void pedestrianBeforeC(T func, T func2) { // Takes two function as param
     glTranslatef(humanTFactX1, 0, 0);
     func(0, 0);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX3, 0, 0);
     func2(40, 40);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX4, 0, 0);
     func(20, 20);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX5, 0, 0);
     func(20, 20);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX6, 0, 0);
