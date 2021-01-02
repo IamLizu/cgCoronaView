@@ -351,16 +351,17 @@ void DrawMainRoad(){
 //    glEnd();
 }
 
-void DrawCloud(){
-    // Draw cloud
-    glColor3f(255, 255, 255);   //cloud color
-    draw_circle(100+move_cloud,730,33);
-    draw_circle(55+move_cloud,730,23);
-    draw_circle(145+move_cloud,730,23);
+void drawCloud(int r, int g, int b){
+    // Cloud 1
+    glColor3ub(r, g, b);
+    draw_circle(100 + move_cloud, 730, 33);
+    draw_circle(55 + move_cloud, 730, 23);
+    draw_circle(145 + move_cloud, 730, 23);
 
-    draw_circle(400+move_cloud,730,33);
-    draw_circle(355+move_cloud,730,23);
-    draw_circle(445+move_cloud,730,23);
+    // Cloud 2
+    draw_circle(400 + move_cloud, 730, 33);
+    draw_circle(355 + move_cloud, 730, 23);
+    draw_circle(445 + move_cloud, 730, 23);
 }
 
 void drawSun(){
@@ -374,18 +375,7 @@ void drawMoon(){
 }
 
 void DrawCity(){
-    // Draw Sun
-    if(day){
-        drawSun(); // sun on the day
-    }
-    else{
-        drawMoon(); // moon on the night
-    }
-
-    DrawCloud();
-
-
-  // Draw Building two
+    // Draw Building two
     glColor3ub(153, 51, 51);
     quadHorzInt(120,250,420,630);
 
@@ -1011,11 +1001,15 @@ void commonStuff(){
 }
 
 void daymode(){
+    drawSun();
+    drawCloud(255, 255, 255);
     glClearColor(0.0,0.7,1.5,0.0);
     commonStuff();
 }
 
 void nightmode(){
+    drawMoon();
+    drawCloud(232, 225, 224);
     glClearColor(0.0,0.0,0.0,0.0);
     commonStuff();
 }
