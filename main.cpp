@@ -254,7 +254,7 @@ void pedestrian(T func, T func2) { // Takes two function as param
         humanTFactX4 += 0.05f;
     }
 
-   glColor3ub(201, 198, 185);
+   glColor3ub(127, 187, 6);
 
 
     glPushMatrix();
@@ -321,7 +321,6 @@ void pedestrianBeforeC(T func, T func2) { // Takes two function as param
     } else {
         humanTFactX6 -= 0.05f;
     }
-     glColor3ub(201, 198, 185);
 
     glPushMatrix();
     glTranslatef(humanTFactX1, 0, 0);
@@ -353,77 +352,6 @@ void pedestrianBeforeC(T func, T func2) { // Takes two function as param
     glPopMatrix();
     glutPostRedisplay();
 }
-template <class T>
-void pedestrianAfterC(T func, T func2) { // Takes two function as param
-    pedestrian(qhuman, qhumanReverse);
-
-    static float qhumanTFactX1 = -300.0f; // pedestrian 1 translation factor X
-    static float qhumanTFactX3 = 900.0f; // pedestrian 3 translation factor X
-    static float qhumanTFactX4 = -300.0f; // pedestrian 4 translation factor X
-    static float qhumanTFactX5 = -900.0f; // pedestrian 5 translation factor X
-    static float qhumanTFactX6 = 1200.0f; // pedestrian 6 translation factor X
-
-    if(qhumanTFactX1 >= 900) {
-         qhumanTFactX1 = -100.0f;
-    } else {
-        qhumanTFactX1 += 0.05f;
-    }
-
-    if(qhumanTFactX3 <= -100) {
-         qhumanTFactX3 = 900.0f;
-    } else {
-        qhumanTFactX3 -= 0.05f;
-    }
-
-    if(qhumanTFactX4 >= 900) {
-         qhumanTFactX4 = -100.0f;
-    } else {
-        qhumanTFactX4 += 0.05f;
-    }
-
-    if(qhumanTFactX5 >= 900) {
-         qhumanTFactX5 = -900.0f;
-    } else {
-        qhumanTFactX5 += 0.05f;
-    }
-
-    if(qhumanTFactX6 <= -100) {
-         qhumanTFactX6 = 1200.0f;
-    } else {
-        qhumanTFactX6 -= 0.05f;
-    }
-
-//    glPushMatrix();
-//    glTranslatef(qhumanTFactX1, 0, 0);
-//    func(0, 0);
-//    glPopMatrix();
-//    glutPostRedisplay();
-
-    glPushMatrix();
-    glTranslatef(qhumanTFactX3, 0, 0);
-    func2(40, 40);
-    glPopMatrix();
-    glutPostRedisplay();
-
-    glPushMatrix();
-    glTranslatef(qhumanTFactX4, 0, 0);
-    func(20, 20);
-    glPopMatrix();
-    glutPostRedisplay();
-
-//    glPushMatrix();
-//    glTranslatef(qhumanTFactX5, 0, 0);
-//    func(20, 20);
-//    glPopMatrix();
-//    glutPostRedisplay();
-
-    glPushMatrix();
-    glTranslatef(qhumanTFactX6, 0, 0);
-    func2(-20, -20);
-    glPopMatrix();
-    glutPostRedisplay();
-}
-
 
 void DrawMainRoad(){
     // Main Road
@@ -1071,29 +999,19 @@ void controlsScreen(){
 void display(){
     if(day){
             daymode();
-        if(Corona){
-
-        sanitinzationTunnel();
-        DrawMaskSeller();
-        bankCoronaNotice();
-          pedestrianAfterC(qhuman,qhumanReverse);
-        }
+        if(Corona){}
         else{
-           pedestrianBeforeC(human,humanReverse);
+
         }
     }
     else{
         nightmode();
     if(Corona){
 
-        sanitinzationTunnel();
-        DrawMaskSeller();
-        bankCoronaNotice();
-        pedestrianAfterC(qhuman,qhumanReverse);
 
         }
         else{
-            pedestrianBeforeC(human,humanReverse);
+
         }
     }
 }
