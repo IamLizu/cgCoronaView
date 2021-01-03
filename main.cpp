@@ -729,7 +729,7 @@ void carBase(int r, int g, int b) {
 
 void cars() {
     static float car1Position = -400.0f;
-    static float car2Position = -800.0f;
+    static float car2Position = -1200.0f;
 
     if(car1Position >= 1324){
          car1Position = -400.0f;
@@ -739,7 +739,7 @@ void cars() {
     }
 
     if(car2Position >= 1324){
-         car2Position = -800.0f;
+         car2Position = -1200.0f;
     }
     else {
         car2Position += car2Speed;
