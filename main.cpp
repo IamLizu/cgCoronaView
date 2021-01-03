@@ -263,26 +263,22 @@ void pedestrian(T func, T func2) { // Takes two function as param
         humanTFactX4 += 0.05f;
     }
 
-   glColor3ub(127, 187, 6);
-
+    glColor3ub(127, 187, 6);
 
     glPushMatrix();
     glTranslatef(humanTFactX1, 0, 0);
     func(0, 0);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX2, 0, 0);
     func(20, 20);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX3, 0, 0);
     func2(-20, -20);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX4, 0, 0);
@@ -335,25 +331,21 @@ void pedestrianBeforeC(T func, T func2) { // Takes two function as param
     glTranslatef(humanTFactX1, 0, 0);
     func(0, 0);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX3, 0, 0);
     func2(40, 40);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX4, 0, 0);
     func(20, 20);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX5, 0, 0);
     func(20, 20);
     glPopMatrix();
-    glutPostRedisplay();
 
     glPushMatrix();
     glTranslatef(humanTFactX6, 0, 0);
@@ -737,7 +729,7 @@ void carBase(int r, int g, int b) {
 
 void cars() {
     static float car1Position = -400.0f;
-    static float car2Position = -800.0f;
+    static float car2Position = -1200.0f;
 
     if(car1Position >= 1324){
          car1Position = -400.0f;
@@ -747,7 +739,7 @@ void cars() {
     }
 
     if(car2Position >= 1324){
-         car2Position = -800.0f;
+         car2Position = -1200.0f;
     }
     else {
         car2Position += car2Speed;
@@ -998,6 +990,22 @@ void myInit (void){
     glLoadIdentity();
     gluOrtho2D(0.0, 800.0, 100.0, 800.0);
 }
+void handleMouse(int button, int state, int x, int y)
+{
+	if (button == GLUT_LEFT_BUTTON)
+	{
+		if (state == GLUT_DOWN)
+		{
+		     day=false;
+		}
+	}
+	else
+        if (state == GLUT_DOWN)
+		{
+		     day=true;
+		}
+	glutPostRedisplay();
+}
 
 int main(int argc, char** argv){
     glutInit(&argc, argv);
@@ -1008,6 +1016,7 @@ int main(int argc, char** argv){
     glutDisplayFunc(myDisplay);
     glutTimerFunc(ucounter, update, 100); // Add a timer
     glutKeyboardFunc(keyboard); // keyboard handler
+    glutMouseFunc(handleMouse);//mouse handler
     myInit ();
     glutMainLoop();
 }
